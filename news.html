@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berita - NG-OJOL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        .search-box:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 186, 219, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: none;
+            }
+
+            .mobile-menu.active {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body class="font-poppins bg-gray-100">
+    <!-- Navbar -->
+    <nav class="sticky top-0 w-full z-50 transition-all duration-300 bg-cyan-500" id="navbar">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center ml-4">
+                    <a href="index.html" class="flex-shrink-0 flex items-center">
+                        <div class="flex items-center">
+                            <img src="img/delivery.png" alt="fast-delivery" class="h-12 ml-4"
+                                style="filter: brightness(0) invert(1);">
+                            <h1 style="font-family: 'Poppins', sans-serif; font-size: 2rem; margin-left: 14px;"
+                                id="navbar-title" class="text-white">
+                                NG-OJOL
+                            </h1>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="mobile-menu-button text-white p-2" aria-label="Toggle menu">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                            <path class="close-icon hidden" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="index.html#fitur" class="text-white hover:text-gray-200 px-3 py-2">Fitur</a>
+                    <a href="index.html#layanan" class="text-white hover:text-gray-200 px-3 py-2">Layanan</a>
+                    <a href="index.html#review" class="text-white hover:text-gray-200 px-3 py-2">Review</a>
+                    <a href="index.html#download" class="text-white hover:text-gray-200 px-3 py-2">Download</a>
+                    <a href="news.html" class="text-white hover:text-gray-200 px-3 py-2">Berita</a>
+                    <a href="index.html#faq" class="text-white hover:text-gray-200 px-3 py-2">FAQ</a>
+                    <a href="index.html#hubungi" class="text-white hover:text-gray-200 px-3 py-2">Hubungi Kami</a>
+                    <a href="pendaftaran-driver-baru.html"
+                        class="bg-white text-cyan-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-300">
+                        Daftar Driver
+                    </a>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="mobile-menu md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="index.html#fitur" class="block text-white hover:bg-cyan-600 px-3 py-2 rounded-md">Fitur</a>
+                    <a href="index.html#layanan"
+                        class="block text-white hover:bg-cyan-600 px-3 py-2 rounded-md">Layanan</a>
+                    <a href="index.html#review"
+                        class="block text-white hover:bg-cyan-600 px-3 py-2 rounded-md">Review</a>
+                    <a href="index.html#download"
+                        class="block text-white hover:bg-cyan-600 px-3 py-2 rounded-md">Download</a>
+                    <a href="news.html" class="block text-white hover:bg-cyan-600 px-3 py-2 rounded-md">Berita</a>
+                    <a href="index.html#faq" class="block text-white hover:bg-cyan-600 px-3 py-2 rounded-md">FAQ</a>
+                    <a href="index.html#hubungi" class="block text-white hover:bg-cyan-600 px-3 py-2 rounded-md">Hubungi
+                        Kami</a>
+                    <a href="pendaftaran-driver-baru.html"
+                        class="block bg-white text-cyan-600 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-300 text-center mt-4">
+                        Daftar Driver
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Rest of your content remains the same, just adjust the top margin -->
+    <div class="pt-16">
+        <div class="bg-white py-16">
+            <div class="container mx-auto px-4">
+                <h1 class="text-4xl font-bold text-black text-center">BERITA</h1>
+            </div>
+        </div>
+
+        <!-- Your existing content here -->
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.querySelector('.mobile-menu-button');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const menuIcon = document.querySelector('.menu-icon');
+            const closeIcon = document.querySelector('.close-icon');
+
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('active');
+                menuIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function () {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-opacity-95', 'shadow-lg');
+                } else {
+                    navbar.classList.remove('bg-opacity-95', 'shadow-lg');
+                }
+            });
+        });
+
+        // Your existing search functionality
+        function handleSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const articles = document.querySelectorAll('.article');
+            articles.forEach(article => {
+                const title = article.querySelector('h3').textContent.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+    </script>
+</body>
+<!-- Main Content -->
+<div class="container mx-auto px-4 py-8">
+    <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Main Content Area -->
+        <div class="lg:w-2/3">
+            <!-- Featured Article -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                <img src="img/folder-berita/amannyaman.png" alt="Panduan Keselamatan"
+                    class="w-100 height-60 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-semibold mb-4">Aman dan Nyaman di Era New Normal</h2>
+                    <div class="text-gray-500 mb-4">06 Oct 2023</div>
+                    <p class="text-gray-600 mb-4">Di masa pandemi saat ini akibat adanya virus Covid-19 kita
+                        dihadapkan dengan berbagai macam tantangan untuk beradaptasi pada era New Normal. Sudah
+                        banyak sekali warga negara Indonesia yang terkena dampak dari berbagai sektor akibat adanya
+                        virus ini.[…]</p>
+                    <button href="#"
+                        class="bg-cyan-500 text-black px-6 py-2 rounded-full hover:bg-cyan-600 transition duration-300">Baca
+                        selengkapnya
+                        →</button>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                <img src="img/folder-berita/berlangganan.png" alt="Panduan Keselamatan"
+                    class="w-100 height-60 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-semibold mb-4">Paket Berlangganan Driver
+                    </h2>
+                    <div class="text-gray-500 mb-4">06 Oct 2023</div>
+                    <p class="text-gray-600 mb-4">Agar bisa menikmati kepastian penghasilan di Anterin, dan agar
+                        kamu bisa terus terima order pelanggan, pastikan kamu untuk Berlangganan terlebih dulu.
+                        Caranya, cukup dengan beli A-Token terus aktivasi paket Berlangganan sekarang juga.
+                        Berlangganan merupakan suatu sistem langganan.[…]</p>
+                    <button href="#"
+                        class="bg-cyan-500 text-black px-6 py-2 rounded-full hover:bg-cyan-600 transition duration-300">Baca
+                        selengkapnya
+                        →</button>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                <img src="img/folder-berita/amannyaman.png" alt="Panduan Keselamatan"
+                    class="w-100 height-60 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-semibold mb-4">Cara Daftar Driver</h2>
+                    <div class="text-gray-500 mb-4">06 Oct 2023</div>
+                    <p class="text-gray-600 mb-4">Apakah anda ingin mendapatkan pekerjaan sampingan atau bisa
+                        dijadikan pekerjaan utama ? Di situasi yang kini tak menentu akibat adanya pandemi COVID-19
+                        banyak karyawan perusahaan maupun buruh tani yang kesulitan dalam keuangan. Disini lah
+                        Anterin hadir untuk.[…]</p>
+                    <button href="#"
+                        class="bg-cyan-500 text-black px-6 py-2 rounded-full hover:bg-cyan-600 transition duration-300">Baca
+                        selengkapnya
+                        →</button>
+                </div>
+            </div>
+
+            <!-- More Articles -->
+            <!-- <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="img/article-1.jpg" alt="Artikel 1" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold mb-2">Berikut adalah panduan keselamatan untuk memastikan perjalanan
+                            yang aman dan nyaman bagi pengemudi dan penumpang di era new normal.</h3>
+                            <div class="text-gray-500 text-sm mb-2">04 Oct 2023</div>
+                            <p class="text-gray-600 text-sm">Pelajari tips-tips penting untuk berkendara dengan aman di
+                                jalan raya.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <img src="img/article-2.jpg" alt="Artikel 2" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold mb-2">Promo Akhir Tahun</h3>
+                            <div class="text-gray-500 text-sm mb-2">02 Oct 2023</div>
+                            <p class="text-gray-600 text-sm">Dapatkan berbagai penawaran menarik dalam promo akhir tahun
+                                kami.</p>
+                        </div>
+                    </div>
+                </div> -->
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:w-1/3">
+            <!-- Search Box -->
+            <div class="bg-white rounded-lg shadow-md p-4 mb-6">
+                <div class="relative">
+                    <input type="text" placeholder="Cari berita..."
+                        class="search-box w-full px-4 py-2 border border-gray-200 rounded-lg text-sm" id="searchInput">
+                    <button class="absolute right-3 top-2 text-gray-400" onclick="handleSearch()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Utama -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-semibold mb-4">MENU UTAMA</h2>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-600 hover:text-cyan-500">Berita Terbaru</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-cyan-500">FAQ Pengguna</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-cyan-500">Hubungi Kami</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-cyan-500">Pendaftaran Driver Baru</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-cyan-500">Syarat dan Ketentuan</a></li>
+                </ul>
+            </div>
+
+            <!-- Kategori -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-semibold mb-4">KATEGORI</h2>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-gray-600 hover:text-cyan-500">Berita Terbaru</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-cyan-500">Panduan</a></li>
+                    <li><a href="#" class="text-gray-600 hover:text-cyan-500">Promo</a></li>
+                </ul>
+            </div>
+
+            <!-- Berita Terbaru -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">BERITA TERBARU</h2>
+                <div class="space-y-4">
+                    <div class="flex gap-4">
+                        <img src="img/folder-berita/amannyaman.png" alt="Berita 1"
+                            class="w-20 h-20 object-cover rounded">
+                        <div>
+                            <h3 class="font-medium text-sm">Aman dan Nyaman di Era New Normal</h3>
+                            <p class="text-gray-500 text-xs mt-1">06 Oct 2023</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <img src="img/folder-berita/berlangganan.png" alt="Berita 2"
+                            class="w-20 h-20 object-cover rounded">
+                        <div>
+                            <h3 class="font-medium text-sm">Paket Berlangganan Driver</h3>
+                            <p class="text-gray-500 text-xs mt-1">04 Oct 2023</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <img src="img/folder-berita/drivers.jpg" alt="Berita 3" class="w-20 h-20 object-cover rounded">
+                        <div>
+                            <h3 class="font-medium text-sm">Cara Daftar Driver</h3>
+                            <p class="text-gray-500 text-xs mt-1">02 Oct 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Search functionality
+    function handleSearch() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        // Add your search logic here
+        console.log('Searching for:', searchTerm);
+
+        // Example: You could filter articles based on the search term
+        const articles = document.querySelectorAll('.article');
+        articles.forEach(article => {
+            const title = article.querySelector('h3').textContent.toLowerCase();
+            if (title.includes(searchTerm)) {
+                article.style.display = 'block';
+            } else {
+                article.style.display = 'none';
+            }
+        });
+    }
+
+    // Add event listener for enter key in search box
+    document.getElementById('searchInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    });
+</script>
+
+</body>
+
+</html>
