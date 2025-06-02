@@ -1,165 +1,1949 @@
 <!DOCTYPE html>
 <html lang="id">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran Driver Baru</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pendaftaran Driver Baru - NG-OJOL</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Poppins", "sans-serif"],
+            },
+            colors: {
+              primary: {
+                50: "#e0f7fa",
+                100: "#b2ebf2",
+                200: "#80deea",
+                300: "#4dd0e1",
+                400: "#26c6da",
+                500: "#00bcd4",
+                600: "#00acc1",
+                700: "#0097a7",
+                800: "#00838f",
+                900: "#006064",
+              },
+            },
+            animation: {
+              float: "float 3s ease-in-out infinite",
+              "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              "bounce-slow": "bounce 3s infinite",
+            },
+            keyframes: {
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-10px)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
+    <!-- Animate.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
 
-    <!-- Google Maps -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Leaflet (OpenStreetMap) -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+    <style>
+      .form-input-focus {
+        transition: all 0.3s ease;
+      }
 
+      .form-input-focus:focus {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(0, 188, 212, 0.3);
+      }
 
-</head>
+      .gradient-bg {
+        background: linear-gradient(135deg, #00bcd4, #00acc1, #0097a7);
+        background-size: 200% 200%;
+        animation: gradient 15s ease infinite;
+      }
 
-<body class="font-poppins bg-gray-100">
-    <nav class="fixed w-full z-50 transition-all duration-300 bg-cyan-500" id="navbar">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between h-16">
-                <!-- Logo -->
-                <div class="flex items-center ml-4">
-                    <a href="" class="flex-shrink-0 flex items-center">
-                        <div class="flex items-center">
-                            <img src="img/delivery.png" alt="fast-delivery" class="h-12 ml-4"
-                                style="filter: brightness(0) invert(1);">
-                            <h1 style="font-family: 'Poppins', sans-serif; font-size: 2rem; margin-left: 14px;"
-                                id="navbar-title" class="text-white">
-                                NG-OJOL
-                            </h1>
-                        </div>
-                    </a>
-                </div>
-                <!-- Links -->
-                <div class="hidden md:flex items-center space-x-1" id="href-navbar">
-                    <a href="index.html#fitur" class="text-white hover:text-gray-200 px-3 py-2">Fitur</a>
-                    <a href="index.html#layanan" class="text-white hover:text-gray-200 px-3 py-2">Layanan</a>
-                    <a href="index.html#review" class="text-white hover:text-gray-200 px-3 py-2">Review</a>
-                    <a href="index.html#download" class="text-white hover:text-gray-200 px-3 py-2">Download</a>
-                    <a href="news.html" class="text-white hover:text-gray-200 px-3 py-2">Berita</a>
-                    <a href="index.html#faq" class="text-white hover:text-gray-200 px-3 py-2">FAQ</a>
-                    <a href="index.html#hubungi" class="text-white hover:text-gray-200 px-3 py-2">Hubungi Kami</a>
-                    <button class="bg-white text-black px-6 py-2 rounded-full hover:bg-cyan-600 transition duration-300"
-                        id="daftar-driver-button">Daftar Driver</button>
-                    </a>
-                </div>
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .file-upload-wrapper {
+        position: relative;
+        width: 100%;
+        height: 60px;
+      }
+
+      .file-upload-wrapper:after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #fff;
+        padding: 10px 15px;
+        display: block;
+        width: calc(100% - 40px);
+        pointer-events: none;
+        z-index: 20;
+        height: 40px;
+        line-height: 20px;
+        color: #999;
+        border-radius: 5px 10px 10px 5px;
+        font-weight: 300;
+        border: 1px solid #ddd;
+      }
+
+      .file-upload-wrapper:before {
+        content: "Upload";
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: inline-block;
+        height: 40px;
+        background: #00bcd4;
+        color: #fff;
+        font-weight: 700;
+        z-index: 25;
+        font-size: 14px;
+        line-height: 40px;
+        padding: 0 15px;
+        text-transform: uppercase;
+        pointer-events: none;
+        border-radius: 0 5px 5px 0;
+      }
+
+      .file-upload-wrapper:hover:before {
+        background: #0097a7;
+      }
+
+      .file-upload-wrapper input {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 99;
+        height: 40px;
+        margin: 0;
+        padding: 0;
+        display: block;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      /* Map Styles */
+      #map {
+        height: 300px;
+        width: 100%;
+        border-radius: 0.5rem;
+        z-index: 10;
+      }
+
+      .leaflet-control-attribution {
+        font-size: 10px;
+      }
+
+      .dark .leaflet-bar a {
+        background-color: #374151;
+        color: white;
+        border-color: #4b5563;
+      }
+
+      .dark .leaflet-bar a:hover {
+        background-color: #4b5563;
+      }
+
+      .dark .leaflet-control-zoom-in,
+      .dark .leaflet-control-zoom-out {
+        color: white;
+      }
+
+      .dark .leaflet-control-attribution {
+        background-color: rgba(31, 41, 55, 0.8) !important;
+        color: #d1d5db;
+      }
+
+      .dark .leaflet-control-attribution a {
+        color: #60a5fa;
+      }
+    </style>
+  </head>
+
+  <body class="font-sans bg-gray-50 dark:bg-gray-900 dark:text-white">
+    <!-- Reading Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
+      <div id="readingProgress" class="h-full gradient-bg w-0"></div>
+    </div>
+
+    <nav
+      class="fixed w-full z-40 transition-all duration-300 bg-primary-500 dark:bg-gray-800"
+      id="navbar"
+    >
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between h-16">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+              <div
+                class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg transform transition-all duration-300 hover:scale-110"
+              >
+                <img src="img/delivery.png" alt="NG-OJOL" class="h-8" />
+              </div>
+              <h1
+                class="text-2xl md:text-3xl font-bold text-white"
+                id="navbar-title"
+              >
+                NG-OJOL
+              </h1>
+            </a>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center space-x-1">
+            <div
+              class="bg-white bg-opacity-20 backdrop-blur-lg rounded-full px-2 py-1 flex items-center space-x-1"
+            >
+              <a
+                href="index.html#fitur"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                Fitur
+              </a>
+              <a
+                href="index.html#layanan"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                Layanan
+              </a>
+              <a
+                href="index.html#review"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                Review
+              </a>
+              <a
+                href="index.html#download"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                Download
+              </a>
+              <a
+                href="news.html"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                Berita
+              </a>
+              <a
+                href="index.html#faq"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                FAQ
+              </a>
+              <a
+                href="index.html#hubungi"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                Hubungi
+              </a>
             </div>
+
+            <!-- Dark Mode Toggle -->
+            <button
+              id="darkModeToggle"
+              class="w-10 h-10 bg-white bg-opacity-20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300 ml-2"
+              aria-label="Toggle Dark Mode"
+            >
+              <i id="darkModeIcon" class="fas fa-moon text-white text-lg"></i>
+            </button>
+          </div>
+
+          <!-- Mobile menu button -->
+          <div class="md:hidden flex items-center">
+            <button
+              class="mobile-menu-button w-10 h-10 bg-white bg-opacity-20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300 focus:outline-none"
+              aria-label="Open Menu"
+            >
+              <i class="fas fa-bars text-white text-lg"></i>
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- Mobile Navigation Menu -->
+      <div class="mobile-menu hidden md:hidden">
+        <div
+          class="bg-primary-600 dark:bg-gray-700 rounded-2xl mx-4 mt-2 p-4 shadow-lg"
+        >
+          <div class="flex flex-col space-y-2">
+            <a
+              href="index.html#fitur"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-star mr-2"></i>Fitur
+            </a>
+            <a
+              href="index.html#layanan"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-concierge-bell mr-2"></i>Layanan
+            </a>
+            <a
+              href="index.html#review"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-comment-dots mr-2"></i>Review
+            </a>
+            <a
+              href="index.html#download"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-download mr-2"></i>Download
+            </a>
+            <a
+              href="news.html"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-newspaper mr-2"></i>Berita
+            </a>
+            <a
+              href="index.html#faq"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-question-circle mr-2"></i>FAQ
+            </a>
+            <a
+              href="index.html#hubungi"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-phone mr-2"></i>Hubungi Kami
+            </a>
+
+            <!-- Dark Mode Toggle Mobile -->
+            <div
+              class="mt-4 flex items-center justify-between px-4 py-3 bg-white bg-opacity-10 rounded-xl"
+            >
+              <span class="text-white">Mode Gelap</span>
+              <button
+                id="darkModeToggleMobile"
+                class="w-10 h-10 bg-white bg-opacity-20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300"
+                aria-label="Toggle Dark Mode"
+              >
+                <i
+                  id="darkModeIconMobile"
+                  class="fas fa-moon text-white text-lg"
+                ></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </nav>
     <!-- Pendaftaran Driver Baru Section -->
-    <section class="py-20 bg-gray-100" id="pendaftaran-driver-baru">
-        <div class="container mx-auto px-6 py-8 bg-white border border-gray-300 shadow-lg rounded-lg max-w-4xl mx-auto">
-            <!-- Added py-24 for spacing -->
-            <h1 class="text-4xl font-bold text-center mb-8 bg-cyan-500 text-white px-4 py-10  rounded-lg">
-                Pendaftaran
-                Driver
-                Baru</h1>
+    <section
+      class="pt-32 pb-16 bg-gray-50 dark:bg-gray-900"
+      id="pendaftaran-driver-baru"
+    >
+      <div class="container mx-auto px-4 max-w-6xl">
+        <!-- Header with animated gradient -->
+        <div
+          class="relative overflow-hidden rounded-2xl mb-12"
+          data-aos="fade-up"
+        >
+          <div class="gradient-bg p-12 text-white text-center">
+            <div
+              class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full -translate-y-1/2 translate-x-1/2"
+            ></div>
+            <div
+              class="absolute bottom-0 left-0 w-64 h-64 bg-white opacity-10 rounded-full translate-y-1/2 -translate-x-1/2"
+            ></div>
 
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 relative z-10">
+              Pendaftaran Driver Baru
+            </h1>
+            <p class="text-lg opacity-90 max-w-2xl mx-auto">
+              Bergabunglah dengan tim NG-OJOL dan dapatkan penghasilan tambahan
+              dengan jadwal yang fleksibel
+            </p>
 
-            <!-- Success Message -->
-            <form class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg" action="pendaftaran-driver-baru.html"
-                method="POST" enctype="multipart/form-data">
-
-                <div class="mb-4">
-                    <label for="name" class="block text-gray-700 font-bold mb-2">Nama Lengkap</label>
-                    <input type="text" id="name" name="name"
-                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                        required>
+            <!-- Step Progress Indicator -->
+            <div class="flex justify-center mt-8">
+              <div class="flex items-center w-full max-w-3xl">
+                <div class="step-item active flex flex-col items-center flex-1">
+                  <div
+                    class="w-10 h-10 rounded-full bg-white text-primary-500 font-bold flex items-center justify-center mb-2"
+                  >
+                    1
+                  </div>
+                  <span class="text-sm">Data Diri</span>
                 </div>
-                <div class="mb-4">
-                    <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
-                    <input type="email" id="email" name="email"
-                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                        required>
+                <div class="h-1 flex-1 bg-white bg-opacity-30"></div>
+                <div class="step-item flex flex-col items-center flex-1">
+                  <div
+                    class="w-10 h-10 rounded-full bg-white bg-opacity-30 text-white font-bold flex items-center justify-center mb-2"
+                  >
+                    2
+                  </div>
+                  <span class="text-sm">Dokumen</span>
                 </div>
-                <div class="mb-4">
-                    <label for="phone" class="block text-gray-700 font-bold mb-2">Nomor Telepon</label>
-                    <input type="tel" id="phone" name="phone"
-                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                        required>
+                <div class="h-1 flex-1 bg-white bg-opacity-30"></div>
+                <div class="step-item flex flex-col items-center flex-1">
+                  <div
+                    class="w-10 h-10 rounded-full bg-white bg-opacity-30 text-white font-bold flex items-center justify-center mb-2"
+                  >
+                    3
+                  </div>
+                  <span class="text-sm">Konfirmasi</span>
                 </div>
-                <div class="mb-4">
-                    <label for="address" class="block text-gray-700 font-bold mb-2">Alamat</label>
-                    <textarea id="address" name="address"
-                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                        required></textarea>
-                </div>
-                <div class="mb-4">
-                    <label for="vehicle" class="block text-gray-700 font-bold mb-2">Jenis Kendaraan</label>
-                    <select id="vehicle" name="vehicle"
-                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                        required>
-                        <option value="motor">Motor</option>
-                        <option value="mobil">Mobil</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label for="license" class="block text-gray-700 font-bold mb-2">Nomor SIM</label>
-                    <input type="text" id="license" name="license"
-                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                        required>
-                </div>
-                <div class="mb-4">
-                    <label for="ktp" class="block text-gray-700 font-bold mb-2">Nomor KTP</label>
-                    <input type="text" id="ktp" name="ktp"
-                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                        required>
-                </div>
-                <div class="mb-4">
-                    <label for="photo" class="block text-gray-700 font-bold mb-2">Foto</label>
-                    <input type="file" id="photo" name="photo"
-                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                        required>
-                </div>
-                <div class="mb-4">
-                    <label for="agreement" class="block text-gray-700 font-bold mb-2">
-                        <input type="checkbox" id="agreement" name="agreement" class="mr-2" required>
-                        Saya setuju dengan syarat dan ketentuan yang berlaku
-                    </label>
-                </div>
-                <div class="text-left">
-                    <button type="submit"
-                        class="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600 transition duration-300 text-lg">Daftar
-                        Sekarang</button>
-                </div>
-            </form>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- Form Container -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <!-- Form Tabs -->
+          <div class="flex border-b border-gray-200 dark:border-gray-700">
+            <button
+              id="tab-personal"
+              class="form-tab active flex-1 py-4 px-6 text-center font-medium text-primary-600 border-b-2 border-primary-500 dark:text-primary-400"
+            >
+              <i class="fas fa-user mr-2"></i>Data Pribadi
+            </button>
+            <button
+              id="tab-vehicle"
+              class="form-tab flex-1 py-4 px-6 text-center font-medium text-gray-500 dark:text-gray-400"
+            >
+              <i class="fas fa-car mr-2"></i>Data Kendaraan
+            </button>
+            <button
+              id="tab-documents"
+              class="form-tab flex-1 py-4 px-6 text-center font-medium text-gray-500 dark:text-gray-400"
+            >
+              <i class="fas fa-file-alt mr-2"></i>Dokumen
+            </button>
+          </div>
+
+          <!-- Form Content -->
+          <form
+            id="registrationForm"
+            class="p-8"
+            action="pendaftaran-driver-baru.html"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <!-- Personal Data Section -->
+            <div id="section-personal" class="form-section">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="form-group" data-aos="fade-up" data-aos-delay="100">
+                  <label
+                    for="name"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Nama Lengkap</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-user text-gray-400"></i>
+                    </div>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      class="form-input-focus w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group" data-aos="fade-up" data-aos-delay="200">
+                  <label
+                    for="email"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Email</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-envelope text-gray-400"></i>
+                    </div>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      class="form-input-focus w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group" data-aos="fade-up" data-aos-delay="300">
+                  <label
+                    for="phone"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Nomor Telepon</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-phone text-gray-400"></i>
+                    </div>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      class="form-input-focus w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group" data-aos="fade-up" data-aos-delay="400">
+                  <label
+                    for="birthdate"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Tanggal Lahir</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-calendar text-gray-400"></i>
+                    </div>
+                    <input
+                      type="date"
+                      id="birthdate"
+                      name="birthdate"
+                      class="form-input-focus w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div
+                  class="form-group md:col-span-2"
+                  data-aos="fade-up"
+                  data-aos-delay="500"
+                >
+                  <label
+                    for="address"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Alamat</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute top-3 left-3 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-home text-gray-400"></i>
+                    </div>
+                    <textarea
+                      id="address"
+                      name="address"
+                      rows="3"
+                      class="form-input-focus w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      required
+                    ></textarea>
+                  </div>
+                </div>
+
+                <!-- Live Location Map -->
+                <div
+                  class="form-group md:col-span-2"
+                  data-aos="fade-up"
+                  data-aos-delay="600"
+                >
+                  <label
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                  >
+                    <div class="flex items-center justify-between">
+                      <span>Lokasi Anda</span>
+                      <button
+                        type="button"
+                        id="getLocationBtn"
+                        class="text-primary-500 hover:text-primary-600 text-sm flex items-center"
+                      >
+                        <i class="fas fa-location-arrow mr-1"></i> Gunakan
+                        Lokasi Saat Ini
+                      </button>
+                    </div>
+                  </label>
+                  <div id="locationStatus" class="text-sm mb-2 hidden"></div>
+                  <div
+                    id="map"
+                    class="w-full h-64 rounded-lg border border-gray-300 dark:border-gray-600 overflow-hidden"
+                  ></div>
+                  <input type="hidden" id="latitude" name="latitude" />
+                  <input type="hidden" id="longitude" name="longitude" />
+                </div>
+              </div>
+
+              <div class="mt-8 flex justify-end">
+                <button
+                  type="button"
+                  id="next-to-vehicle"
+                  class="px-6 py-3 bg-primary-500 text-white font-medium rounded-lg hover:bg-primary-600 transition duration-300 shadow-lg flex items-center"
+                >
+                  Lanjutkan <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Vehicle Data Section (Initially Hidden) -->
+            <div id="section-vehicle" class="form-section hidden">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="form-group" data-aos="fade-up" data-aos-delay="100">
+                  <label
+                    for="vehicle-type"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Jenis Kendaraan</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-car text-gray-400"></i>
+                    </div>
+                    <select
+                      id="vehicle-type"
+                      name="vehicle-type"
+                      class="form-input-focus w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      required
+                    >
+                      <option value="">Pilih Jenis Kendaraan</option>
+                      <option value="motor">Motor</option>
+                      <option value="mobil">Mobil</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group" data-aos="fade-up" data-aos-delay="200">
+                  <label
+                    for="vehicle-brand"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Merk Kendaraan</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-tag text-gray-400"></i>
+                    </div>
+                    <input
+                      type="text"
+                      id="vehicle-brand"
+                      name="vehicle-brand"
+                      class="form-input-focus w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group" data-aos="fade-up" data-aos-delay="300">
+                  <label
+                    for="vehicle-model"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Model Kendaraan</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-info-circle text-gray-400"></i>
+                    </div>
+                    <input
+                      type="text"
+                      id="vehicle-model"
+                      name="vehicle-model"
+                      class="form-input-focus w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group" data-aos="fade-up" data-aos-delay="400">
+                  <label
+                    for="vehicle-year"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Tahun Kendaraan</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-calendar-alt text-gray-400"></i>
+                    </div>
+                    <input
+                      type="number"
+                      id="vehicle-year"
+                      name="vehicle-year"
+                      min="2000"
+                      max="2024"
+                      class="form-input-focus w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group" data-aos="fade-up" data-aos-delay="500">
+                  <label
+                    for="license-plate"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Nomor Plat</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-id-card text-gray-400"></i>
+                    </div>
+                    <input
+                      type="text"
+                      id="license-plate"
+                      name="license-plate"
+                      class="form-input-focus w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group" data-aos="fade-up" data-aos-delay="600">
+                  <label
+                    for="vehicle-color"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Warna Kendaraan</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-palette text-gray-400"></i>
+                    </div>
+                    <input
+                      type="text"
+                      id="vehicle-color"
+                      name="vehicle-color"
+                      class="form-input-focus w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 flex justify-between">
+                <button
+                  type="button"
+                  id="back-to-personal"
+                  class="px-6 py-3 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-white font-medium rounded-lg hover:bg-gray-400 dark:hover:bg-gray-700 transition duration-300 flex items-center"
+                >
+                  <i class="fas fa-arrow-left mr-2"></i> Kembali
+                </button>
+                <button
+                  type="button"
+                  id="next-to-documents"
+                  class="px-6 py-3 bg-primary-500 text-white font-medium rounded-lg hover:bg-primary-600 transition duration-300 shadow-lg flex items-center"
+                >
+                  Lanjutkan <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Documents Section (Initially Hidden) -->
+            <div id="section-documents" class="form-section hidden">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="form-group" data-aos="fade-up" data-aos-delay="100">
+                  <label
+                    for="ktp"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Nomor KTP</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-id-card text-gray-400"></i>
+                    </div>
+                    <input
+                      type="text"
+                      id="ktp"
+                      name="ktp"
+                      class="form-input-focus w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group" data-aos="fade-up" data-aos-delay="200">
+                  <label
+                    for="license"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Nomor SIM</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-id-badge text-gray-400"></i>
+                    </div>
+                    <input
+                      type="text"
+                      id="license"
+                      name="license"
+                      class="form-input-focus w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group" data-aos="fade-up" data-aos-delay="300">
+                  <label
+                    for="ktp-photo"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Foto KTP</label
+                  >
+                  <div class="file-upload-wrapper" data-text="Pilih file...">
+                    <input
+                      type="file"
+                      id="ktp-photo"
+                      name="ktp-photo"
+                      class="file-upload"
+                      accept="image/*"
+                      required
+                    />
+                  </div>
+                  <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                    Format: JPG, PNG. Maks: 2MB
+                  </div>
+                </div>
+
+                <div class="form-group" data-aos="fade-up" data-aos-delay="400">
+                  <label
+                    for="sim-photo"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Foto SIM</label
+                  >
+                  <div class="file-upload-wrapper" data-text="Pilih file...">
+                    <input
+                      type="file"
+                      id="sim-photo"
+                      name="sim-photo"
+                      class="file-upload"
+                      accept="image/*"
+                      required
+                    />
+                  </div>
+                  <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                    Format: JPG, PNG. Maks: 2MB
+                  </div>
+                </div>
+
+                <div class="form-group" data-aos="fade-up" data-aos-delay="500">
+                  <label
+                    for="vehicle-photo"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Foto Kendaraan</label
+                  >
+                  <div class="file-upload-wrapper" data-text="Pilih file...">
+                    <input
+                      type="file"
+                      id="vehicle-photo"
+                      name="vehicle-photo"
+                      class="file-upload"
+                      accept="image/*"
+                      required
+                    />
+                  </div>
+                  <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                    Format: JPG, PNG. Maks: 2MB
+                  </div>
+                </div>
+
+                <div class="form-group" data-aos="fade-up" data-aos-delay="600">
+                  <label
+                    for="profile-photo"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Foto Diri</label
+                  >
+                  <div class="file-upload-wrapper" data-text="Pilih file...">
+                    <input
+                      type="file"
+                      id="profile-photo"
+                      name="profile-photo"
+                      class="file-upload"
+                      accept="image/*"
+                      required
+                    />
+                  </div>
+                  <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                    Format: JPG, PNG. Maks: 2MB
+                  </div>
+                </div>
+
+                <div
+                  class="form-group md:col-span-2"
+                  data-aos="fade-up"
+                  data-aos-delay="700"
+                >
+                  <label class="flex items-center space-x-3">
+                    <input
+                      type="checkbox"
+                      id="agreement"
+                      name="agreement"
+                      class="form-checkbox h-5 w-5 text-primary-500 rounded focus:ring-primary-500"
+                      required
+                    />
+                    <span class="text-gray-700 dark:text-gray-300"
+                      >Saya setuju dengan
+                      <a href="#" class="text-primary-500 hover:underline"
+                        >syarat dan ketentuan</a
+                      >
+                      yang berlaku</span
+                    >
+                  </label>
+                </div>
+              </div>
+
+              <div class="mt-8 flex justify-between">
+                <button
+                  type="button"
+                  id="back-to-vehicle"
+                  class="px-6 py-3 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-white font-medium rounded-lg hover:bg-gray-400 dark:hover:bg-gray-700 transition duration-300 flex items-center"
+                >
+                  <i class="fas fa-arrow-left mr-2"></i> Kembali
+                </button>
+                <button
+                  type="submit"
+                  class="px-6 py-3 bg-primary-500 text-white font-medium rounded-lg hover:bg-primary-600 transition duration-300 shadow-lg flex items-center"
+                >
+                  <i class="fas fa-check mr-2"></i> Daftar Sekarang
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div
+              class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mb-6 animate-float"
+            >
+              <i class="fas fa-money-bill-wave text-primary-500 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-white">
+              Penghasilan Menarik
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Dapatkan penghasilan yang menarik dengan insentif dan bonus
+              tambahan untuk driver berprestasi
+            </p>
+          </div>
+
+          <div
+            class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div
+              class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mb-6 animate-float"
+            >
+              <i class="fas fa-clock text-primary-500 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-white">
+              Waktu Fleksibel
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Atur jadwal kerja Anda sendiri. Bekerja kapan saja sesuai dengan
+              kebutuhan dan kenyamanan Anda
+            </p>
+          </div>
+
+          <div
+            class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div
+              class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mb-6 animate-float"
+            >
+              <i class="fas fa-shield-alt text-primary-500 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-white">
+              Keamanan Terjamin
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Aplikasi kami dilengkapi dengan fitur keamanan dan asuransi untuk
+              melindungi Anda selama bekerja
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
+
+    <!-- Earnings Calculator Section -->
+    <section class="py-16 bg-gray-100 dark:bg-gray-800">
+      <div class="container mx-auto px-4 max-w-6xl">
+        <div class="text-center mb-12" data-aos="fade-up">
+          <h2
+            class="text-3xl md:text-4xl font-bold mb-4 text-gray-800 dark:text-white"
+          >
+            Kalkulator Penghasilan
+          </h2>
+          <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Hitung estimasi penghasilan Anda sebagai driver NG-OJOL berdasarkan
+            jam kerja dan jenis kendaraan
+          </p>
+        </div>
+
+        <div
+          class="bg-white dark:bg-gray-700 rounded-2xl shadow-xl p-8"
+          data-aos="fade-up"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Calculator Inputs -->
+            <div>
+              <h3 class="text-xl font-bold mb-6 text-gray-800 dark:text-white">
+                Masukkan Detail Anda
+              </h3>
+
+              <div class="space-y-6">
+                <!-- Vehicle Type -->
+                <div>
+                  <label
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Jenis Kendaraan</label
+                  >
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="relative">
+                      <input
+                        type="radio"
+                        id="calc-motor"
+                        name="calc-vehicle-type"
+                        value="motor"
+                        class="peer absolute opacity-0"
+                        checked
+                      />
+                      <label
+                        for="calc-motor"
+                        class="block cursor-pointer text-center py-3 px-4 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 peer-checked:border-primary-500 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-900 transition-all duration-200"
+                      >
+                        <i class="fas fa-motorcycle text-xl mb-1"></i>
+                        <p class="font-medium">Motor</p>
+                      </label>
+                    </div>
+                    <div class="relative">
+                      <input
+                        type="radio"
+                        id="calc-car"
+                        name="calc-vehicle-type"
+                        value="car"
+                        class="peer absolute opacity-0"
+                      />
+                      <label
+                        for="calc-car"
+                        class="block cursor-pointer text-center py-3 px-4 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 peer-checked:border-primary-500 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-900 transition-all duration-200"
+                      >
+                        <i class="fas fa-car text-xl mb-1"></i>
+                        <p class="font-medium">Mobil</p>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Hours per Day -->
+                <div>
+                  <label
+                    for="calc-hours"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Jam Kerja per Hari</label
+                  >
+                  <div class="flex items-center">
+                    <input
+                      type="range"
+                      id="calc-hours"
+                      min="1"
+                      max="12"
+                      value="8"
+                      class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer accent-primary-500"
+                    />
+                    <span
+                      id="calc-hours-value"
+                      class="ml-4 w-10 text-center font-medium"
+                      >8</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Days per Week -->
+                <div>
+                  <label
+                    for="calc-days"
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Hari Kerja per Minggu</label
+                  >
+                  <div class="flex items-center">
+                    <input
+                      type="range"
+                      id="calc-days"
+                      min="1"
+                      max="7"
+                      value="5"
+                      class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer accent-primary-500"
+                    />
+                    <span
+                      id="calc-days-value"
+                      class="ml-4 w-10 text-center font-medium"
+                      >5</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Experience Level -->
+                <div>
+                  <label
+                    class="block text-gray-700 dark:text-gray-300 font-medium mb-2"
+                    >Level Pengalaman</label
+                  >
+                  <div class="grid grid-cols-3 gap-2">
+                    <div class="relative">
+                      <input
+                        type="radio"
+                        id="calc-exp-beginner"
+                        name="calc-experience"
+                        value="beginner"
+                        class="peer absolute opacity-0"
+                        checked
+                      />
+                      <label
+                        for="calc-exp-beginner"
+                        class="block cursor-pointer text-center py-2 px-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 peer-checked:border-primary-500 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-900 transition-all duration-200 text-sm"
+                      >
+                        <p class="font-medium">Pemula</p>
+                      </label>
+                    </div>
+                    <div class="relative">
+                      <input
+                        type="radio"
+                        id="calc-exp-intermediate"
+                        name="calc-experience"
+                        value="intermediate"
+                        class="peer absolute opacity-0"
+                      />
+                      <label
+                        for="calc-exp-intermediate"
+                        class="block cursor-pointer text-center py-2 px-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 peer-checked:border-primary-500 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-900 transition-all duration-200 text-sm"
+                      >
+                        <p class="font-medium">Menengah</p>
+                      </label>
+                    </div>
+                    <div class="relative">
+                      <input
+                        type="radio"
+                        id="calc-exp-expert"
+                        name="calc-experience"
+                        value="expert"
+                        class="peer absolute opacity-0"
+                      />
+                      <label
+                        for="calc-exp-expert"
+                        class="block cursor-pointer text-center py-2 px-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 peer-checked:border-primary-500 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-900 transition-all duration-200 text-sm"
+                      >
+                        <p class="font-medium">Ahli</p>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Calculator Results -->
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6">
+              <h3 class="text-xl font-bold mb-6 text-gray-800 dark:text-white">
+                Estimasi Penghasilan Anda
+              </h3>
+
+              <div class="space-y-6">
+                <!-- Daily Earnings -->
+                <div class="flex justify-between items-center">
+                  <div>
+                    <h4 class="text-gray-600 dark:text-gray-400">
+                      Penghasilan per Hari
+                    </h4>
+                    <p
+                      class="text-2xl font-bold text-gray-800 dark:text-white"
+                      id="calc-daily"
+                    >
+                      Rp 250.000
+                    </p>
+                  </div>
+                  <div
+                    class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center"
+                  >
+                    <i class="fas fa-calendar-day text-primary-500 text-xl"></i>
+                  </div>
+                </div>
+
+                <!-- Weekly Earnings -->
+                <div class="flex justify-between items-center">
+                  <div>
+                    <h4 class="text-gray-600 dark:text-gray-400">
+                      Penghasilan per Minggu
+                    </h4>
+                    <p
+                      class="text-2xl font-bold text-gray-800 dark:text-white"
+                      id="calc-weekly"
+                    >
+                      Rp 1.250.000
+                    </p>
+                  </div>
+                  <div
+                    class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center"
+                  >
+                    <i
+                      class="fas fa-calendar-week text-primary-500 text-xl"
+                    ></i>
+                  </div>
+                </div>
+
+                <!-- Monthly Earnings -->
+                <div class="flex justify-between items-center">
+                  <div>
+                    <h4 class="text-gray-600 dark:text-gray-400">
+                      Penghasilan per Bulan
+                    </h4>
+                    <p
+                      class="text-3xl font-bold text-primary-600 dark:text-primary-400"
+                      id="calc-monthly"
+                    >
+                      Rp 5.000.000
+                    </p>
+                  </div>
+                  <div
+                    class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center"
+                  >
+                    <i class="fas fa-calendar-alt text-primary-500 text-xl"></i>
+                  </div>
+                </div>
+
+                <div
+                  class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700"
+                >
+                  <div class="flex items-center justify-between">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                      <i class="fas fa-info-circle mr-1"></i> Estimasi ini
+                      berdasarkan rata-rata penghasilan driver NG-OJOL
+                    </p>
+                    <a
+                      href="#"
+                      class="text-sm text-primary-600 dark:text-primary-400 hover:underline"
+                    >
+                      Pelajari lebih lanjut
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="mt-12 text-center" data-aos="fade-up">
+          <a
+            href="#pendaftaran-driver-baru"
+            class="inline-flex items-center px-8 py-4 bg-primary-500 text-white font-bold rounded-full hover:bg-primary-600 transition duration-300 shadow-lg transform hover:scale-105"
+          >
+            <i class="fas fa-user-plus mr-2"></i> Daftar Sekarang
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button
+      id="backToTop"
+      class="fixed bottom-8 right-8 bg-primary-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-primary-600 transition-all duration-300 transform hover:scale-110 opacity-0 invisible z-50"
+    >
+      <i class="fas fa-arrow-up"></i>
+    </button>
 
     <!-- Custom Scripts -->
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', function () {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('bg-opacity-90', 'shadow-lg');
-            } else {
-                nav.classList.remove('bg-opacity-90', 'shadow-lg');
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize AOS
+        AOS.init({
+          duration: 800,
+          easing: "ease-in-out",
+          once: true,
+          mirror: false,
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector(".mobile-menu-button");
+        const mobileMenu = document.querySelector(".mobile-menu");
+
+        if (mobileMenuButton && mobileMenu) {
+          mobileMenuButton.addEventListener("click", function () {
+            mobileMenu.classList.toggle("hidden");
+
+            // Add animation when opening
+            if (!mobileMenu.classList.contains("hidden")) {
+              mobileMenu.classList.add(
+                "animate__animated",
+                "animate__fadeInDown"
+              );
             }
+          });
+
+          // Close mobile menu when clicking a link
+          const mobileLinks = document.querySelectorAll(".mobile-menu a");
+          mobileLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+              mobileMenu.classList.add("hidden");
+            });
+          });
+        }
+
+        // Navbar scroll effect
+        function handleScroll() {
+          const navbar = document.getElementById("navbar");
+          const readingProgress = document.getElementById("readingProgress");
+
+          if (window.scrollY > 50) {
+            navbar.classList.add("shadow-lg");
+          } else {
+            navbar.classList.remove("shadow-lg");
+          }
+
+          // Update reading progress
+          const totalHeight = document.body.scrollHeight - window.innerHeight;
+          const progress = (window.scrollY / totalHeight) * 100;
+          readingProgress.style.width = `${progress}%`;
+        }
+
+        window.addEventListener("scroll", handleScroll);
+        handleScroll(); // Apply initial state
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 300) {
+            backToTopButton.classList.remove("opacity-0", "invisible");
+            backToTopButton.classList.add("opacity-100", "visible");
+          } else {
+            backToTopButton.classList.add("opacity-0", "invisible");
+            backToTopButton.classList.remove("opacity-100", "visible");
+          }
+        });
+
+        backToTopButton.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        const darkModeToggleMobile = document.getElementById(
+          "darkModeToggleMobile"
+        );
+        const darkModeIcon = document.getElementById("darkModeIcon");
+        const darkModeIconMobile =
+          document.getElementById("darkModeIconMobile");
+
+        // Check for saved theme preference or respect OS preference
+        const prefersDarkMode = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const savedTheme = localStorage.getItem("theme");
+
+        // Apply dark mode if saved or OS preference
+        if (savedTheme === "dark" || (!savedTheme && prefersDarkMode)) {
+          document.documentElement.classList.add("dark");
+          updateDarkModeIcons(true);
+        }
+
+        function updateDarkModeIcons(isDark) {
+          if (isDark) {
+            darkModeIcon.classList.remove("fa-moon");
+            darkModeIcon.classList.add("fa-sun");
+            if (darkModeIconMobile) {
+              darkModeIconMobile.classList.remove("fa-moon");
+              darkModeIconMobile.classList.add("fa-sun");
+            }
+          } else {
+            darkModeIcon.classList.remove("fa-sun");
+            darkModeIcon.classList.add("fa-moon");
+            if (darkModeIconMobile) {
+              darkModeIconMobile.classList.remove("fa-sun");
+              darkModeIconMobile.classList.add("fa-moon");
+            }
+          }
+
+          // Update map style if map exists
+          if (window.map) {
+            updateMapStyle();
+          }
+        }
+
+        // Toggle dark mode on click
+        darkModeToggle.addEventListener("click", function () {
+          document.documentElement.classList.toggle("dark");
+          const isDark = document.documentElement.classList.contains("dark");
+          localStorage.setItem("theme", isDark ? "dark" : "light");
+          updateDarkModeIcons(isDark);
+        });
+
+        if (darkModeToggleMobile) {
+          darkModeToggleMobile.addEventListener("click", function () {
+            document.documentElement.classList.toggle("dark");
+            const isDark = document.documentElement.classList.contains("dark");
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+            updateDarkModeIcons(isDark);
+          });
+        }
+
+        // Multi-step Form Navigation
+        const tabPersonal = document.getElementById("tab-personal");
+        const tabVehicle = document.getElementById("tab-vehicle");
+        const tabDocuments = document.getElementById("tab-documents");
+
+        const sectionPersonal = document.getElementById("section-personal");
+        const sectionVehicle = document.getElementById("section-vehicle");
+        const sectionDocuments = document.getElementById("section-documents");
+
+        const nextToVehicle = document.getElementById("next-to-vehicle");
+        const backToPersonal = document.getElementById("back-to-personal");
+        const nextToDocuments = document.getElementById("next-to-documents");
+        const backToVehicle = document.getElementById("back-to-vehicle");
+
+        // Tab click handlers
+        tabPersonal.addEventListener("click", () => {
+          setActiveTab("personal");
+        });
+
+        tabVehicle.addEventListener("click", () => {
+          setActiveTab("vehicle");
+        });
+
+        tabDocuments.addEventListener("click", () => {
+          setActiveTab("documents");
+        });
+
+        // Next/Back button handlers
+        nextToVehicle.addEventListener("click", () => {
+          setActiveTab("vehicle");
+        });
+
+        backToPersonal.addEventListener("click", () => {
+          setActiveTab("personal");
+        });
+
+        nextToDocuments.addEventListener("click", () => {
+          setActiveTab("documents");
+        });
+
+        backToVehicle.addEventListener("click", () => {
+          setActiveTab("vehicle");
+        });
+
+        // Set active tab and section
+        function setActiveTab(tab) {
+          // Reset all tabs and sections
+          [tabPersonal, tabVehicle, tabDocuments].forEach((t) => {
+            t.classList.remove(
+              "active",
+              "text-primary-600",
+              "border-b-2",
+              "border-primary-500"
+            );
+            t.classList.add("text-gray-500");
+          });
+
+          [sectionPersonal, sectionVehicle, sectionDocuments].forEach((s) => {
+            s.classList.add("hidden");
+          });
+
+          // Set active tab and section
+          if (tab === "personal") {
+            tabPersonal.classList.add(
+              "active",
+              "text-primary-600",
+              "border-b-2",
+              "border-primary-500"
+            );
+            sectionPersonal.classList.remove("hidden");
+          } else if (tab === "vehicle") {
+            tabVehicle.classList.add(
+              "active",
+              "text-primary-600",
+              "border-b-2",
+              "border-primary-500"
+            );
+            sectionVehicle.classList.remove("hidden");
+          } else if (tab === "documents") {
+            tabDocuments.classList.add(
+              "active",
+              "text-primary-600",
+              "border-b-2",
+              "border-primary-500"
+            );
+            sectionDocuments.classList.remove("hidden");
+          }
+
+          // Update progress steps
+          updateProgressSteps(tab);
+        }
+
+        // Update progress steps
+        function updateProgressSteps(tab) {
+          const steps = document.querySelectorAll(".step-item");
+
+          steps.forEach((step, index) => {
+            const stepDot = step.querySelector("div");
+
+            if (
+              (tab === "personal" && index === 0) ||
+              (tab === "vehicle" && index <= 1) ||
+              (tab === "documents" && index <= 2)
+            ) {
+              stepDot.classList.remove(
+                "bg-white",
+                "bg-opacity-30",
+                "text-white"
+              );
+              stepDot.classList.add("bg-white", "text-primary-500");
+            } else {
+              stepDot.classList.remove("bg-white", "text-primary-500");
+              stepDot.classList.add("bg-white", "bg-opacity-30", "text-white");
+            }
+          });
+
+          // Update progress lines
+          const progressLines = document.querySelectorAll(".step-item + .h-1");
+
+          progressLines.forEach((line, index) => {
+            if (
+              (tab === "vehicle" && index === 0) ||
+              (tab === "documents" && index <= 1)
+            ) {
+              line.classList.remove("bg-opacity-30");
+            } else {
+              line.classList.add("bg-opacity-30");
+            }
+          });
+        }
+
+        // File upload handling
+        document.querySelectorAll(".file-upload").forEach((input) => {
+          const wrapper = input.parentElement;
+
+          input.addEventListener("change", function (e) {
+            let fileName = "";
+
+            if (this.files && this.files.length > 0) {
+              fileName = this.files[0].name;
+            }
+
+            if (fileName) {
+              wrapper.setAttribute("data-text", fileName);
+            } else {
+              wrapper.setAttribute("data-text", "Pilih file...");
+            }
+          });
+        });
+
+        // Form submission
+        const registrationForm = document.getElementById("registrationForm");
+
+        registrationForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Show loading state
+          const submitButton = this.querySelector('button[type="submit"]');
+          const originalText = submitButton.innerHTML;
+          submitButton.disabled = true;
+          submitButton.innerHTML =
+            '<i class="fas fa-spinner fa-spin mr-2"></i> Memproses...';
+
+          // Simulate form submission
+          setTimeout(() => {
+            // Show success message using SweetAlert2
+            Swal.fire({
+              icon: "success",
+              title: "Pendaftaran Berhasil!",
+              text: "Data Anda telah kami terima. Tim kami akan menghubungi Anda dalam 1x24 jam untuk verifikasi.",
+              confirmButtonText: "OK",
+              confirmButtonColor: "#00bcd4",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // Redirect to home page
+                window.location.href = "index.html";
+              }
+            });
+
+            // Reset form
+            registrationForm.reset();
+
+            // Reset button state
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalText;
+          }, 2000);
         });
 
         // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute("href");
+            // Skip if href is just "#" (empty anchor)
+            if (targetId === "#") {
+              return;
+            }
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              targetElement.scrollIntoView({
+                behavior: "smooth",
+              });
+            }
+          });
         });
+
+        // Initialize OpenStreetMap
+        const mapElement = document.getElementById("map");
+        if (mapElement) {
+          // Default location (Jakarta, Indonesia)
+          const defaultLocation = [-6.2088, 106.8456];
+
+          // Initialize the map
+          const map = L.map("map").setView(defaultLocation, 13);
+
+          // Add the tile layer (the actual map)
+          const tileLayer = L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+              attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+              maxZoom: 19,
+            }
+          ).addTo(map);
+
+          // Add marker for user location
+          const userMarker = L.marker(defaultLocation, {
+            draggable: true,
+            title: "Lokasi Anda",
+          }).addTo(map);
+
+          // Handle marker drag events
+          userMarker.on("dragend", function (event) {
+            const position = event.target.getLatLng();
+            updateLocationFields(position);
+          });
+
+          // Handle map click events
+          map.on("click", function (event) {
+            const position = event.latlng;
+            userMarker.setLatLng(position);
+            updateLocationFields(position);
+          });
+
+          // Get Location button
+          const getLocationBtn = document.getElementById("getLocationBtn");
+          const locationStatus = document.getElementById("locationStatus");
+
+          if (getLocationBtn && locationStatus) {
+            getLocationBtn.addEventListener("click", function () {
+              locationStatus.textContent = "Mendapatkan lokasi Anda...";
+              locationStatus.classList.remove(
+                "hidden",
+                "text-red-500",
+                "text-green-500"
+              );
+              locationStatus.classList.add("text-gray-500");
+
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                  // Success callback
+                  function (position) {
+                    const userLocation = [
+                      position.coords.latitude,
+                      position.coords.longitude,
+                    ];
+
+                    // Update marker and map view
+                    userMarker.setLatLng(userLocation);
+                    map.setView(userLocation, 16);
+
+                    // Update form fields
+                    updateLocationFields({
+                      lat: position.coords.latitude,
+                      lng: position.coords.longitude,
+                    });
+
+                    locationStatus.textContent = "Lokasi berhasil ditemukan!";
+                    locationStatus.classList.remove("text-gray-500");
+                    locationStatus.classList.add("text-green-500");
+
+                    // Hide status after 3 seconds
+                    setTimeout(function () {
+                      locationStatus.classList.add("hidden");
+                    }, 3000);
+                  },
+                  // Error callback
+                  function (error) {
+                    locationStatus.textContent =
+                      "Tidak dapat menemukan lokasi Anda: " +
+                      getGeolocationErrorMessage(error);
+                    locationStatus.classList.remove("text-gray-500", "hidden");
+                    locationStatus.classList.add("text-red-500");
+                  },
+                  // Options
+                  {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 0,
+                  }
+                );
+              } else {
+                locationStatus.textContent =
+                  "Geolocation tidak didukung oleh browser Anda.";
+                locationStatus.classList.remove("text-gray-500", "hidden");
+                locationStatus.classList.add("text-red-500");
+              }
+            });
+          }
+
+          // Function to update location fields
+          function updateLocationFields(position) {
+            // Update hidden form fields
+            const latitudeField = document.getElementById("latitude");
+            const longitudeField = document.getElementById("longitude");
+
+            if (latitudeField && longitudeField) {
+              latitudeField.value = position.lat;
+              longitudeField.value = position.lng;
+            }
+
+            // Try to get address using Nominatim (OpenStreetMap's geocoding service)
+            fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${position.lat}&lon=${position.lng}&zoom=18&addressdetails=1`
+            )
+              .then((response) => response.json())
+              .then((data) => {
+                const addressField = document.getElementById("address");
+                if (addressField && data.display_name) {
+                  addressField.value = data.display_name;
+                }
+              })
+              .catch((error) => {
+                console.error("Error fetching address:", error);
+              });
+          }
+
+          // Get error message for geolocation errors
+          function getGeolocationErrorMessage(error) {
+            switch (error.code) {
+              case error.PERMISSION_DENIED:
+                return "Izin akses lokasi ditolak.";
+              case error.POSITION_UNAVAILABLE:
+                return "Informasi lokasi tidak tersedia.";
+              case error.TIMEOUT:
+                return "Waktu permintaan lokasi habis.";
+              case error.UNKNOWN_ERROR:
+                return "Terjadi kesalahan yang tidak diketahui.";
+              default:
+                return "Terjadi kesalahan.";
+            }
+          }
+
+          // Apply dark mode to map if needed
+          function updateMapStyle() {
+            const isDarkMode =
+              document.documentElement.classList.contains("dark");
+            if (isDarkMode) {
+              // Use dark tiles for dark mode
+              tileLayer.remove();
+              L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+                  attribution:
+                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                  maxZoom: 19,
+                }
+              ).addTo(map);
+            } else {
+              // Use light tiles for light mode
+              tileLayer.remove();
+              L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+                  attribution:
+                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                  maxZoom: 19,
+                }
+              ).addTo(map);
+            }
+          }
+
+          // Update map style when dark mode changes
+          if (darkModeToggle) {
+            darkModeToggle.addEventListener("click", updateMapStyle);
+          }
+
+          if (darkModeToggleMobile) {
+            darkModeToggleMobile.addEventListener("click", updateMapStyle);
+          }
+
+          // Initial map style based on current theme
+          updateMapStyle();
+        }
+
+        // Earnings Calculator
+        const calcHoursInput = document.getElementById("calc-hours");
+        const calcHoursValue = document.getElementById("calc-hours-value");
+        const calcDaysInput = document.getElementById("calc-days");
+        const calcDaysValue = document.getElementById("calc-days-value");
+
+        if (calcHoursInput && calcDaysInput) {
+          // Base rates
+          const rates = {
+            motor: {
+              beginner: 25000,
+              intermediate: 30000,
+              expert: 35000,
+            },
+            car: {
+              beginner: 35000,
+              intermediate: 40000,
+              expert: 50000,
+            },
+          };
+
+          // Update displayed values
+          calcHoursInput.addEventListener("input", () => {
+            calcHoursValue.textContent = calcHoursInput.value;
+            updateEarnings();
+          });
+
+          calcDaysInput.addEventListener("input", () => {
+            calcDaysValue.textContent = calcDaysInput.value;
+            updateEarnings();
+          });
+
+          // Listen for vehicle type changes
+          document
+            .querySelectorAll('input[name="calc-vehicle-type"]')
+            .forEach((input) => {
+              input.addEventListener("change", updateEarnings);
+            });
+
+          // Listen for experience level changes
+          document
+            .querySelectorAll('input[name="calc-experience"]')
+            .forEach((input) => {
+              input.addEventListener("change", updateEarnings);
+            });
+
+          // Calculate and update earnings
+          function updateEarnings() {
+            const hours = parseInt(calcHoursInput.value);
+            const days = parseInt(calcDaysInput.value);
+
+            // Get selected vehicle type
+            const vehicleType = document.querySelector(
+              'input[name="calc-vehicle-type"]:checked'
+            ).value;
+
+            // Get selected experience level
+            const expLevel = document.querySelector(
+              'input[name="calc-experience"]:checked'
+            ).value;
+
+            // Calculate daily earnings
+            const hourlyRate = rates[vehicleType][expLevel];
+            const dailyEarning = hourlyRate * hours;
+
+            // Calculate weekly earnings
+            const weeklyEarning = dailyEarning * days;
+
+            // Calculate monthly earnings (assuming 4 weeks)
+            const monthlyEarning = weeklyEarning * 4;
+
+            // Format and display earnings
+            document.getElementById("calc-daily").textContent =
+              formatCurrency(dailyEarning);
+            document.getElementById("calc-weekly").textContent =
+              formatCurrency(weeklyEarning);
+            document.getElementById("calc-monthly").textContent =
+              formatCurrency(monthlyEarning);
+          }
+
+          // Format currency (IDR)
+          function formatCurrency(amount) {
+            return "Rp " + amount.toLocaleString("id-ID");
+          }
+
+          // Initialize calculator
+          updateEarnings();
+        }
+      });
     </script>
-
-</body>
-
+  </body>
 </html>

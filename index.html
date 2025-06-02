@@ -5,431 +5,658 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NG-OJOL</title>
 
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#00bcd4" />
+    <link rel="apple-touch-icon" href="img/delivery.png" />
+
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- Font Awesome -->
     <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
       rel="stylesheet"
     />
-    <!-- Google Fonts -->
+    <!-- Modern Google Fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
-    <!-- Dark Mode Styles -->
-    <style>
-      /* Dark Mode Styles */
-      .dark {
-        color-scheme: dark;
-      }
-
-      .dark body {
-        background-color: #1a1a1a;
-        color: #f3f4f6;
-      }
-
-      .dark .bg-white {
-        background-color: #2d2d2d !important;
-      }
-
-      .dark .bg-gray-100 {
-        background-color: #333333 !important;
-      }
-
-      .dark .text-gray-800 {
-        color: #f3f4f6 !important;
-      }
-
-      .dark .text-gray-600,
-      .dark .text-gray-500 {
-        color: #d1d5db !important;
-      }
-
-      .dark .border-gray-200 {
-        border-color: #4b5563 !important;
-      }
-
-      .dark .shadow-lg,
-      .dark .shadow-md,
-      .dark .shadow-xl {
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.6),
-          0 4px 6px -2px rgba(0, 0, 0, 0.55) !important;
-      }
-
-      .dark .footer {
-        background-color: #111827 !important;
-      }
-
-      /* Animation for dark mode toggle */
-      @keyframes rotate {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      .animate-rotate {
-        animation: rotate 0.5s ease-in-out;
-      }
-    </style>
+    <!-- Costum Css -->
+    <link rel="stylesheet" href="src/style.css" />
   </head>
 
-  <body class="font-poppins bg-gray-100">
+  <body class="font-sans bg-gray-50">
+    <!-- Preloader -->
+    <div
+      id="preloader"
+      class="fixed inset-0 z-[9999] flex items-center justify-center bg-white"
+    >
+      <div class="relative w-24 h-24">
+        <div
+          class="absolute inset-0 rounded-full border-4 border-t-primary-500 border-r-transparent border-b-transparent border-l-transparent animate-spin"
+        ></div>
+        <div
+          class="absolute inset-2 rounded-full border-4 border-t-transparent border-r-primary-300 border-b-transparent border-l-transparent animate-spin"
+          style="animation-duration: 1.5s"
+        ></div>
+        <div
+          class="absolute inset-4 rounded-full border-4 border-t-transparent border-r-transparent border-b-primary-200 border-l-transparent animate-spin"
+          style="animation-duration: 2s"
+        ></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <img
+            src="img/delivery.png"
+            alt="NG-OJOL"
+            class="w-10 h-10 animate-pulse"
+          />
+        </div>
+      </div>
+    </div>
+
     <!-- Navbar -->
     <nav
-      class="fixed w-full z-50 transition-all duration-300 font-poppins bold"
+      class="fixed w-full z-50 transition-all duration-500 font-sans"
       id="navbar"
     >
       <div class="max-w-7xl mx-auto px-4">
-        <div class="flex justify-between h-16">
+        <div class="flex justify-between items-center h-16">
           <!-- Logo -->
-          <div class="flex items-center ml-4">
-            <a href="#beranda" class="flex-shrink-0 flex items-center">
-              <div class="flex items-center">
-                <img
-                  src="img/delivery.png"
-                  alt="fast-delivery"
-                  class="h-12 ml-4"
-                  style="filter: brightness(0) invert(1)"
-                />
-                <h1
-                  style="
-                    font-family: 'Poppins', sans-serif;
-                    font-size: 2rem;
-                    margin-left: 14px;
-                  "
-                  id="navbar-title"
-                  class="text-white"
-                >
-                  NG-OJOL
-                </h1>
+          <div class="flex items-center">
+            <a href="#beranda" class="flex items-center space-x-3">
+              <div
+                class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg transform transition-all duration-300 hover:scale-110"
+              >
+                <img src="img/delivery.png" alt="NG-OJOL" class="h-8" />
               </div>
+              <h1
+                class="text-2xl md:text-3xl font-display font-bold text-white"
+                id="navbar-title"
+              >
+                NG-OJOL
+              </h1>
             </a>
           </div>
-          <!-- Links -->
-          <div class="hidden md:flex items-center space-x-1" id="href-navbar">
-            <a
-              href="#fitur"
-              class="px-3 py-2 text-white hover:text-white hover:border-b-2 hover:border-white transition duration-300 navbar-link"
-              >Fitur</a
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center space-x-1">
+            <div
+              class="bg-white bg-opacity-20 backdrop-blur-lg rounded-full px-2 py-1 flex items-center space-x-1"
             >
-            <a
-              href="#layanan"
-              class="px-3 py-2 text-white hover:text-white hover:border-b-2 hover:border-white transition duration-300 navbar-link"
-              >Layanan</a
-            >
-            <a
-              href="#review"
-              class="px-3 py-2 text-white hover:text-white hover:border-b-2 hover:border-white transition duration-300 navbar-link"
-              >Review</a
-            >
-            <a
-              href="#download"
-              class="px-3 py-2 text-white hover:text-white hover:border-b-2 hover:border-white transition duration-300 navbar-link"
-              >Download</a
-            >
-            <a
-              href="news.html"
-              class="px-3 py-2 text-white hover:text-white hover:border-b-2 hover:border-white transition duration-300 navbar-link"
-              >Berita</a
-            >
-            <a
-              href="#faq"
-              class="px-3 py-2 text-white hover:text-white hover:border-b-2 hover:border-white transition duration-300 navbar-link"
-              >FAQ</a
-            >
-            <a
-              href="#hubungi"
-              class="px-3 py-2 text-white hover:text-white hover:border-b-2 hover:border-white transition duration-300 navbar-link"
-              >Hubungi Kami</a
-            >
+              <a
+                href="#fitur"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                Fitur
+              </a>
+              <a
+                href="#layanan"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                Layanan
+              </a>
+              <a
+                href="#review"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                Review
+              </a>
+              <a
+                href="#download"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                Download
+              </a>
+              <a
+                href="news.html"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                Berita
+              </a>
+              <a
+                href="#faq"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                FAQ
+              </a>
+              <a
+                href="#hubungi"
+                class="px-4 py-2 text-white hover:bg-white hover:bg-opacity-20 rounded-full transition duration-300"
+              >
+                Hubungi
+              </a>
+            </div>
+
             <a href="pendaftaran-driver-baru.html">
               <button
-                class="bg-white text-black px-6 py-2 rounded-full hover:bg-cyan-600 transition duration-300"
-                id="daftar-driver-button"
+                class="ml-4 bg-white text-primary-600 px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 font-medium btn-modern"
               >
-                Daftar Driver
+                <i class="fas fa-user-plus mr-2"></i>Daftar Driver
               </button>
             </a>
+
+            <!-- Language Selector -->
+            <div class="ml-4 relative">
+              <button
+                id="languageToggle"
+                class="w-10 h-10 bg-white bg-opacity-20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300 focus:outline-none"
+                aria-label="Change Language"
+              >
+                <i class="fas fa-globe text-white text-lg"></i>
+              </button>
+
+              <div
+                id="languageDropdown"
+                class="absolute right-0 mt-2 w-36 bg-white rounded-xl shadow-lg py-2 hidden"
+              >
+                <a
+                  href="#"
+                  class="language-option flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                  data-lang="id"
+                >
+                  <img
+                    src="https://flagcdn.com/w20/id.png"
+                    width="20"
+                    alt="Indonesia"
+                    class="mr-2"
+                  />
+                  Indonesia
+                </a>
+                <a
+                  href="#"
+                  class="language-option flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                  data-lang="en"
+                >
+                  <img
+                    src="https://flagcdn.com/w20/gb.png"
+                    width="20"
+                    alt="English"
+                    class="mr-2"
+                  />
+                  English
+                </a>
+                <a
+                  href="#"
+                  class="language-option flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                  data-lang="zh"
+                >
+                  <img
+                    src="https://flagcdn.com/w20/cn.png"
+                    width="20"
+                    alt="中文"
+                    class="mr-2"
+                  />
+                  中文
+                </a>
+              </div>
+            </div>
+
             <button
               id="darkModeToggle"
-              class="ml-4 focus:outline-none"
+              class="ml-4 w-10 h-10 bg-white bg-opacity-20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300 focus:outline-none"
               aria-label="Toggle Dark Mode"
             >
-              <i class="fas fa-moon text-white text-xl" id="darkModeIcon"></i>
+              <i class="fas fa-moon text-white text-lg" id="darkModeIcon"></i>
             </button>
+          </div>
+
+          <!-- Mobile menu button -->
+          <div class="md:hidden flex items-center">
+            <button
+              id="darkModeToggleMobile"
+              class="mr-4 w-10 h-10 bg-white bg-opacity-20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300 focus:outline-none"
+              aria-label="Toggle Dark Mode"
+            >
+              <i
+                class="fas fa-moon text-white text-lg"
+                id="darkModeIconMobile"
+              ></i>
+            </button>
+
+            <button
+              class="mobile-menu-button w-10 h-10 bg-white bg-opacity-20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300 focus:outline-none"
+              aria-label="Open Menu"
+            >
+              <i class="fas fa-bars text-white text-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Menu -->
+      <div class="mobile-menu hidden md:hidden">
+        <div class="glass-dark rounded-2xl mx-4 mt-2 p-4 shadow-lg">
+          <div class="flex flex-col space-y-2">
+            <a
+              href="#fitur"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-star mr-2"></i>Fitur
+            </a>
+            <a
+              href="#layanan"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-concierge-bell mr-2"></i>Layanan
+            </a>
+            <a
+              href="#review"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-comment-dots mr-2"></i>Review
+            </a>
+            <a
+              href="#download"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-download mr-2"></i>Download
+            </a>
+            <a
+              href="news.html"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-newspaper mr-2"></i>Berita
+            </a>
+            <a
+              href="#faq"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-question-circle mr-2"></i>FAQ
+            </a>
+            <a
+              href="#hubungi"
+              class="px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-xl transition duration-300"
+            >
+              <i class="fas fa-phone mr-2"></i>Hubungi Kami
+            </a>
+            <a href="pendaftaran-driver-baru.html" class="mt-2">
+              <button
+                class="w-full bg-white text-primary-600 px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition duration-300 font-medium btn-modern"
+              >
+                <i class="fas fa-user-plus mr-2"></i>Daftar Driver
+              </button>
+            </a>
           </div>
         </div>
       </div>
     </nav>
 
-    <style>
-      /* Hover untuk tautan navbar */
-      .navbar-link:hover {
-        color: white;
-        /* Ubah warna teks menjadi putih */
-        border-bottom: 2px solid white;
-        /* Tambahkan garis putih di bawah */
-      }
-
-      /* Hover untuk tombol daftar driver */
-      #daftar-driver-button:hover {
-        color: white;
-        /* Mengubah warna teks tombol menjadi putih */
-        background-color: #00acc1;
-        /* Mengubah background menjadi cyan-500 saat hover */
-      }
-
-      /* Navbar default untuk halaman selain beranda */
-      .navbar-white .navbar-link {
-        color: black;
-      }
-
-      /* Navbar untuk halaman beranda */
-      .navbar-cyan .navbar-link {
-        color: white;
-      }
-    </style>
-
-    <script>
-      window.addEventListener("scroll", function () {
-        const navbar = document.getElementById("navbar"); // Ambil elemen navbar
-        const navbarLinks = document.querySelectorAll(".navbar-link"); // Ambil semua tautan dengan class navbar-link
-        const beranda = document.getElementById("beranda");
-        const berandaHeight = beranda.offsetHeight;
-        const navbarTitle = document.getElementById("navbar-title"); // Get navbar title
-
-        if (window.scrollY < berandaHeight) {
-          // Saat di beranda
-          navbar.style.backgroundColor = "transparent"; // Navbar transparan
-          navbar.classList.remove("shadow-md"); // Hilangkan bayangan
-          navbarTitle.classList.remove("text-black"); // Remove black text class from title
-          navbarTitle.classList.add("text-white"); // Add white text class to title
-          navbarLinks.forEach((link) => {
-            link.style.color = "white"; // Teks tautan putih
-            link.classList.remove("hover:text-blue-600"); // Hilangkan hover biru
-            link.classList.add("hover:text-white"); // Hover menjadi putih
-          });
-        } else {
-          // Saat keluar dari beranda
-          navbar.style.backgroundColor = "#06b6d4"; // Background cyan-500
-          navbarTitle.classList.remove("text-white"); // Remove white text class from title
-          navbarTitle.classList.add("text-black"); // Add black text class to title
-          navbarLinks.forEach((link) => {
-            link.style.color = "black"; // Teks tautan hitam
-            link.classList.remove("hover:text-white"); // Hilangkan hover putih
-            link.classList.add("hover:#EEEEEE"); // Hover menjadi biru
-          });
-        }
-      });
-    </script>
-
-    <script>
-      const navbar = document.getElementById("navbar");
-      const navbarTitle = document.getElementById("navbar-title");
-      const navbarLinks = document.querySelectorAll(".navbar-link");
-      const beranda = document.getElementById("beranda");
-
-      let isTransparent = true; // Menyimpan status transparansi navbar
-
-      // Fungsi untuk memeriksa lokasi hash saat ini
-      function checkCurrentHash() {
-        if (
-          window.location.hash !== "#beranda" &&
-          window.location.hash !== ""
-        ) {
-          setNavbarSolid(); // Jika hash bukan #beranda atau kosong
-        } else {
-          const scrollTop =
-            window.pageYOffset || document.documentElement.scrollTop;
-          const berandaHeight = beranda.offsetHeight;
-
-          if (scrollTop < berandaHeight) {
-            setNavbarTransparent(); // Jika berada di bagian atas beranda
-          } else {
-            setNavbarSolid(); // Jika sudah melewati beranda
-          }
-        }
-      }
-
-      // Fungsi yang dijalankan saat halaman di-scroll
-      window.addEventListener("scroll", function () {
-        const scrollTop =
-          window.pageYOffset || document.documentElement.scrollTop;
-        const berandaHeight = beranda.offsetHeight;
-
-        if (scrollTop < berandaHeight && window.location.hash === "#beranda") {
-          setNavbarTransparent(); // Jika di atas tinggi elemen beranda
-        } else {
-          setNavbarSolid(); // Jika di bawah tinggi elemen beranda
-        }
-      });
-
-      // Fungsi untuk membuat navbar transparan
-      function setNavbarTransparent() {
-        if (!isTransparent) {
-          navbar.classList.remove("bg-white", "shadow-md");
-          navbar.classList.add("bg-transparent");
-          navbarTitle.classList.remove("text-black");
-          navbarTitle.classList.add("text-white");
-          navbarLinks.forEach((link) => {
-            link.classList.remove("text-black");
-            link.classList.add("text-white");
-          });
-          isTransparent = true; // Set status transparansi menjadi true
-        }
-      }
-
-      // Fungsi untuk membuat navbar solid (putih dengan teks hitam)
-      function setNavbarSolid() {
-        if (isTransparent) {
-          navbar.classList.remove("bg-transparent");
-          navbar.classList.add("bg-white", "shadow-md");
-          navbarTitle.classList.remove("text-white");
-          navbarTitle.classList.add("text-black");
-          navbarLinks.forEach((link) => {
-            link.classList.remove("text-white");
-            link.classList.add("text-black");
-          });
-          isTransparent = false; // Set status transparansi menjadi false
-        }
-      }
-
-      // Periksa hash saat halaman dimuat
-      window.addEventListener("load", checkCurrentHash);
-      window.addEventListener("hashchange", checkCurrentHash); // Periksa saat hash berubah
-    </script>
-
     <!-- Hero Section -->
-
     <div
-      class="relative bg-cyan-500 min-h-screen flex items-center"
+      class="relative min-h-[90vh] flex items-center justify-center overflow-hidden section-transition"
       id="beranda"
     >
-      <div
-        class="absolute inset-0 bg-gradient-to-r from-cyan-600 to-cyan-400 opacity-90"
-      ></div>
-      <div class="relative max-w-7xl mx-auto px-4 py-20 md:py-32">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div class="text-white ml-4">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+      <!-- Animated Background Gradient -->
+      <div class="absolute inset-0 animated-gradient"></div>
+
+      <!-- Decorative Circles -->
+      <div class="absolute inset-0 overflow-hidden">
+        <div
+          class="absolute top-[10%] left-[5%] w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"
+        ></div>
+        <div
+          class="absolute bottom-[15%] right-[5%] w-80 h-80 bg-white opacity-10 rounded-full blur-3xl"
+        ></div>
+        <div
+          class="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary-300 opacity-10 rounded-full blur-3xl"
+        ></div>
+      </div>
+
+      <div class="relative container mx-auto px-4 py-8 w-full">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <!-- Text Content -->
+          <div
+            class="text-white"
+            data-aos="fade-right"
+            data-aos-duration="1000"
+          >
+            <h1
+              class="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4 leading-tight"
+            >
               Layanan Antar Jemput Terpercaya
             </h1>
-            <p
-              class="text-xl mb-8 opacity-90"
-              style="font-family: 'Arial', sans-serif"
-            >
+            <p class="text-lg md:text-xl mb-6 opacity-90 font-light">
               Nikmati pengalaman pengiriman yang aman, cepat, dan terpercaya
               dengan Ngojol
             </p>
-            <div class="flex space-x-4">
+            <div
+              class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+            >
               <button
-                class="bg-white hover:bg-cyan-500 hover:text-white text-black font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 group"
+                class="bg-white hover:bg-opacity-90 text-primary-700 font-semibold py-3 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-105 flex items-center justify-center btn-modern group"
                 onclick="event.preventDefault(); document.getElementById('download').scrollIntoView({ behavior: 'smooth' });"
               >
-                <img
-                  src="img/download.png"
-                  alt="download"
-                  class="h-6 inline transition-all duration-300 group-hover:brightness-0 group-hover:invert"
-                  style="margin-right: 8px; margin-bottom: 5px"
-                />
-                <span style="font-family: 'Arial', sans-serif"
-                  >DOWNLOAD APLIKASI</span
+                <div
+                  class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center mr-3 group-hover:bg-primary-600 transition-all duration-300"
                 >
+                  <i class="fas fa-download text-white"></i>
+                </div>
+                <span>Download Aplikasi</span>
               </button>
 
-              <style>
-                /* Tambahkan ini ke CSS Anda jika ingin custom transition */
-                .group:hover img {
-                  filter: brightness(0) invert(1);
-                }
-              </style>
+              <button
+                class="glass text-white font-semibold py-3 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-105 flex items-center justify-center btn-modern"
+                onclick="event.preventDefault(); document.getElementById('layanan').scrollIntoView({ behavior: 'smooth' });"
+              >
+                <div
+                  class="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-3"
+                >
+                  <i class="fas fa-info text-white"></i>
+                </div>
+                <span>Pelajari Lebih Lanjut</span>
+              </button>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="mt-8 flex items-center space-x-6">
+              <div class="flex items-center">
+                <div
+                  class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center"
+                >
+                  <i class="fas fa-shield-alt text-white"></i>
+                </div>
+                <span class="ml-2 text-sm">Aman & Terpercaya</span>
+              </div>
+              <div class="flex items-center">
+                <div
+                  class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center"
+                >
+                  <i class="fas fa-clock text-white"></i>
+                </div>
+                <span class="ml-2 text-sm">24/7 Service</span>
+              </div>
+              <div class="hidden md:flex items-center">
+                <div
+                  class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center"
+                >
+                  <i class="fas fa-map-marker-alt text-white"></i>
+                </div>
+                <span class="ml-2 text-sm">Jangkauan Luas</span>
+              </div>
             </div>
           </div>
-          <div class="hidden md:block">
-            <img
-              src="img/ngojol.png"
-              alt="aplikasi-ngojol"
-              class="w-full max-w-md mx-auto transform hover:scale-105 transition duration-500 rounded-3xl shadow-2xl"
-            />
+
+          <!-- App Mockup -->
+          <div
+            class="hidden md:block relative mt-6"
+            data-aos="fade-left"
+            data-aos-duration="1000"
+          >
+            <!-- Phone Frame with Glassmorphism -->
+            <div
+              class="relative mx-auto w-64 h-[33rem] lg:w-72 lg:h-[35rem] mt-4"
+            >
+              <!-- Phone Outer Frame -->
+              <div
+                class="absolute inset-0 glass rounded-[3rem] shadow-xl border border-white border-opacity-20"
+              ></div>
+
+              <!-- Phone Inner Frame -->
+              <div class="absolute inset-2 rounded-[2.8rem] overflow-hidden">
+                <img
+                  src="img/ngojol.png"
+                  alt="aplikasi-ngojol"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+
+              <!-- Phone Notch -->
+              <div
+                class="absolute top-3 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-full"
+              ></div>
+
+              <!-- Floating Elements -->
+              <div
+                class="absolute -top-6 -right-6 w-20 h-20 lg:w-24 lg:h-24 bg-primary-400 rounded-full opacity-60 blur-md float-animation"
+              ></div>
+              <div
+                class="absolute -bottom-4 -left-4 w-16 h-16 lg:w-20 lg:h-20 bg-secondary-400 rounded-full opacity-60 blur-md float-animation"
+                style="animation-delay: -2s"
+              ></div>
+            </div>
+
+            <!-- Download Badges Floating -->
+            <div
+              class="absolute -bottom-4 left-0 glass rounded-xl p-2 shadow-lg transform -rotate-6 float-animation"
+              style="animation-delay: -3s"
+            >
+              <div class="flex items-center">
+                <i class="fab fa-google-play text-white text-lg mr-2"></i>
+                <div>
+                  <div class="text-xs text-white opacity-80">GET IT ON</div>
+                  <div class="text-sm font-semibold text-white">
+                    Google Play
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="absolute -bottom-2 right-0 glass rounded-xl p-2 shadow-lg transform rotate-6 float-animation"
+              style="animation-delay: -1s"
+            >
+              <div class="flex items-center">
+                <i class="fab fa-apple text-white text-lg mr-2"></i>
+                <div>
+                  <div class="text-xs text-white opacity-80">
+                    Download on the
+                  </div>
+                  <div class="text-sm font-semibold text-white">App Store</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div
+          class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+        >
+          <span class="text-white text-sm mb-2">Scroll Down</span>
+          <div
+            class="w-8 h-10 border-2 border-white rounded-full flex justify-center"
+          >
+            <div
+              class="w-2 h-2 bg-white rounded-full mt-2 animate-bounce"
+            ></div>
           </div>
         </div>
       </div>
     </div>
-
     <!-- End Hero Section -->
 
     <!-- Fitur Section -->
-    <section class="py-24 bg-cyan-500 border-t border-gray-200" id="fitur">
-      <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center text-white mb-4">
-          Ngojol Membuatmu Aman dan Nyaman
-        </h2>
-        <p
-          class="text-xl text-center text-white mb-12"
-          style="font-family: 'Arial', sans-serif"
+    <section
+      class="py-20 relative overflow-hidden section-transition"
+      id="fitur"
+    >
+      <!-- Background with subtle pattern -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-primary-500 to-primary-700"
+      ></div>
+      <div
+        class="absolute inset-0 opacity-10"
+        style="
+          background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2V6h4V4H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        "
+      ></div>
+
+      <div class="relative max-w-7xl mx-auto px-6">
+        <div
+          class="text-center mb-16"
+          data-aos="fade-up"
+          data-aos-duration="800"
         >
-          Kami Hadir Untuk Membuatmu Aman dan Nyaman
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <h2
+            class="text-4xl md:text-5xl font-display font-bold text-white mb-4"
+          >
+            Ngojol Membuatmu Aman dan Nyaman
+          </h2>
+          <p class="text-xl text-white opacity-90 max-w-3xl mx-auto">
+            Kami hadir dengan berbagai fitur unggulan untuk memastikan
+            pengalaman terbaik bagi pengguna kami
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           <!-- Card 1 -->
           <div
-            class="bg-white p-16 rounded-2xl shadow-2xl hover:-translate-y-4 transition duration-300 transform hover:shadow-3xl"
+            class="group relative bg-white rounded-3xl shadow-xl p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="100"
           >
-            <div class="text-center">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary-500 to-primary-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+            ></div>
+
+            <div
+              class="relative z-10 flex flex-col items-center text-center h-full"
+            >
               <div
-                class="bg-orange-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8"
+                class="w-20 h-20 rounded-full flex items-center justify-center mb-6 bg-primary-50 text-primary-600 group-hover:bg-white transition-all duration-500"
               >
-                <i class="fas fa-motorcycle text-5xl text-orange-500"></i>
+                <i
+                  class="fas fa-motorcycle text-4xl group-hover:text-primary-600 transition-all duration-500"
+                ></i>
               </div>
-              <h3 class="text-3xl font-semibold mb-8">Pengiriman Cepat</h3>
-              <p class="text-gray-600" style="font-family: 'Arial', sans-serif">
+
+              <h3
+                class="text-2xl font-display font-bold mb-4 text-gray-800 group-hover:text-white transition-all duration-500"
+              >
+                Pengiriman Cepat
+              </h3>
+
+              <p
+                class="text-gray-600 group-hover:text-white/90 transition-all duration-500 mb-6"
+              >
                 Layanan pengiriman express untuk kebutuhan mendesak Anda dengan
-                jaminan tepat waktu
+                jaminan tepat waktu dan keamanan terjaga
               </p>
+
+              <div class="mt-auto">
+                <span
+                  class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary-100 group-hover:bg-white text-primary-600 transition-all duration-500"
+                >
+                  <i class="fas fa-arrow-right"></i>
+                </span>
+              </div>
             </div>
           </div>
 
           <!-- Card 2 -->
           <div
-            class="bg-white p-16 rounded-2xl shadow-2xl hover:-translate-y-4 transition duration-300 transform hover:shadow-3xl"
+            class="group relative bg-white rounded-3xl shadow-xl p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="200"
           >
-            <div class="text-center">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary-500 to-primary-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+            ></div>
+
+            <div
+              class="relative z-10 flex flex-col items-center text-center h-full"
+            >
               <div
-                class="bg-orange-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8"
+                class="w-20 h-20 rounded-full flex items-center justify-center mb-6 bg-primary-50 text-primary-600 group-hover:bg-white transition-all duration-500"
               >
-                <i class="fas fa-box text-5xl text-orange-500"></i>
+                <i
+                  class="fas fa-box text-4xl group-hover:text-primary-600 transition-all duration-500"
+                ></i>
               </div>
-              <h3 class="text-3xl font-semibold mb-8">Pengiriman Barang</h3>
-              <p class="text-gray-600" style="font-family: 'Arial', sans-serif">
+
+              <h3
+                class="text-2xl font-display font-bold mb-4 text-gray-800 group-hover:text-white transition-all duration-500"
+              >
+                Pengiriman Barang
+              </h3>
+
+              <p
+                class="text-gray-600 group-hover:text-white/90 transition-all duration-500 mb-6"
+              >
                 Kirim paket Anda dengan aman ke seluruh kota dengan tracking
-                real-time
+                real-time dan jaminan barang sampai tujuan
               </p>
+
+              <div class="mt-auto">
+                <span
+                  class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary-100 group-hover:bg-white text-primary-600 transition-all duration-500"
+                >
+                  <i class="fas fa-arrow-right"></i>
+                </span>
+              </div>
             </div>
           </div>
 
           <!-- Card 3 -->
           <div
-            class="bg-white p-16 rounded-2xl shadow-2xl hover:-translate-y-4 transition duration-300 transform hover:shadow-3xl"
+            class="group relative bg-white rounded-3xl shadow-xl p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="300"
           >
-            <div class="text-center">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary-500 to-primary-600 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+            ></div>
+
+            <div
+              class="relative z-10 flex flex-col items-center text-center h-full"
+            >
               <div
-                class="bg-orange-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8"
+                class="w-20 h-20 rounded-full flex items-center justify-center mb-6 bg-primary-50 text-primary-600 group-hover:bg-white transition-all duration-500"
               >
-                <i class="fas fa-utensils text-5xl text-orange-500"></i>
+                <i
+                  class="fas fa-utensils text-4xl group-hover:text-primary-600 transition-all duration-500"
+                ></i>
               </div>
-              <h3 class="text-3xl font-semibold mb-8">Pesan Makanan</h3>
-              <p class="text-gray-600" style="font-family: 'Arial', sans-serif">
+
+              <h3
+                class="text-2xl font-display font-bold mb-4 text-gray-800 group-hover:text-white transition-all duration-500"
+              >
+                Pesan Makanan
+              </h3>
+
+              <p
+                class="text-gray-600 group-hover:text-white/90 transition-all duration-500 mb-6"
+              >
                 Pesan makanan favorit Anda dari berbagai restoran dengan
-                pengiriman cepat
+                pengiriman cepat dan kondisi makanan tetap hangat
               </p>
+
+              <div class="mt-auto">
+                <span
+                  class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary-100 group-hover:bg-white text-primary-600 transition-all duration-500"
+                >
+                  <i class="fas fa-arrow-right"></i>
+                </span>
+              </div>
             </div>
+          </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div
+          class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8"
+          data-aos="fade-up"
+          data-aos-duration="800"
+        >
+          <div class="glass rounded-2xl p-6 text-center">
+            <div class="text-4xl font-bold text-white mb-2">10K+</div>
+            <div class="text-white opacity-90">Driver Aktif</div>
+          </div>
+
+          <div class="glass rounded-2xl p-6 text-center">
+            <div class="text-4xl font-bold text-white mb-2">25+</div>
+            <div class="text-white opacity-90">Kota Terjangkau</div>
+          </div>
+
+          <div class="glass rounded-2xl p-6 text-center">
+            <div class="text-4xl font-bold text-white mb-2">100K+</div>
+            <div class="text-white opacity-90">Pengguna Puas</div>
           </div>
         </div>
       </div>
@@ -437,394 +664,511 @@
     <!-- End Fitur Section -->
 
     <!-- Layanan Section -->
-    <section class="py-12 bg-white border-t border-gray-200" id="layanan">
+    <section class="py-20 bg-white section-transition" id="layanan">
       <div class="max-w-7xl mx-auto px-6">
-        <h2
-          class="text-4xl font-bold text-center text-gray-800"
-          style="margin-top: 3rem; margin-bottom: 3px"
+        <div
+          class="text-center mb-16"
+          data-aos="fade-up"
+          data-aos-duration="800"
         >
-          Layanan Ngojol
-        </h2>
-        <p
-          class="text-xl text-center text-gray-600 mb-12"
-          style="margin-top: 1rem; font-family: 'Arial', sans-serif"
+          <span
+            class="inline-block px-4 py-2 bg-primary-50 text-primary-600 rounded-full text-sm font-medium mb-4"
+            >Layanan Kami</span
+          >
+          <h2
+            class="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4"
+          >
+            Layanan Ngojol
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Kami siap mengantar apa saja kebutuhanmu dengan berbagai pilihan
+            layanan
+          </p>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10"
         >
-          Kami siap mengantar apa saja kebutuhanmu.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          <!-- Card 1 -->
-          <div class="flex flex-col items-center text-center mt-16 mb-16">
+          <!-- Service Card 1 -->
+          <div
+            class="relative overflow-hidden rounded-3xl shadow-lg group"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="100"
+          >
+            <!-- Card Background -->
             <div
-              class="bg-cyan-500 w-24 h-24 rounded-full flex items-center justify-center mb-6"
+              class="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600 opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+            ></div>
+
+            <!-- Card Content -->
+            <div
+              class="relative p-8 flex flex-col items-center text-center min-h-[400px]"
             >
-              <i class="fas fa-biking text-5xl text-white"></i>
+              <div
+                class="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500"
+              >
+                <i class="fas fa-biking text-4xl text-white"></i>
+              </div>
+
+              <h3 class="text-2xl font-display font-bold mb-4 text-white">
+                Ngojol Express
+              </h3>
+
+              <p class="text-white/90 mb-8">
+                Layanan pengantaran dalam kota dengan menggunakan motor untuk
+                mengantar apa saja, dari mana saja, dengan pasti dan aman.
+              </p>
+
+              <div class="mt-auto">
+                <button
+                  class="px-6 py-3 bg-white text-primary-600 font-medium rounded-full hover:bg-opacity-90 transition-all duration-300 shadow-lg transform group-hover:translate-y-0 translate-y-2 opacity-0 group-hover:opacity-100"
+                >
+                  Pesan Sekarang
+                </button>
+              </div>
+
+              <!-- Decorative Elements -->
+              <div
+                class="absolute -bottom-10 -right-10 w-40 h-40 bg-white opacity-10 rounded-full"
+              ></div>
+              <div
+                class="absolute -top-20 -left-20 w-40 h-40 bg-white opacity-10 rounded-full"
+              ></div>
             </div>
-            <h3 class="text-3xl font-semibold mb-6">Ngojol Express</h3>
-            <p
-              class="text-gray-600 mb-12"
-              style="font-family: 'Arial', sans-serif"
-            >
-              Layanan pengantaran dalam kota dengan menggunakan motor untuk
-              mengantar apa saja, dari mana saja, dengan pasti dan aman.
-            </p>
           </div>
 
-          <!-- Card 2 -->
-          <div class="flex flex-col items-center text-center mt-16 mb-16">
+          <!-- Service Card 2 -->
+          <div
+            class="relative overflow-hidden rounded-3xl shadow-lg group"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="200"
+          >
+            <!-- Card Background -->
             <div
-              class="bg-cyan-500 w-24 h-24 rounded-full flex items-center justify-center mb-6"
+              class="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600 opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+            ></div>
+
+            <!-- Card Content -->
+            <div
+              class="relative p-8 flex flex-col items-center text-center min-h-[400px]"
             >
-              <i class="fas fa-truck text-5xl text-white"></i>
+              <div
+                class="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500"
+              >
+                <i class="fas fa-truck text-4xl text-white"></i>
+              </div>
+
+              <h3 class="text-2xl font-display font-bold mb-4 text-white">
+                Ngojol Truk
+              </h3>
+
+              <p class="text-white/90 mb-8">
+                Layanan pengantaran dengan menggunakan truk untuk mengantar apa
+                saja yang berukuran besar dan banyak, kapan saja dengan aman dan
+                mudah.
+              </p>
+
+              <div class="mt-auto">
+                <button
+                  class="px-6 py-3 bg-white text-primary-600 font-medium rounded-full hover:bg-opacity-90 transition-all duration-300 shadow-lg transform group-hover:translate-y-0 translate-y-2 opacity-0 group-hover:opacity-100"
+                >
+                  Pesan Sekarang
+                </button>
+              </div>
+
+              <!-- Decorative Elements -->
+              <div
+                class="absolute -bottom-10 -right-10 w-40 h-40 bg-white opacity-10 rounded-full"
+              ></div>
+              <div
+                class="absolute -top-20 -left-20 w-40 h-40 bg-white opacity-10 rounded-full"
+              ></div>
             </div>
-            <h3 class="text-3xl font-semibold mb-6">Ngojol Truk</h3>
-            <p
-              class="text-gray-600 mb-12"
-              style="font-family: 'Arial', sans-serif"
-            >
-              Layanan pengantaran dengan menggunakan truk untuk mengantar apa
-              saja yang berukuran besar dan banyak, kapan saja dengan aman dan
-              mudah.
-            </p>
           </div>
 
-          <!-- Card 3 -->
-          <div class="flex flex-col items-center text-center mt-16 mb-16">
+          <!-- Service Card 3 -->
+          <div
+            class="relative overflow-hidden rounded-3xl shadow-lg group"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="300"
+          >
+            <!-- Card Background -->
             <div
-              class="bg-cyan-500 w-24 h-24 rounded-full flex items-center justify-center mb-6"
+              class="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600 opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+            ></div>
+
+            <!-- Card Content -->
+            <div
+              class="relative p-8 flex flex-col items-center text-center min-h-[400px]"
             >
-              <i class="fas fa-motorcycle text-5xl text-white"></i>
+              <div
+                class="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500"
+              >
+                <i class="fas fa-motorcycle text-4xl text-white"></i>
+              </div>
+
+              <h3 class="text-2xl font-display font-bold mb-4 text-white">
+                Ngojol Motor
+              </h3>
+
+              <p class="text-white/90 mb-8">
+                Layanan transportasi dengan menggunakan motor untuk menghadapi
+                kemacetan. Pergi ke lokasi tujuanmu dengan cepat dan aman.
+              </p>
+
+              <div class="mt-auto">
+                <button
+                  class="px-6 py-3 bg-white text-primary-600 font-medium rounded-full hover:bg-opacity-90 transition-all duration-300 shadow-lg transform group-hover:translate-y-0 translate-y-2 opacity-0 group-hover:opacity-100"
+                >
+                  Pesan Sekarang
+                </button>
+              </div>
+
+              <!-- Decorative Elements -->
+              <div
+                class="absolute -bottom-10 -right-10 w-40 h-40 bg-white opacity-10 rounded-full"
+              ></div>
+              <div
+                class="absolute -top-20 -left-20 w-40 h-40 bg-white opacity-10 rounded-full"
+              ></div>
             </div>
-            <h3 class="text-3xl font-semibold mb-6">Ngojol Motor</h3>
-            <p
-              class="text-gray-600 mb-12"
-              style="font-family: 'Arial', sans-serif"
-            >
-              Layanan transportasi dengan menggunakan motor untuk menghadapi
-              kemacetan. Pergi ke lokasi tujuanmu dengan cepat dan aman.
-            </p>
           </div>
 
-          <!-- Card 4 -->
-          <div class="flex flex-col items-center text-center mt-16 mb-16">
+          <!-- Service Card 4 -->
+          <div
+            class="relative overflow-hidden rounded-3xl shadow-lg group"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="400"
+          >
+            <!-- Card Background -->
             <div
-              class="bg-cyan-500 w-24 h-24 rounded-full flex items-center justify-center mb-6"
+              class="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600 opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+            ></div>
+
+            <!-- Card Content -->
+            <div
+              class="relative p-8 flex flex-col items-center text-center min-h-[400px]"
             >
-              <i class="fas fa-car text-5xl text-white"></i>
+              <div
+                class="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500"
+              >
+                <i class="fas fa-car text-4xl text-white"></i>
+              </div>
+
+              <h3 class="text-2xl font-display font-bold mb-4 text-white">
+                Ngojol Mobil
+              </h3>
+
+              <p class="text-white/90 mb-8">
+                Layanan transportasi dengan menggunakan mobil untuk menyajikan
+                kenyamanan dan gaya. Pergi ke lokasi tujuanmu dengan aman dan
+                nyaman.
+              </p>
+
+              <div class="mt-auto">
+                <button
+                  class="px-6 py-3 bg-white text-primary-600 font-medium rounded-full hover:bg-opacity-90 transition-all duration-300 shadow-lg transform group-hover:translate-y-0 translate-y-2 opacity-0 group-hover:opacity-100"
+                >
+                  Pesan Sekarang
+                </button>
+              </div>
+
+              <!-- Decorative Elements -->
+              <div
+                class="absolute -bottom-10 -right-10 w-40 h-40 bg-white opacity-10 rounded-full"
+              ></div>
+              <div
+                class="absolute -top-20 -left-20 w-40 h-40 bg-white opacity-10 rounded-full"
+              ></div>
             </div>
-            <h3 class="text-3xl font-semibold mb-6">Ngojol Mobil</h3>
-            <p
-              class="text-gray-600 mb-12"
-              style="font-family: 'Arial', sans-serif"
-            >
-              Layanan transportasi dengan menggunakan mobil untuk menyajikan
-              kenyamanan dan gaya. Pergi ke lokasi tujuanmu dengan aman dan
-              nyaman.
-            </p>
-            r
           </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div
+          class="mt-16 text-center"
+          data-aos="fade-up"
+          data-aos-duration="800"
+        >
+          <a
+            href="#download"
+            class="inline-flex items-center px-8 py-4 bg-primary-500 text-white font-medium rounded-full hover:bg-primary-600 transition-all duration-300 shadow-lg"
+          >
+            <i class="fas fa-download mr-2"></i>
+            <span>Download Aplikasi Untuk Memesan</span>
+          </a>
         </div>
       </div>
     </section>
     <!-- End Layanan Section -->
 
-    <!-- Review Ngojol -->
+    <!-- Review Section -->
     <section
-      class="py-24 bg-gradient-to-b from-white to-gray-50 border-t border-gray-200"
+      class="py-20 relative overflow-hidden section-transition"
       id="review"
     >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h3 class="text-4xl font-bold text-center text-gray-800 mb-4">
-          Review Pelanggan
-        </h3>
-        <p
-          class="text-xl text-center text-gray-600 mb-10"
-          style="font-family: 'Arial', sans-serif"
+      <!-- Background with gradient and pattern -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100"
+      ></div>
+      <div
+        class="absolute inset-0 opacity-5"
+        style="
+          background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2V6h4V4H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        "
+      ></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="text-center mb-16"
+          data-aos="fade-up"
+          data-aos-duration="800"
         >
-          Apa kata mereka tentang layanan kami?
-        </p>
+          <span
+            class="inline-block px-4 py-2 bg-primary-50 text-primary-600 rounded-full text-sm font-medium mb-4"
+            >Testimonial</span
+          >
+          <h3
+            class="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-4"
+          >
+            Review Pelanggan
+          </h3>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Apa kata mereka tentang layanan kami?
+          </p>
+        </div>
 
         <!-- Testimonial Slider Container -->
-        <div class="relative max-w-5xl mx-auto">
-          <!-- Slider wrapper -->
-          <div class="overflow-hidden rounded-xl">
+        <div
+          class="relative max-w-5xl mx-auto"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
+          <!-- Slider wrapper with glassmorphism effect -->
+          <div class="overflow-hidden rounded-3xl shadow-xl">
             <div
               class="flex transition-transform duration-500 ease-in-out"
               id="testimonialsSlider"
             >
               <!-- Testimonial 1 -->
-              <div class="min-w-full md:w-1/3 px-2">
+              <div class="min-w-full md:min-w-[50%] lg:min-w-[33.333%] p-2">
                 <div
-                  class="bg-white rounded-xl shadow-lg p-6 h-full border border-gray-100 hover:shadow-2xl hover:border-cyan-100 transition-all duration-300 transform hover:-translate-y-2"
+                  class="glass bg-white bg-opacity-70 backdrop-blur-lg rounded-2xl shadow-lg p-8 h-full border border-white border-opacity-20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col"
                 >
-                  <div class="flex flex-col items-center text-center">
-                    <div class="w-20 h-20 mb-4 relative">
+                  <div class="flex items-center mb-6">
+                    <div class="relative">
                       <div
-                        class="absolute inset-0 bg-cyan-500 rounded-full opacity-20 animate-pulse"
-                      ></div>
-                      <img
-                        src="img/costumer/cowo1.jpg"
-                        alt="Budi Santoso"
-                        class="w-20 h-20 rounded-full object-cover border-3 border-cyan-500 p-1 bg-white relative z-10"
-                      />
+                        class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary-500"
+                      >
+                        <img
+                          src="img/costumer/cowo1.jpg"
+                          alt="Budi Santoso"
+                          class="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div
+                        class="absolute bottom-0 right-0 bg-primary-500 text-white w-6 h-6 rounded-full flex items-center justify-center"
+                      >
+                        <i class="fas fa-check text-xs"></i>
+                      </div>
                     </div>
-                    <h3 class="text-xl font-semibold mb-1 text-gray-800">
-                      Budi
-                    </h3>
-                    <div class="flex mb-2">
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
+                    <div class="ml-4">
+                      <h3 class="text-xl font-semibold mb-1 text-gray-800">
+                        Budi
+                      </h3>
+                      <div class="flex">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                      </div>
                     </div>
-                    <p
-                      class="text-gray-600 leading-snug text-sm"
-                      style="font-family: 'Arial', sans-serif"
-                    >
-                      <i
-                        class="fas fa-quote-left text-cyan-400 mr-1 opacity-50"
-                      ></i>
-                      Layanan yang sangat cepat dan aman. Saya sangat puas
-                      dengan pengantaran yang dilakukan oleh Ngojol Express.
-                      <i
-                        class="fas fa-quote-right text-cyan-400 ml-1 opacity-50"
-                      ></i>
-                    </p>
+                  </div>
+
+                  <p class="text-gray-600 leading-relaxed italic mb-6">
+                    "Layanan yang sangat cepat dan aman. Saya sangat puas dengan
+                    pengantaran yang dilakukan oleh Ngojol Express. Driver
+                    sangat profesional dan tepat waktu."
+                  </p>
+
+                  <div class="mt-auto flex items-center">
                     <div
-                      class="mt-3 px-3 py-1 bg-cyan-50 rounded-full text-cyan-600 text-xs font-medium"
+                      class="bg-primary-50 px-3 py-1 rounded-full text-primary-600 text-xs font-medium flex items-center"
                     >
                       <i class="fas fa-check-circle mr-1"></i> Ngojol Express
+                    </div>
+                    <div class="ml-auto text-gray-400 text-sm">
+                      2 hari yang lalu
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- Testimonial 2 -->
-              <div class="min-w-full md:w-1/3 px-2">
+              <div class="min-w-full md:min-w-[50%] lg:min-w-[33.333%] p-2">
                 <div
-                  class="bg-white rounded-xl shadow-lg p-6 h-full border border-gray-100 hover:shadow-2xl hover:border-cyan-100 transition-all duration-300 transform hover:-translate-y-2"
+                  class="glass bg-white bg-opacity-70 backdrop-blur-lg rounded-2xl shadow-lg p-8 h-full border border-white border-opacity-20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col"
                 >
-                  <div class="flex flex-col items-center text-center">
-                    <div class="w-20 h-20 mb-4 relative">
+                  <div class="flex items-center mb-6">
+                    <div class="relative">
                       <div
-                        class="absolute inset-0 bg-cyan-500 rounded-full opacity-20 animate-pulse"
-                      ></div>
-                      <img
-                        src="img/costumer/cewe1.jpg"
-                        alt="Siti Aminah"
-                        class="w-20 h-20 rounded-full object-cover border-3 border-cyan-500 p-1 bg-white relative z-10"
-                      />
+                        class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary-500"
+                      >
+                        <img
+                          src="img/costumer/cewe1.jpg"
+                          alt="Siti Aminah"
+                          class="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div
+                        class="absolute bottom-0 right-0 bg-primary-500 text-white w-6 h-6 rounded-full flex items-center justify-center"
+                      >
+                        <i class="fas fa-check text-xs"></i>
+                      </div>
                     </div>
-                    <h3 class="text-xl font-semibold mb-1 text-gray-800">
-                      Siti Aminah
-                    </h3>
-                    <div class="flex mb-2">
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
+                    <div class="ml-4">
+                      <h3 class="text-xl font-semibold mb-1 text-gray-800">
+                        Siti Aminah
+                      </h3>
+                      <div class="flex">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                      </div>
                     </div>
-                    <p
-                      class="text-gray-600 leading-snug text-sm"
-                      style="font-family: 'Arial', sans-serif"
-                    >
-                      <i
-                        class="fas fa-quote-left text-cyan-400 mr-1 opacity-50"
-                      ></i>
-                      Pengalaman yang luar biasa dengan Ngojol Truk. Barang
-                      besar saya sampai dengan aman dan tepat waktu.
-                      <i
-                        class="fas fa-quote-right text-cyan-400 ml-1 opacity-50"
-                      ></i>
-                    </p>
+                  </div>
+
+                  <p class="text-gray-600 leading-relaxed italic mb-6">
+                    "Pengalaman yang luar biasa dengan Ngojol Truk. Barang besar
+                    saya sampai dengan aman dan tepat waktu. Harga juga sangat
+                    terjangkau!"
+                  </p>
+
+                  <div class="mt-auto flex items-center">
                     <div
-                      class="mt-3 px-3 py-1 bg-cyan-50 rounded-full text-cyan-600 text-xs font-medium"
+                      class="bg-primary-50 px-3 py-1 rounded-full text-primary-600 text-xs font-medium flex items-center"
                     >
                       <i class="fas fa-truck mr-1"></i> Ngojol Truk
+                    </div>
+                    <div class="ml-auto text-gray-400 text-sm">
+                      1 minggu yang lalu
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- Testimonial 3 -->
-              <div class="min-w-full md:w-1/3 px-2">
+              <div class="min-w-full md:min-w-[50%] lg:min-w-[33.333%] p-2">
                 <div
-                  class="bg-white rounded-xl shadow-lg p-6 h-full border border-gray-100 hover:shadow-2xl hover:border-cyan-100 transition-all duration-300 transform hover:-translate-y-2"
+                  class="glass bg-white bg-opacity-70 backdrop-blur-lg rounded-2xl shadow-lg p-8 h-full border border-white border-opacity-20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col"
                 >
-                  <div class="flex flex-col items-center text-center">
-                    <div class="w-20 h-20 mb-4 relative">
+                  <div class="flex items-center mb-6">
+                    <div class="relative">
                       <div
-                        class="absolute inset-0 bg-cyan-500 rounded-full opacity-20 animate-pulse"
-                      ></div>
-                      <img
-                        src="img/costumer/cowo2.jpg"
-                        alt="Andi Wijaya"
-                        class="w-20 h-20 rounded-full object-cover border-3 border-cyan-500 p-1 bg-white relative z-10"
-                      />
+                        class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary-500"
+                      >
+                        <img
+                          src="img/costumer/cowo2.jpg"
+                          alt="Andi Wijaya"
+                          class="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div
+                        class="absolute bottom-0 right-0 bg-primary-500 text-white w-6 h-6 rounded-full flex items-center justify-center"
+                      >
+                        <i class="fas fa-check text-xs"></i>
+                      </div>
                     </div>
-                    <h3 class="text-xl font-semibold mb-1 text-gray-800">
-                      Andi Wijaya
-                    </h3>
-                    <div class="flex mb-2">
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
+                    <div class="ml-4">
+                      <h3 class="text-xl font-semibold mb-1 text-gray-800">
+                        Andi Wijaya
+                      </h3>
+                      <div class="flex">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                      </div>
                     </div>
-                    <p
-                      class="text-gray-600 leading-snug text-sm"
-                      style="font-family: 'Arial', sans-serif"
-                    >
-                      <i
-                        class="fas fa-quote-left text-cyan-400 mr-1 opacity-50"
-                      ></i>
-                      Ngojol Motor adalah solusi terbaik untuk menghindari
-                      kemacetan. Sangat cepat dan efisien!
-                      <i
-                        class="fas fa-quote-right text-cyan-400 ml-1 opacity-50"
-                      ></i>
-                    </p>
+                  </div>
+
+                  <p class="text-gray-600 leading-relaxed italic mb-6">
+                    "Ngojol Motor adalah solusi terbaik untuk menghindari
+                    kemacetan. Sangat cepat dan efisien! Saya selalu
+                    menggunakannya untuk perjalanan ke kantor."
+                  </p>
+
+                  <div class="mt-auto flex items-center">
                     <div
-                      class="mt-3 px-3 py-1 bg-cyan-50 rounded-full text-cyan-600 text-xs font-medium"
+                      class="bg-primary-50 px-3 py-1 rounded-full text-primary-600 text-xs font-medium flex items-center"
                     >
                       <i class="fas fa-motorcycle mr-1"></i> Ngojol Motor
+                    </div>
+                    <div class="ml-auto text-gray-400 text-sm">
+                      3 hari yang lalu
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- Testimonial 4 -->
-              <div class="min-w-full md:w-1/3 px-2">
+              <div class="min-w-full md:min-w-[50%] lg:min-w-[33.333%] p-2">
                 <div
-                  class="bg-white rounded-xl shadow-lg p-6 h-full border border-gray-100 hover:shadow-2xl hover:border-cyan-100 transition-all duration-300 transform hover:-translate-y-2"
+                  class="glass bg-white bg-opacity-70 backdrop-blur-lg rounded-2xl shadow-lg p-8 h-full border border-white border-opacity-20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col"
                 >
-                  <div class="flex flex-col items-center text-center">
-                    <div class="w-20 h-20 mb-4 relative">
+                  <div class="flex items-center mb-6">
+                    <div class="relative">
                       <div
-                        class="absolute inset-0 bg-cyan-500 rounded-full opacity-20 animate-pulse"
-                      ></div>
-                      <img
-                        src="img/costumer/cewe2.jpg"
-                        alt="Dewi Lestari"
-                        class="w-20 h-20 rounded-full object-cover border-3 border-cyan-500 p-1 bg-white relative z-10"
-                      />
+                        class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary-500"
+                      >
+                        <img
+                          src="img/costumer/cewe2.jpg"
+                          alt="Dewi Lestari"
+                          class="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div
+                        class="absolute bottom-0 right-0 bg-primary-500 text-white w-6 h-6 rounded-full flex items-center justify-center"
+                      >
+                        <i class="fas fa-check text-xs"></i>
+                      </div>
                     </div>
-                    <h3 class="text-xl font-semibold mb-1 text-gray-800">
-                      Dewi Lestari
-                    </h3>
-                    <div class="flex mb-2">
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
+                    <div class="ml-4">
+                      <h3 class="text-xl font-semibold mb-1 text-gray-800">
+                        Dewi Lestari
+                      </h3>
+                      <div class="flex">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                      </div>
                     </div>
-                    <p class="text-gray-600 leading-snug text-sm">
-                      <i
-                        class="fas fa-quote-left text-cyan-400 mr-1 opacity-50"
-                      ></i>
-                      Menggunakan Ngojol Mobil sangat nyaman dan aman. Saya
-                      sangat merekomendasikannya!
-                      <i
-                        class="fas fa-quote-right text-cyan-400 ml-1 opacity-50"
-                      ></i>
-                    </p>
+                  </div>
+
+                  <p class="text-gray-600 leading-relaxed italic mb-6">
+                    "Menggunakan Ngojol Mobil sangat nyaman dan aman. Driver
+                    ramah dan mobil bersih. Saya sangat merekomendasikannya
+                    untuk perjalanan keluarga!"
+                  </p>
+
+                  <div class="mt-auto flex items-center">
                     <div
-                      class="mt-3 px-3 py-1 bg-cyan-50 rounded-full text-cyan-600 text-xs font-medium"
+                      class="bg-primary-50 px-3 py-1 rounded-full text-primary-600 text-xs font-medium flex items-center"
                     >
                       <i class="fas fa-car mr-1"></i> Ngojol Mobil
                     </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Testimonial 5 -->
-              <div class="min-w-full md:w-1/3 px-2">
-                <div
-                  class="bg-white rounded-xl shadow-lg p-6 h-full border border-gray-100 hover:shadow-2xl hover:border-cyan-100 transition-all duration-300 transform hover:-translate-y-2"
-                >
-                  <div class="flex flex-col items-center text-center">
-                    <div class="w-20 h-20 mb-4 relative">
-                      <div
-                        class="absolute inset-0 bg-cyan-500 rounded-full opacity-20 animate-pulse"
-                      ></div>
-                      <img
-                        src="img/costumer/cowo3.jpg"
-                        alt="Agus Pratama"
-                        class="w-20 h-20 rounded-full object-cover border-3 border-cyan-500 p-1 bg-white relative z-10"
-                      />
-                    </div>
-                    <h3 class="text-xl font-semibold mb-1 text-gray-800">
-                      Agus Pratama
-                    </h3>
-                    <div class="flex mb-2">
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                    <p class="text-gray-600 leading-snug text-sm">
-                      <i
-                        class="fas fa-quote-left text-cyan-400 mr-1 opacity-50"
-                      ></i>
-                      Pelayanan yang sangat memuaskan, Ngojol Express selalu
-                      tepat waktu dan aman.
-                      <i
-                        class="fas fa-quote-right text-cyan-400 ml-1 opacity-50"
-                      ></i>
-                    </p>
-                    <div
-                      class="mt-3 px-3 py-1 bg-cyan-50 rounded-full text-cyan-600 text-xs font-medium"
-                    >
-                      <i class="fas fa-check-circle mr-1"></i> Ngojol Express
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Testimonial 6 -->
-              <div class="min-w-full md:w-1/3 px-2">
-                <div
-                  class="bg-white rounded-xl shadow-lg p-6 h-full border border-gray-100 hover:shadow-2xl hover:border-cyan-100 transition-all duration-300 transform hover:-translate-y-2"
-                >
-                  <div class="flex flex-col items-center text-center">
-                    <div class="w-20 h-20 mb-4 relative">
-                      <div
-                        class="absolute inset-0 bg-cyan-500 rounded-full opacity-20 animate-pulse"
-                      ></div>
-                      <img
-                        src="img/costumer/cewe3.jpg"
-                        alt="Rina Sari"
-                        class="w-20 h-20 rounded-full object-cover border-3 border-cyan-500 p-1 bg-white relative z-10"
-                      />
-                    </div>
-                    <h3 class="text-xl font-semibold mb-1 text-gray-800">
-                      Rina Sari
-                    </h3>
-                    <div class="flex mb-2">
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                      <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                    <p class="text-gray-600 leading-snug text-sm">
-                      <i
-                        class="fas fa-quote-left text-cyan-400 mr-1 opacity-50"
-                      ></i>
-                      Ngojol Truk sangat membantu dalam pengiriman barang besar
-                      saya. Sangat direkomendasikan!
-                      <i
-                        class="fas fa-quote-right text-cyan-400 ml-1 opacity-50"
-                      ></i>
-                    </p>
-                    <div
-                      class="mt-3 px-3 py-1 bg-cyan-50 rounded-full text-cyan-600 text-xs font-medium"
-                    >
-                      <i class="fas fa-truck mr-1"></i> Ngojol Truk
+                    <div class="ml-auto text-gray-400 text-sm">
+                      5 hari yang lalu
                     </div>
                   </div>
                 </div>
@@ -835,203 +1179,232 @@
           <!-- Navigation buttons -->
           <button
             id="prevButton"
-            class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg z-10 focus:outline-none transition-all duration-300 hover:scale-110"
+            class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white text-primary-600 rounded-full w-12 h-12 flex items-center justify-center shadow-lg z-10 focus:outline-none transition-all duration-300 hover:scale-110 hover:bg-primary-50"
+            aria-label="Previous testimonial"
           >
             <i class="fas fa-chevron-left"></i>
           </button>
           <button
             id="nextButton"
-            class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg z-10 focus:outline-none transition-all duration-300 hover:scale-110"
+            class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white text-primary-600 rounded-full w-12 h-12 flex items-center justify-center shadow-lg z-10 focus:outline-none transition-all duration-300 hover:scale-110 hover:bg-primary-50"
+            aria-label="Next testimonial"
           >
             <i class="fas fa-chevron-right"></i>
           </button>
 
           <!-- Pagination dots -->
-          <div class="flex justify-center mt-6">
-            <div class="pagination-dots flex space-x-2">
+          <div class="flex justify-center mt-8">
+            <div class="pagination-dots flex space-x-3">
               <!-- Dots will be added here by JavaScript -->
             </div>
           </div>
         </div>
 
-        <script>
-          document.addEventListener("DOMContentLoaded", function () {
-            const slider = document.getElementById("testimonialsSlider");
-            const prevButton = document.getElementById("prevButton");
-            const nextButton = document.getElementById("nextButton");
-            const paginationContainer =
-              document.querySelector(".pagination-dots");
-
-            const testimonials = slider.children;
-            const testimonialsCount = testimonials.length;
-            let currentIndex = 0;
-            let visibleSlides = 3;
-
-            // Initialize pagination dots
-            function createPaginationDots() {
-              paginationContainer.innerHTML = ""; // Clear existing dots
-              const totalGroups = Math.ceil(testimonialsCount / visibleSlides);
-
-              for (let i = 0; i < totalGroups; i++) {
-                const dot = document.createElement("button");
-                dot.classList.add(
-                  "w-3",
-                  "h-3",
-                  "rounded-full",
-                  "bg-gray-300",
-                  "focus:outline-none",
-                  "transition-all",
-                  "duration-300"
-                );
-                if (i === 0) {
-                  dot.classList.add("bg-cyan-500", "scale-110");
-                }
-                dot.addEventListener("click", () =>
-                  goToSlide(i * visibleSlides)
-                );
-                paginationContainer.appendChild(dot);
-              }
-            }
-
-            // Update active dot
-            function updateDots() {
-              const dots = paginationContainer.children;
-              const activeGroup = Math.floor(currentIndex / visibleSlides);
-
-              for (let i = 0; i < dots.length; i++) {
-                if (i === activeGroup) {
-                  dots[i].classList.remove("bg-gray-300", "scale-100");
-                  dots[i].classList.add("bg-cyan-500", "scale-110");
-                } else {
-                  dots[i].classList.remove("bg-cyan-500", "scale-110");
-                  dots[i].classList.add("bg-gray-300", "scale-100");
-                }
-              }
-            }
-
-            // Go to specific slide
-            function goToSlide(index) {
-              if (window.innerWidth >= 768) {
-                // For medium screens show 3 slides
-                visibleSlides = 3;
-              } else {
-                // For mobile show 1 slide
-                visibleSlides = 1;
-              }
-
-              // Make sure we don't go beyond the last valid index
-              const maxIndex = testimonialsCount - visibleSlides;
-              currentIndex = Math.min(Math.max(0, index), maxIndex);
-
-              // Calculate slide width based on container width and visible slides
-              const slideWidth =
-                slider.parentElement.clientWidth / visibleSlides;
-
-              // Apply the transform
-              slider.style.transform = `translateX(-${
-                currentIndex * slideWidth
-              }px)`;
-              updateDots();
-            }
-
-            // Handle resize
-            function handleResize() {
-              // Recalculate and apply the current slide position
-              goToSlide(currentIndex);
-            }
-
-            // Event listeners
-            prevButton.addEventListener("click", () => {
-              // Go back one group of slides
-              goToSlide(currentIndex - visibleSlides);
-            });
-
-            nextButton.addEventListener("click", () => {
-              // Go forward one group of slides
-              goToSlide(currentIndex + visibleSlides);
-            });
-
-            window.addEventListener("resize", handleResize);
-
-            // Initialize
-            createPaginationDots();
-            handleResize();
-
-            // Auto slide
-            let autoSlideInterval = setInterval(() => {
-              if (currentIndex >= testimonialsCount - visibleSlides) {
-                // If at the end, go back to the start
-                goToSlide(0);
-              } else {
-                // Go forward one group
-                goToSlide(currentIndex + visibleSlides);
-              }
-            }, 5000);
-
-            // Pause auto-slide on hover
-            const sliderContainer = document.querySelector(
-              ".relative.max-w-5xl"
-            );
-            sliderContainer.addEventListener("mouseenter", () => {
-              clearInterval(autoSlideInterval);
-            });
-
-            sliderContainer.addEventListener("mouseleave", () => {
-              autoSlideInterval = setInterval(() => {
-                if (currentIndex >= testimonialsCount - visibleSlides) {
-                  // If at the end, go back to the start
-                  goToSlide(0);
-                } else {
-                  // Go forward one group
-                  goToSlide(currentIndex + visibleSlides);
-                }
-              }, 5000);
-            });
-          });
-        </script>
+        <!-- Call to Action -->
+        <div
+          class="mt-16 text-center"
+          data-aos="fade-up"
+          data-aos-duration="800"
+        >
+          <a
+            href="pendaftaran-driver-baru.html"
+            class="inline-flex items-center px-8 py-4 bg-primary-500 text-white font-medium rounded-full hover:bg-primary-600 transition-all duration-300 shadow-lg"
+          >
+            <i class="fas fa-user-plus mr-2"></i>
+            <span>Bergabung Sebagai Driver</span>
+          </a>
+        </div>
       </div>
     </section>
     <!-- End Review Section -->
 
     <!-- Download App Section -->
-    <section class="py-20 bg-cyan-500 border-t border-gray-200" id="download">
-      <div class="container mx-auto px-4 mb-10">
+    <section
+      class="py-20 relative overflow-hidden section-transition"
+      id="download"
+    >
+      <!-- Background with animated gradient -->
+      <div class="absolute inset-0 animated-gradient"></div>
+
+      <!-- Decorative shapes -->
+      <div class="absolute inset-0 overflow-hidden">
         <div
-          class="flex flex-col md:flex-row items-center justify-center md:justify-between"
+          class="absolute top-20 right-10 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"
+        ></div>
+        <div
+          class="absolute bottom-20 left-10 w-80 h-80 bg-white opacity-10 rounded-full blur-3xl"
+        ></div>
+      </div>
+
+      <div class="relative container mx-auto px-6">
+        <div
+          class="flex flex-col lg:flex-row items-center justify-between gap-12"
         >
-          <div class="w-full md:w-2/4 lg:w-3/4 mt-8">
-            <img
-              src="img/maps-ngojol.png"
-              alt="aplikasi-ngojol"
-              class="w-full max-w-md mx-auto transform hover:scale-105 transition duration-500 rounded-3xl shadow-2xl"
-            />
-          </div>
+          <!-- Text Content -->
           <div
-            class="text-left mb-8 md:mb-0 md:w-1/2 lg:w-3/5"
-            id="download-section"
+            class="w-full lg:w-1/2"
+            data-aos="fade-right"
+            data-aos-duration="1000"
           >
-            <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">
-              Download Aplikasi Kami
-            </h2>
-            <p class="text-lg text-white mb-6">
-              Dapatkan pengalaman terbaik dengan aplikasi kami yang mudah
-              digunakan dan cepat.
-            </p>
-            <div class="flex justify-start space-x-4" id="download-section">
-              <a href="https://play.google.com/store" target="_blank">
+            <div class="max-w-lg">
+              <span
+                class="inline-block px-4 py-2 bg-white bg-opacity-20 backdrop-blur-sm text-white rounded-full text-sm font-medium mb-4"
+              >
+                Mobile App
+              </span>
+              <h2
+                class="text-3xl md:text-5xl font-display font-bold text-white mb-6"
+              >
+                Download Aplikasi Kami
+              </h2>
+              <p class="text-xl text-white opacity-90 mb-8">
+                Dapatkan pengalaman terbaik dengan aplikasi kami yang mudah
+                digunakan, cepat, dan aman. Pesan layanan hanya dengan beberapa
+                klik.
+              </p>
+
+              <div
+                class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+              >
+                <!-- Google Play Button -->
+                <a
+                  href="https://play.google.com/store"
+                  target="_blank"
+                  class="glass flex items-center px-6 py-3 rounded-xl hover:bg-white hover:bg-opacity-10 transition-all duration-300 group"
+                >
+                  <div class="mr-4">
+                    <i class="fab fa-google-play text-3xl text-white"></i>
+                  </div>
+                  <div>
+                    <div class="text-sm text-white opacity-80">GET IT ON</div>
+                    <div class="text-lg font-semibold text-white">
+                      Google Play
+                    </div>
+                  </div>
+                </a>
+
+                <!-- App Store Button -->
+                <a
+                  href="https://www.apple.com/app-store/"
+                  target="_blank"
+                  class="glass flex items-center px-6 py-3 rounded-xl hover:bg-white hover:bg-opacity-10 transition-all duration-300 group"
+                >
+                  <div class="mr-4">
+                    <i class="fab fa-apple text-3xl text-white"></i>
+                  </div>
+                  <div>
+                    <div class="text-xs text-white opacity-80">
+                      Download on the
+                    </div>
+                    <div class="text-sm font-semibold text-white">
+                      App Store
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- Features -->
+              <div class="mt-12 grid grid-cols-2 gap-6">
+                <div class="flex items-center">
+                  <div
+                    class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center"
+                  >
+                    <i class="fas fa-bolt text-white"></i>
+                  </div>
+                  <span class="ml-3 text-white">Pemesanan Cepat</span>
+                </div>
+                <div class="flex items-center">
+                  <div
+                    class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center"
+                  >
+                    <i class="fas fa-map-marker-alt text-white"></i>
+                  </div>
+                  <span class="ml-3 text-white">GPS Tracking</span>
+                </div>
+                <div class="flex items-center">
+                  <div
+                    class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center"
+                  >
+                    <i class="fas fa-lock text-white"></i>
+                  </div>
+                  <span class="ml-3 text-white">Pembayaran Aman</span>
+                </div>
+                <div class="flex items-center">
+                  <div
+                    class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center"
+                  >
+                    <i class="fas fa-headset text-white"></i>
+                  </div>
+                  <span class="ml-3 text-white">24/7 Support</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- App Screenshots -->
+          <div
+            class="w-full lg:w-1/2 relative"
+            data-aos="fade-left"
+            data-aos-duration="1000"
+          >
+            <!-- Main App Screenshot with Glassmorphism Frame -->
+            <div class="relative mx-auto w-72 h-[36rem]">
+              <!-- Phone Outer Frame -->
+              <div
+                class="absolute inset-0 glass rounded-[3rem] shadow-xl border border-white border-opacity-20"
+              ></div>
+
+              <!-- Phone Inner Frame -->
+              <div class="absolute inset-2 rounded-[2.8rem] overflow-hidden">
                 <img
-                  src="img/playstore-logo.png"
-                  alt="playstore"
-                  class="h-20 transition-transform duration-300 hover:scale-110"
+                  src="img/maps-ngojol.png"
+                  alt="aplikasi-ngojol"
+                  class="w-full h-full object-cover"
                 />
-              </a>
-              <a href="https://www.apple.com/app-store/" target="_blank">
-                <img
-                  src="img/appstore-logo.png"
-                  alt="appstore"
-                  class="h-20 transition-transform duration-300 hover:scale-110"
-                />
-              </a>
+              </div>
+
+              <!-- Phone Notch -->
+              <div
+                class="absolute top-3 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-full"
+              ></div>
+
+              <!-- Floating Elements -->
+              <div
+                class="absolute -top-8 -right-8 w-24 h-24 bg-primary-400 rounded-full opacity-60 blur-md float-animation"
+              ></div>
+              <div
+                class="absolute -bottom-4 -left-4 w-20 h-20 bg-secondary-400 rounded-full opacity-60 blur-md float-animation"
+                style="animation-delay: -2s"
+              ></div>
+            </div>
+
+            <!-- Feature Highlights -->
+            <div
+              class="absolute -left-16 top-1/4 glass rounded-xl p-3 shadow-lg transform -rotate-6 float-animation"
+              style="animation-delay: -1s"
+            >
+              <div class="flex items-center space-x-2">
+                <div
+                  class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center"
+                >
+                  <i class="fas fa-star text-white text-xs"></i>
+                </div>
+                <div class="text-white text-sm">Rating 4.9/5</div>
+              </div>
+            </div>
+
+            <div
+              class="absolute -right-16 top-2/3 glass rounded-xl p-3 shadow-lg transform rotate-6 float-animation"
+              style="animation-delay: -3s"
+            >
+              <div class="flex items-center space-x-2">
+                <div
+                  class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center"
+                >
+                  <i class="fas fa-download text-white text-xs"></i>
+                </div>
+                <div class="text-white text-sm">1M+ Downloads</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1040,7 +1413,10 @@
     <!-- End Download App Section -->
 
     <!-- Kalkulator Biaya Section -->
-    <section class="py-16 bg-white border-t border-gray-200" id="kalkulator">
+    <section
+      class="py-16 bg-white border-t border-gray-200 section-transition"
+      id="kalkulator"
+    >
       <div class="max-w-6xl mx-auto px-4">
         <h2 class="text-4xl font-bold text-center text-gray-800 mb-6">
           Kalkulator Biaya
@@ -1185,196 +1561,182 @@
       </div>
     </section>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const calculateBtn = document.getElementById("calculate-btn");
-        const resultContainer = document.getElementById("result-container");
-        const emptyResult = document.getElementById("empty-result");
-        const weightFeeContainer = document.getElementById(
-          "weight-fee-container"
-        );
-
-        calculateBtn.addEventListener("click", function () {
-          // Get input values
-          const serviceType = document.getElementById("service-type").value;
-          const distance =
-            parseFloat(document.getElementById("distance").value) || 0;
-          const weight =
-            parseFloat(document.getElementById("weight").value) || 0;
-
-          if (distance <= 0) {
-            alert("Mohon masukkan jarak yang valid");
-            return;
-          }
-
-          // Base rates
-          const baseRates = {
-            motor: 5000,
-            car: 10000,
-            express: 7000,
-            truck: 25000,
-          };
-
-          // Per km rates
-          const kmRates = {
-            motor: 2000,
-            car: 3500,
-            express: 2500,
-            truck: 5000,
-          };
-
-          // Weight rates (per kg)
-          const weightRates = {
-            express: 1000,
-            truck: 500,
-          };
-
-          // Calculate fees
-          const baseFee = baseRates[serviceType];
-          const distanceFee = kmRates[serviceType] * distance;
-          let weightFee = 0;
-
-          if (
-            (serviceType === "express" || serviceType === "truck") &&
-            weight > 0
-          ) {
-            weightFee = weightRates[serviceType] * weight;
-            weightFeeContainer.classList.remove("hidden");
-          } else {
-            weightFeeContainer.classList.add("hidden");
-          }
-
-          const totalFee = baseFee + distanceFee + weightFee;
-
-          // Format currency
-          const formatter = new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR",
-            maximumFractionDigits: 0,
-          });
-
-          // Update UI
-          document.getElementById("base-fee").textContent =
-            formatter.format(baseFee);
-          document.getElementById("distance-fee").textContent =
-            formatter.format(distanceFee);
-          document.getElementById("weight-fee").textContent =
-            formatter.format(weightFee);
-          document.getElementById("total-fee").textContent =
-            formatter.format(totalFee);
-
-          // Show result
-          resultContainer.classList.remove("hidden");
-          emptyResult.classList.add("hidden");
-        });
-      });
-    </script>
     <!-- End Kalkulator Biaya Section -->
 
     <!-- Portofolio Partner -->
-    <section class="py-20 bg-white border-t border-gray-200" id="partner">
-      <div class="container mx-auto px-2 mb-5">
-        <div class="py-4">
-          <h2 class="text-5xl font-bold text-center text-gray-800 mb-7">
+    <section
+      class="py-12 md:py-16 bg-gradient-to-b from-white to-gray-50 border-t border-gray-200 section-transition"
+      id="partner"
+    >
+      <div class="container mx-auto px-4">
+        <div class="mb-12 max-w-3xl mx-auto text-center">
+          <span
+            class="inline-block px-4 py-1 bg-primary-50 text-primary-600 rounded-full text-sm font-medium mb-3"
+            >Trusted By</span
+          >
+          <h2
+            class="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-4"
+          >
             Portofolio Partner
           </h2>
-          <p class="text-xl text-center text-gray-600 mb-8">
+          <p class="text-lg text-center text-gray-600">
             Kami bekerja sama dengan berbagai perusahaan untuk memberikan
             layanan terbaik.
           </p>
         </div>
+
         <div
-          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center items-center"
+          class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6 max-w-6xl mx-auto"
         >
           <!-- Partner 1 -->
-          <div class="bg-gray-100 p-4 rounded-lg shadow-md max-w-xs mx-auto">
-            <a href="https://www.tokopedia.com" target="_blank">
+          <div
+            class="group bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center h-28 sm:h-36 relative overflow-hidden border border-gray-100"
+          >
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <a
+              href="https://www.tokopedia.com"
+              target="_blank"
+              class="w-full h-full flex items-center justify-center relative z-10"
+            >
               <img
                 src="https://logowik.com/content/uploads/images/tokopedia2167.jpg/"
                 alt="tokopedia"
-                class="w-full max-w-xs mx-auto transform hover:scale-105 transition duration-500 rounded-lg shadow-md"
+                class="max-h-[80%] max-w-[80%] object-contain transform group-hover:scale-110 transition-transform duration-500"
               />
             </a>
           </div>
           <!-- Partner 2 -->
-          <div class="bg-gray-100 p-4 rounded-lg shadow md max-w-xss mx-auto">
-            <a href="https://www.shopee.co.id" target="_blank">
+          <div
+            class="group bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center h-28 sm:h-36 relative overflow-hidden border border-gray-100"
+          >
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <a
+              href="https://www.shopee.co.id"
+              target="_blank"
+              class="w-full h-full flex items-center justify-center relative z-10"
+            >
               <img
                 src="https://logowik.com/content/uploads/images/shopee1950.jpg/"
                 alt="Shopee"
-                class="w-full max-w-xss mx-auto transform hover:scale-105 transition duration-500 rounded-lg shadow-md"
+                class="max-h-[80%] max-w-[80%] object-contain transform group-hover:scale-110 transition-transform duration-500"
               />
             </a>
           </div>
           <!-- Partner 3 -->
           <div
-            class="bg-gray-100 p-4 rounded-lg shadow-md md max-w-xss mx-auto"
+            class="group bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center h-28 sm:h-36 relative overflow-hidden border border-gray-100"
           >
-            <a href="https://www.bukalapak.com" target="_blank">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <a
+              href="https://www.bukalapak.com"
+              target="_blank"
+              class="w-full h-full flex items-center justify-center relative z-10"
+            >
               <img
                 src="https://logowik.com/content/uploads/images/bukalapak1445.jpg"
                 alt="Bukalapak"
-                class="w-full max-w-xss mx-auto transform hover:scale-105 transition duration-500 rounded-lg shadow-md"
+                class="max-h-[80%] max-w-[80%] object-contain transform group-hover:scale-110 transition-transform duration-500"
               />
             </a>
           </div>
           <!-- Partner 4 -->
           <div
-            class="bg-gray-100 p-4 rounded-lg shadow-md md max-w-xss mx-auto"
+            class="group bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center h-28 sm:h-36 relative overflow-hidden border border-gray-100"
           >
-            <a href="https://www.lazada.co.id" target="_blank">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <a
+              href="https://www.lazada.co.id"
+              target="_blank"
+              class="w-full h-full flex items-center justify-center relative z-10"
+            >
               <img
                 src="https://logowik.com/content/uploads/images/lazada3460.jpg"
                 alt="Lazada"
-                class="w-full max-w-xss mx-auto transform hover:scale-105 transition duration-500 rounded-lg shadow-md"
+                class="max-h-[80%] max-w-[80%] object-contain transform group-hover:scale-110 transition-transform duration-500"
               />
             </a>
           </div>
           <!-- Partner 5 -->
           <div
-            class="bg-gray-100 p-4 rounded-lg shadow-md md max-w-xss mx-auto"
+            class="group bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center h-28 sm:h-36 relative overflow-hidden border border-gray-100"
           >
-            <a href="https://www.tiktok.com" target="_blank">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <a
+              href="https://www.tiktok.com"
+              target="_blank"
+              class="w-full h-full flex items-center justify-center relative z-10"
+            >
               <img
                 src="https://logowik.com/content/uploads/images/tiktok-shop7845.logowik.com.webp"
                 alt="Tiktok Shop"
-                class="w-full max-w-xss mx-auto transform hover:scale-105 transition duration-500 rounded-lg shadow-md"
+                class="max-h-[80%] max-w-[80%] object-contain transform group-hover:scale-110 transition-transform duration-500"
               />
             </a>
           </div>
           <!-- Partner 6 -->
           <div
-            class="bg-gray-100 p-4 rounded-lg shadow-md md max-w-xss mx-auto"
+            class="group bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center h-28 sm:h-36 relative overflow-hidden border border-gray-100"
           >
-            <a href="https://www.blibli.com" target="_blank">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <a
+              href="https://www.blibli.com"
+              target="_blank"
+              class="w-full h-full flex items-center justify-center relative z-10"
+            >
               <img
                 src="https://logowik.com/content/uploads/images/bliblicom1753.jpg"
                 alt="BliBli"
-                class="w-full max-w-xss mx-auto transform hover:scale-105 transition duration-500 rounded-lg shadow-md"
+                class="max-h-[80%] max-w-[80%] object-contain transform group-hover:scale-110 transition-transform duration-500"
               />
             </a>
           </div>
           <!-- Partner 7 -->
           <div
-            class="bg-gray-100 p-4 rounded-lg shadow-md md max-w-xss mx-auto"
+            class="group bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center h-28 sm:h-36 relative overflow-hidden border border-gray-100"
           >
-            <a href="https://www.zalora.co.id" target="_blank">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <a
+              href="https://www.zalora.co.id"
+              target="_blank"
+              class="w-full h-full flex items-center justify-center relative z-10"
+            >
               <img
                 src="https://logowik.com/content/uploads/images/zalora-group6252.logowik.com.webp"
                 alt="Zalora"
-                class="w-full max-w-xss mx-auto transform hover:scale-105 transition duration-500 rounded-lg shadow-md"
+                class="max-h-[80%] max-w-[80%] object-contain transform group-hover:scale-110 transition-transform duration-500"
               />
             </a>
           </div>
           <!-- Partner 8 -->
           <div
-            class="bg-gray-100 p-4 rounded-lg shadow-md md max-w-xss mx-auto"
+            class="group bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center h-28 sm:h-36 relative overflow-hidden border border-gray-100"
           >
-            <a href="https://www.alibaba.com" target="_blank">
+            <div
+              class="absolute inset-0 bg-gradient-to-br from-primary-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <a
+              href="https://www.alibaba.com"
+              target="_blank"
+              class="w-full h-full flex items-center justify-center relative z-10"
+            >
               <img
                 src="https://logowik.com/content/uploads/images/453_alibaba.jpg"
                 alt="Alibaba"
-                class="w-full max-w-xss mx-auto transform hover:scale-105 transition duration-500 rounded-lg shadow-md"
+                class="max-h-[80%] max-w-[80%] object-contain transform group-hover:scale-110 transition-transform duration-500"
               />
             </a>
           </div>
@@ -1384,7 +1746,10 @@
     <!-- End Portfolio Partner -->
 
     <!-- FAQ Pengguna -->
-    <section class="py-12 bg-white border-t border-gray-200" id="faq">
+    <section
+      class="py-12 bg-white border-t border-gray-200 section-transition"
+      id="faq"
+    >
       <div class="w-full" style="margin-bottom: 60px">
         <div class="bg-cyan-500 text-white px-4 py-8 rounded-lg mb-5">
           <h1 class="text-4xl font-bold text-center mb-4">FAQ Pengguna</h1>
@@ -1435,7 +1800,10 @@
     <!-- End Faq Pengguna -->
 
     <!-- Hubungi Kami -->
-    <section class="py-10 bg-white border-t border-gray-200" id="hubungi">
+    <section
+      class="py-10 bg-white border-t border-gray-200 section-transition"
+      id="hubungi"
+    >
       <div class="w-full" style="margin-bottom: 60px">
         <div class="bg-cyan-500 text-white px-4 py-8 rounded-lg mb-5">
           <h1 class="text-4xl font-bold text-center mb-5">Hubungi Kami</h1>
@@ -1491,116 +1859,241 @@
     <!-- End Hubungi Kami -->
 
     <!-- Footer -->
-    <footer
-      class="bg-gray-900 text-white py-16 border-t border-gray-800"
-      id="footer"
-    >
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-          <!-- Logo dan Deskripsi -->
+    <footer class="bg-gray-900 relative overflow-hidden" id="footer">
+      <!-- Decorative background elements -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-gray-900 to-gray-950"
+      ></div>
+      <div
+        class="absolute inset-0 opacity-5"
+        style="
+          background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2V6h4V4H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        "
+      ></div>
+
+      <!-- Footer Content -->
+      <div class="relative max-w-7xl mx-auto px-6 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          <!-- Logo and Description -->
           <div>
-            <h1
-              style="
-                font-family: 'Poppins', sans-serif;
-                font-size: 2rem;
-                color: white;
-              "
-            >
-              NG-OJOL
-            </h1>
-            <p class="text-gray-400 mt-4">
+            <div class="flex items-center mb-6">
+              <div
+                class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg"
+              >
+                <img src="img/delivery.png" alt="NG-OJOL" class="h-8" />
+              </div>
+              <h1 class="text-2xl font-display font-bold text-white ml-3">
+                NG-OJOL
+              </h1>
+            </div>
+            <p class="text-gray-400 mb-6">
               Layanan antar jemput terpercaya yang siap melayani kebutuhan
-              pengiriman Anda 24/7
+              pengiriman Anda 24/7 dengan jaminan keamanan dan kecepatan.
             </p>
+
+            <!-- Social Media -->
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition-all duration-300"
+              >
+                <i class="fab fa-facebook-f text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition-all duration-300"
+              >
+                <i class="fab fa-twitter text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition-all duration-300"
+              >
+                <i class="fab fa-instagram text-white"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition-all duration-300"
+              >
+                <i class="fab fa-linkedin-in text-white"></i>
+              </a>
+            </div>
           </div>
+
           <!-- Layanan -->
           <div>
-            <h4 class="text-xl font-semibold mb-6">Layanan</h4>
+            <h4
+              class="text-xl font-display font-semibold text-white mb-6 relative"
+            >
+              <span class="relative z-10">Layanan</span>
+              <span
+                class="absolute bottom-0 left-0 w-12 h-1 bg-primary-500"
+              ></span>
+            </h4>
             <ul class="space-y-4">
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-white transition duration-300"
-                  >Pengiriman Cepat</a
+                  class="text-gray-400 hover:text-white transition duration-300 flex items-center"
                 >
+                  <i
+                    class="fas fa-chevron-right text-xs mr-2 text-primary-500"
+                  ></i>
+                  <span>Ngojol Express</span>
+                </a>
               </li>
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-white transition duration-300"
-                  >Pengiriman Barang</a
+                  class="text-gray-400 hover:text-white transition duration-300 flex items-center"
                 >
+                  <i
+                    class="fas fa-chevron-right text-xs mr-2 text-primary-500"
+                  ></i>
+                  <span>Ngojol Truk</span>
+                </a>
               </li>
               <li>
                 <a
                   href="#"
-                  class="text-gray-400 hover:text-white transition duration-300"
-                  >Pesan Makanan</a
+                  class="text-gray-400 hover:text-white transition duration-300 flex items-center"
                 >
+                  <i
+                    class="fas fa-chevron-right text-xs mr-2 text-primary-500"
+                  ></i>
+                  <span>Ngojol Motor</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition duration-300 flex items-center"
+                >
+                  <i
+                    class="fas fa-chevron-right text-xs mr-2 text-primary-500"
+                  ></i>
+                  <span>Ngojol Mobil</span>
+                </a>
               </li>
             </ul>
           </div>
+
           <!-- Kontak -->
           <div>
-            <h4 class="text-xl font-semibold mb-6">Kontak</h4>
+            <h4
+              class="text-xl font-display font-semibold text-white mb-6 relative"
+            >
+              <span class="relative z-10">Kontak</span>
+              <span
+                class="absolute bottom-0 left-0 w-12 h-1 bg-primary-500"
+              ></span>
+            </h4>
             <ul class="space-y-4">
+              <li class="flex items-start space-x-3">
+                <div
+                  class="mt-1 w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0"
+                >
+                  <i class="fas fa-map-marker-alt text-primary-500"></i>
+                </div>
+                <span class="text-gray-400">
+                  Permata Tangerang Blok DC 1 No 20, Kel Gelam Jaya, Pasar
+                  Kemis, Kabupaten Tangerang, 15560
+                </span>
+              </li>
               <li class="flex items-center space-x-3">
-                <i class="fas fa-envelope text-orange-500"></i>
+                <div
+                  class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0"
+                >
+                  <i class="fas fa-envelope text-primary-500"></i>
+                </div>
                 <span class="text-gray-400">info@ngojol.id</span>
               </li>
               <li class="flex items-center space-x-3">
-                <i class="fas fa-phone text-orange-500"></i>
+                <div
+                  class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0"
+                >
+                  <i class="fas fa-phone text-primary-500"></i>
+                </div>
                 <span class="text-gray-400">(021) 1234-5678</span>
               </li>
               <li class="flex items-center space-x-3">
-                <i class="fab fa-whatsapp text-orange-500"></i>
+                <div
+                  class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center flex-shrink-0"
+                >
+                  <i class="fab fa-whatsapp text-primary-500"></i>
+                </div>
                 <span class="text-gray-400">+6285770767402</span>
               </li>
             </ul>
           </div>
+
           <!-- Download App -->
           <div>
-            <h4 class="text-xl font-semibold mb-6">Download App</h4>
+            <h4
+              class="text-xl font-display font-semibold text-white mb-6 relative"
+            >
+              <span class="relative z-10">Download App</span>
+              <span
+                class="absolute bottom-0 left-0 w-12 h-1 bg-primary-500"
+              ></span>
+            </h4>
+            <p class="text-gray-400 mb-6">
+              Dapatkan aplikasi kami untuk pengalaman yang lebih baik dan akses
+              ke promo eksklusif.
+            </p>
             <div class="flex flex-col space-y-4">
               <a
                 href="https://play.google.com/store"
-                class="transform hover:scale-105 transition duration-300"
+                target="_blank"
+                class="flex items-center bg-gray-800 hover:bg-gray-700 transition-all duration-300 px-4 py-3 rounded-lg"
               >
-                <img src="img/playstore.png" alt="Google Play" class="h-12" />
+                <i class="fab fa-google-play text-2xl text-white mr-3"></i>
+                <div>
+                  <div class="text-xs text-gray-400">GET IT ON</div>
+                  <div class="text-sm font-semibold text-white">
+                    Google Play
+                  </div>
+                </div>
               </a>
               <a
                 href="https://www.apple.com/app-store/"
-                class="transform hover:scale-105 transition duration-300"
+                target="_blank"
+                class="flex items-center bg-gray-800 hover:bg-gray-700 transition-all duration-300 px-4 py-3 rounded-lg"
               >
-                <img src="img/app-store.png" alt="App Store" class="h-12" />
+                <i class="fab fa-apple text-2xl text-white mr-3"></i>
+                <div>
+                  <div class="text-xs text-gray-400">Download on the</div>
+                  <div class="text-sm font-semibold text-white">App Store</div>
+                </div>
               </a>
             </div>
           </div>
         </div>
+
         <!-- Footer Bottom -->
-        <div class="border-t border-gray-800 mt-12 pt-8">
+        <div class="border-t border-gray-800 mt-16 pt-8">
           <div class="flex flex-col md:flex-row justify-between items-center">
-            <p class="text-gray-400">
+            <p class="text-gray-400 mb-4 md:mb-0">
               &copy; 2024 NG-OJOL. All rights reserved.
             </p>
-            <div class="flex space-x-6 mt-4 md:mt-0">
+            <div class="flex space-x-8">
               <a
-                href="https://www.facebook.com/kurniawan.dwi.prasetyo.2024"
-                class="text-gray-400 hover:text-white transition duration-300"
+                href="#"
+                class="text-gray-400 hover:text-white transition duration-300 text-sm"
               >
-                <i class="fab fa-facebook text-2xl"></i>
+                Terms & Conditions
               </a>
               <a
-                href="https://x.com/stopbeingidiott"
-                class="text-gray-400 hover:text-white transition duration-300"
+                href="#"
+                class="text-gray-400 hover:text-white transition duration-300 text-sm"
               >
-                <i class="fab fa-twitter text-2xl"></i>
+                Privacy Policy
               </a>
               <a
-                href="https://www.instagram.com/kurniawandwipras/"
-                class="text-gray-400 hover:text-white transition duration-300"
+                href="#"
+                class="text-gray-400 hover:text-white transition duration-300 text-sm"
               >
-                <i class="fab fa-instagram text-2xl"></i>
+                FAQ
               </a>
             </div>
           </div>
@@ -1609,89 +2102,292 @@
     </footer>
     <!-- End Footer -->
 
+    <!-- Back to Top Button -->
+    <button
+      id="backToTop"
+      class="fixed bottom-8 right-8 w-12 h-12 bg-primary-500 text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-primary-600 z-50 focus:outline-none"
+    >
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Live Chat Button -->
+    <div class="fixed bottom-8 right-24 z-50 md:right-24 sm:right-20">
+      <button
+        id="chatToggle"
+        class="w-12 h-12 bg-[#00BCD4] text-white rounded-full shadow-lg flex items-center justify-center hover:bg-[#00ACC1] transition-all duration-300 transform hover:scale-105 focus:outline-none"
+      >
+        <i class="fas fa-comments text-base"></i>
+      </button>
+
+      <!-- Chat Window -->
+      <div
+        id="chatWindow"
+        class="absolute bottom-16 right-0 w-[300px] md:w-[320px] rounded-xl shadow-xl transform scale-0 origin-bottom-right transition-transform duration-300 overflow-hidden border border-gray-200"
+      >
+        <!-- Chat Header -->
+        <div
+          class="bg-[#00BCD4] text-white p-2 flex justify-between items-center"
+        >
+          <div class="flex items-center">
+            <div
+              class="w-8 h-8 bg-white rounded-full flex items-center justify-center mr-2"
+            >
+              <img src="img/delivery.png" alt="NG-OJOL" class="h-5 w-5" />
+            </div>
+            <div class="flex flex-row items-center">
+              <h4 class="font-medium text-base mr-2">Asisten NG-OJOL</h4>
+              <div class="flex items-center">
+                <span
+                  class="w-1.5 h-1.5 bg-green-400 rounded-full mr-1 animate-pulse"
+                ></span>
+                <span class="text-xs">Online</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center">
+            <button
+              id="chatLanguageButton"
+              class="w-6 h-6 flex items-center justify-center mr-1 hover:bg-[#00ACC1] transition-colors rounded-full"
+            >
+              <i class="fas fa-globe text-sm"></i>
+            </button>
+
+            <button
+              id="chatClose"
+              class="w-6 h-6 flex items-center justify-center rounded-full hover:bg-[#00ACC1] transition-colors"
+            >
+              <i class="fas fa-times text-sm"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Language Selector (Hidden by default) -->
+        <div
+          id="chatLanguageMenu"
+          class="hidden bg-white border-b border-gray-200 p-1"
+        >
+          <div class="grid grid-cols-2 gap-1 text-xs">
+            <button
+              class="language-option py-1 px-2 rounded hover:bg-gray-100 transition-colors text-left"
+              data-lang="id"
+            >
+              Bahasa Indonesia
+            </button>
+            <button
+              class="language-option py-1 px-2 rounded hover:bg-gray-100 transition-colors text-left"
+              data-lang="en"
+            >
+              English
+            </button>
+            <button
+              class="language-option py-1 px-2 rounded hover:bg-gray-100 transition-colors text-left"
+              data-lang="zh"
+            >
+              中文
+            </button>
+            <button
+              class="language-option py-1 px-2 rounded hover:bg-gray-100 transition-colors text-left"
+              data-lang="ar"
+            >
+              العربية
+            </button>
+            <button
+              class="language-option py-1 px-2 rounded hover:bg-gray-100 transition-colors text-left"
+              data-lang="es"
+            >
+              Español
+            </button>
+            <button
+              class="language-option py-1 px-2 rounded hover:bg-gray-100 transition-colors text-left"
+              data-lang="fr"
+            >
+              Français
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat Messages Area -->
+        <div class="h-[320px] overflow-y-auto p-3 bg-gray-50" id="chatMessages">
+          <!-- Messages will be added here dynamically -->
+        </div>
+
+        <!-- Chat Input Area -->
+        <div class="p-2 border-t border-gray-200 bg-white">
+          <form id="chatForm" class="flex">
+            <input
+              type="text"
+              id="chatInput"
+              placeholder="Ketik pesan..."
+              class="flex-grow px-3 py-1.5 bg-gray-100 rounded-l-full focus:outline-none focus:ring-1 focus:ring-[#00BCD4] text-sm text-gray-700"
+            />
+            <button
+              type="submit"
+              class="bg-[#00BCD4] text-white px-3 py-1.5 rounded-r-full hover:bg-[#00ACC1] transition-colors"
+            >
+              <i class="fas fa-paper-plane text-sm"></i>
+            </button>
+          </form>
+          <div class="mt-1 text-center">
+            <span class="text-[10px] text-gray-500"
+              >Didukung oleh
+              <span class="font-semibold text-[#00BCD4]">Gemini AI</span></span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Permission Request -->
+    <div
+      id="notificationPrompt"
+      class="fixed top-24 right-4 w-80 bg-white rounded-xl shadow-lg p-4 transform translate-x-full transition-all duration-500 ease-in-out z-50"
+    >
+      <div class="flex items-start">
+        <div
+          class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0 mr-4"
+        >
+          <i class="fas fa-bell text-primary-500"></i>
+        </div>
+        <div class="flex-grow">
+          <h4 class="font-medium text-gray-800 mb-1">Aktifkan Notifikasi</h4>
+          <p class="text-sm text-gray-600 mb-3">
+            Dapatkan update terbaru tentang promo dan layanan NG-OJOL.
+          </p>
+          <div class="flex space-x-2">
+            <button
+              id="allowNotifications"
+              class="px-3 py-1.5 bg-primary-500 text-white text-sm rounded-lg hover:bg-primary-600 transition-colors"
+            >
+              Izinkan
+            </button>
+            <button
+              id="denyNotifications"
+              class="px-3 py-1.5 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300 transition-colors"
+            >
+              Nanti Saja
+            </button>
+          </div>
+        </div>
+        <button
+          id="closeNotificationPrompt"
+          class="text-gray-400 hover:text-gray-600 ml-2"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Cookie Consent Banner -->
+    <div
+      id="cookieConsent"
+      class="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 flex flex-col md:flex-row items-center justify-between z-50 shadow-lg transform translate-y-full transition-all duration-500 ease-in-out opacity-0"
+    >
+      <div class="mb-4 md:mb-0 md:mr-4">
+        <p class="text-sm md:text-base">
+          Kami menggunakan cookie untuk meningkatkan pengalaman Anda. Dengan
+          menggunakan situs ini, Anda menyetujui
+          <a href="#" class="underline hover:text-primary-300"
+            >Kebijakan Cookie</a
+          >
+          kami.
+        </p>
+      </div>
+      <div class="flex space-x-3">
+        <button
+          id="cookieAccept"
+          class="px-4 py-2 bg-primary-500 hover:bg-primary-600 rounded-lg text-sm font-medium transition-colors duration-300"
+        >
+          Terima Semua
+        </button>
+        <button
+          id="cookieReject"
+          class="px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-lg text-sm font-medium transition-colors duration-300"
+        >
+          Tolak Non-Esensial
+        </button>
+      </div>
+    </div>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- CSS untuk typing indicator chatbot -->
+    <style>
+      .typing-indicator {
+        display: flex;
+        align-items: center;
+        column-gap: 6px;
+        padding: 8px 0;
+      }
+
+      .typing-indicator span {
+        height: 8px;
+        width: 8px;
+        background: #00bcd4;
+        border-radius: 50%;
+        display: block;
+        opacity: 0.4;
+        animation: typing 1s infinite ease-in-out;
+      }
+
+      .typing-indicator span:nth-child(1) {
+        animation-delay: 0s;
+      }
+
+      .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes typing {
+        0% {
+          transform: translateY(0px);
+          opacity: 0.4;
+        }
+        50% {
+          transform: translateY(-8px);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(0px);
+          opacity: 0.4;
+        }
+      }
+
+      .slide-in-right {
+        animation: slideInRight 0.5s forwards;
+      }
+
+      .slide-out-right {
+        animation: slideOutRight 0.5s forwards;
+      }
+
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slideOutRight {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(100%);
+        }
+      }
+    </style>
+
     <!-- Custom Scripts -->
-    <script>
-      // Initialize AOS
-      AOS.init();
-
-      // Navbar scroll effect
-      window.addEventListener("scroll", function () {
-        const nav = document.querySelector("nav");
-        if (window.scrollY > 50) {
-          nav.classList.add("bg-opacity-90", "shadow-lg");
-        } else {
-          nav.classList.remove("bg-opacity-90", "shadow-lg");
-        }
-      });
-
-      // Smooth scroll
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute("href")).scrollIntoView({
-            behavior: "smooth",
-          });
-        });
-      });
-
-      // Download section fade effect
-      const downloadSection = document.getElementById("download-section");
-      window.addEventListener("scroll", function () {
-        const rect = downloadSection.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom >= 0) {
-          downloadSection.style.opacity = 1;
-          downloadSection.style.transition = "opacity 2s ease-in-out";
-        } else {
-          downloadSection.style.opacity = 0;
-          downloadSection.style.transition = "opacity 2s ease-in-out";
-        }
-      });
-
-      // Dark Mode Toggle
-      document.addEventListener("DOMContentLoaded", function () {
-        const darkModeToggle = document.getElementById("darkModeToggle");
-        const darkModeIcon = document.getElementById("darkModeIcon");
-
-        // Check for saved theme preference or respect OS preference
-        const prefersDarkMode = window.matchMedia(
-          "(prefers-color-scheme: dark)"
-        ).matches;
-        const savedTheme = localStorage.getItem("theme");
-
-        // Apply dark mode if saved or OS preference
-        if (savedTheme === "dark" || (!savedTheme && prefersDarkMode)) {
-          document.documentElement.classList.add("dark");
-          darkModeIcon.classList.remove("fa-moon");
-          darkModeIcon.classList.add("fa-sun");
-        }
-
-        // Toggle dark mode on click
-        darkModeToggle.addEventListener("click", function () {
-          // Add animation class
-          darkModeIcon.classList.add("animate-rotate");
-
-          // Toggle dark mode class
-          document.documentElement.classList.toggle("dark");
-
-          // Update icon
-          if (document.documentElement.classList.contains("dark")) {
-            darkModeIcon.classList.remove("fa-moon");
-            darkModeIcon.classList.add("fa-sun");
-            localStorage.setItem("theme", "dark");
-          } else {
-            darkModeIcon.classList.remove("fa-sun");
-            darkModeIcon.classList.add("fa-moon");
-            localStorage.setItem("theme", "light");
-          }
-
-          // Remove animation class after animation completes
-          setTimeout(function () {
-            darkModeIcon.classList.remove("animate-rotate");
-          }, 500);
-        });
-      });
-    </script>
+    <script src="index.js"></script>
   </body>
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Icon Generator</title>
+  </head>
+  <body>
+    <canvas
+      id="iconCanvas"
+      width="144"
+      height="144"
+      style="border: 1px solid #000"
+    ></canvas>
+    <p>
+      Right-click on the canvas and select "Save image as..." to save as
+      icon-144x144.png
+    </p>
+
+    <script>
+      // Get the canvas element
+      const canvas = document.getElementById("iconCanvas");
+      const ctx = canvas.getContext("2d");
+
+      // Fill background with primary color
+      ctx.fillStyle = "#00bcd4";
+      ctx.fillRect(0, 0, 144, 144);
+
+      // Add text
+      ctx.fillStyle = "white";
+      ctx.font = "bold 40px Arial";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("NG", 72, 60);
+      ctx.fillText("OJOL", 72, 100);
+
+      // Create download link
+      const link = document.createElement("a");
+      link.download = "icon-144x144.png";
+      link.href = canvas.toDataURL("image/png");
+      link.textContent = "Download Icon";
+      link.style.display = "block";
+      link.style.marginTop = "10px";
+      document.body.appendChild(link);
+    </script>
+  </body>
+</html>

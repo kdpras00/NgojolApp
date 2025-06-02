@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Offline - NG-OJOL</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: linear-gradient(-45deg, #00bcd4, #00acc1, #26c6da, #4dd0e1);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        color: white;
+        text-align: center;
+      }
+
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .container {
+        padding: 2rem;
+        max-width: 500px;
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+      }
+
+      .logo {
+        width: 100px;
+        height: 100px;
+        background-color: white;
+        border-radius: 50%;
+        padding: 15px;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .btn {
+        background-color: white;
+        color: #00bcd4;
+        padding: 12px 24px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="img/delivery.png" alt="NG-OJOL" class="logo" />
+      <h1>Anda Sedang Offline</h1>
+      <p>
+        Sepertinya Anda sedang tidak terhubung ke internet. Silakan periksa
+        koneksi internet Anda dan coba lagi.
+      </p>
+      <a href="/" class="btn">Coba Lagi</a>
+    </div>
+  </body>
+</html>

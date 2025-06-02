@@ -1,0 +1,9 @@
+To fix the PWA icon errors:
+
+1. Open the file "img/icons/generate-all-icons.html" in your browser
+2. Click "Generate All Icons" button
+3. Click "Download All Icons" button
+4. Save all the icon files in this directory (img/icons/)
+5. Make sure the filenames match exactly: icon-72x72.png, icon-96x96.png, etc.
+
+This will resolve the 404 errors for the PWA icons. 
