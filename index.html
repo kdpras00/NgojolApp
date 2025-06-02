@@ -19,6 +19,65 @@
     />
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- Dark Mode Styles -->
+    <style>
+      /* Dark Mode Styles */
+      .dark {
+        color-scheme: dark;
+      }
+
+      .dark body {
+        background-color: #1a1a1a;
+        color: #f3f4f6;
+      }
+
+      .dark .bg-white {
+        background-color: #2d2d2d !important;
+      }
+
+      .dark .bg-gray-100 {
+        background-color: #333333 !important;
+      }
+
+      .dark .text-gray-800 {
+        color: #f3f4f6 !important;
+      }
+
+      .dark .text-gray-600,
+      .dark .text-gray-500 {
+        color: #d1d5db !important;
+      }
+
+      .dark .border-gray-200 {
+        border-color: #4b5563 !important;
+      }
+
+      .dark .shadow-lg,
+      .dark .shadow-md,
+      .dark .shadow-xl {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.6),
+          0 4px 6px -2px rgba(0, 0, 0, 0.55) !important;
+      }
+
+      .dark .footer {
+        background-color: #111827 !important;
+      }
+
+      /* Animation for dark mode toggle */
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .animate-rotate {
+        animation: rotate 0.5s ease-in-out;
+      }
+    </style>
   </head>
 
   <body class="font-poppins bg-gray-100">
@@ -98,26 +157,17 @@
                 Daftar Driver
               </button>
             </a>
+            <button
+              id="darkModeToggle"
+              class="ml-4 focus:outline-none"
+              aria-label="Toggle Dark Mode"
+            >
+              <i class="fas fa-moon text-white text-xl" id="darkModeIcon"></i>
+            </button>
           </div>
         </div>
       </div>
     </nav>
-
-    <!-- <script>
-        // Mendapatkan elemen judul navbar
-        const navbarTitle = document.getElementById('navbar-title');
-
-        // Memeriksa URL saat ini
-        if (window.location.pathname === '/') {
-            // Jika berada di halaman beranda, set warna teks menjadi putih
-            navbarTitle.classList.remove('text-white');
-            navbarTitle.classList.add('text-white');
-        } else {
-            // Jika berada di halaman lain, set warna teks menjadi hitam
-            navbarTitle.classList.remove('text-white');
-            navbarTitle.classList.add('text-black');
-        }
-    </script> -->
 
     <style>
       /* Hover untuk tautan navbar */
@@ -470,6 +520,7 @@
               kenyamanan dan gaya. Pergi ke lokasi tujuanmu dengan aman dan
               nyaman.
             </p>
+            r
           </div>
         </div>
       </div>
@@ -477,152 +528,467 @@
     <!-- End Layanan Section -->
 
     <!-- Review Ngojol -->
-    <section class="py-36 bg-white border-t border-gray-200" id="review">
-      <div class="max-w-8xl mx-auto px-12 mt-5">
-        <h3
-          class="text-5xl font-bold text-center text-gray-800 mb-4"
-          style="margin-top: -50px"
-        >
+    <section
+      class="py-24 bg-gradient-to-b from-white to-gray-50 border-t border-gray-200"
+      id="review"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h3 class="text-4xl font-bold text-center text-gray-800 mb-4">
           Review Pelanggan
         </h3>
         <p
-          class="text-xl text-center text-gray-600 mb-12"
-          style="font-family: 'Arial', sans-serif; margin-top: -5px"
+          class="text-xl text-center text-gray-600 mb-10"
+          style="font-family: 'Arial', sans-serif"
         >
           Apa kata mereka tentang layanan kami?
         </p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          <!-- Review 1 -->
-          <div class="flex flex-col items-center text-center mx-2 mb-3">
-            <img
-              src="img/costumer/cowo1.jpg"
-              alt="Budi Santoso"
-              class="w-16 h-16 rounded-full mb-3"
-            />
-            <h3 class="text-xl font-semibold mb-2">Budi</h3>
-            <div class="flex mb-2">
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-            </div>
-            <p
-              class="text-gray-500 text-sm"
-              style="font-family: 'Arial', sans-serif"
+
+        <!-- Testimonial Slider Container -->
+        <div class="relative max-w-5xl mx-auto">
+          <!-- Slider wrapper -->
+          <div class="overflow-hidden rounded-xl">
+            <div
+              class="flex transition-transform duration-500 ease-in-out"
+              id="testimonialsSlider"
             >
-              Layanan yang sangat cepat dan aman. Saya sangat puas dengan
-              pengantaran yang dilakukan oleh Ngojol Express.
-            </p>
-          </div>
-          <!-- Review 2 -->
-          <div class="flex flex-col items-center text-center mx-2 mb-3">
-            <img
-              src="img/costumer/cewe1.jpg"
-              alt="Siti Aminah"
-              class="w-16 h-16 rounded-full mb-3"
-            />
-            <h3 class="text-xl font-semibold mb-2">Siti Aminah</h3>
-            <div class="flex mb-2">
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
+              <!-- Testimonial 1 -->
+              <div class="min-w-full md:w-1/3 px-2">
+                <div
+                  class="bg-white rounded-xl shadow-lg p-6 h-full border border-gray-100 hover:shadow-2xl hover:border-cyan-100 transition-all duration-300 transform hover:-translate-y-2"
+                >
+                  <div class="flex flex-col items-center text-center">
+                    <div class="w-20 h-20 mb-4 relative">
+                      <div
+                        class="absolute inset-0 bg-cyan-500 rounded-full opacity-20 animate-pulse"
+                      ></div>
+                      <img
+                        src="img/costumer/cowo1.jpg"
+                        alt="Budi Santoso"
+                        class="w-20 h-20 rounded-full object-cover border-3 border-cyan-500 p-1 bg-white relative z-10"
+                      />
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 text-gray-800">
+                      Budi
+                    </h3>
+                    <div class="flex mb-2">
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p
+                      class="text-gray-600 leading-snug text-sm"
+                      style="font-family: 'Arial', sans-serif"
+                    >
+                      <i
+                        class="fas fa-quote-left text-cyan-400 mr-1 opacity-50"
+                      ></i>
+                      Layanan yang sangat cepat dan aman. Saya sangat puas
+                      dengan pengantaran yang dilakukan oleh Ngojol Express.
+                      <i
+                        class="fas fa-quote-right text-cyan-400 ml-1 opacity-50"
+                      ></i>
+                    </p>
+                    <div
+                      class="mt-3 px-3 py-1 bg-cyan-50 rounded-full text-cyan-600 text-xs font-medium"
+                    >
+                      <i class="fas fa-check-circle mr-1"></i> Ngojol Express
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Testimonial 2 -->
+              <div class="min-w-full md:w-1/3 px-2">
+                <div
+                  class="bg-white rounded-xl shadow-lg p-6 h-full border border-gray-100 hover:shadow-2xl hover:border-cyan-100 transition-all duration-300 transform hover:-translate-y-2"
+                >
+                  <div class="flex flex-col items-center text-center">
+                    <div class="w-20 h-20 mb-4 relative">
+                      <div
+                        class="absolute inset-0 bg-cyan-500 rounded-full opacity-20 animate-pulse"
+                      ></div>
+                      <img
+                        src="img/costumer/cewe1.jpg"
+                        alt="Siti Aminah"
+                        class="w-20 h-20 rounded-full object-cover border-3 border-cyan-500 p-1 bg-white relative z-10"
+                      />
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 text-gray-800">
+                      Siti Aminah
+                    </h3>
+                    <div class="flex mb-2">
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p
+                      class="text-gray-600 leading-snug text-sm"
+                      style="font-family: 'Arial', sans-serif"
+                    >
+                      <i
+                        class="fas fa-quote-left text-cyan-400 mr-1 opacity-50"
+                      ></i>
+                      Pengalaman yang luar biasa dengan Ngojol Truk. Barang
+                      besar saya sampai dengan aman dan tepat waktu.
+                      <i
+                        class="fas fa-quote-right text-cyan-400 ml-1 opacity-50"
+                      ></i>
+                    </p>
+                    <div
+                      class="mt-3 px-3 py-1 bg-cyan-50 rounded-full text-cyan-600 text-xs font-medium"
+                    >
+                      <i class="fas fa-truck mr-1"></i> Ngojol Truk
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Testimonial 3 -->
+              <div class="min-w-full md:w-1/3 px-2">
+                <div
+                  class="bg-white rounded-xl shadow-lg p-6 h-full border border-gray-100 hover:shadow-2xl hover:border-cyan-100 transition-all duration-300 transform hover:-translate-y-2"
+                >
+                  <div class="flex flex-col items-center text-center">
+                    <div class="w-20 h-20 mb-4 relative">
+                      <div
+                        class="absolute inset-0 bg-cyan-500 rounded-full opacity-20 animate-pulse"
+                      ></div>
+                      <img
+                        src="img/costumer/cowo2.jpg"
+                        alt="Andi Wijaya"
+                        class="w-20 h-20 rounded-full object-cover border-3 border-cyan-500 p-1 bg-white relative z-10"
+                      />
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 text-gray-800">
+                      Andi Wijaya
+                    </h3>
+                    <div class="flex mb-2">
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p
+                      class="text-gray-600 leading-snug text-sm"
+                      style="font-family: 'Arial', sans-serif"
+                    >
+                      <i
+                        class="fas fa-quote-left text-cyan-400 mr-1 opacity-50"
+                      ></i>
+                      Ngojol Motor adalah solusi terbaik untuk menghindari
+                      kemacetan. Sangat cepat dan efisien!
+                      <i
+                        class="fas fa-quote-right text-cyan-400 ml-1 opacity-50"
+                      ></i>
+                    </p>
+                    <div
+                      class="mt-3 px-3 py-1 bg-cyan-50 rounded-full text-cyan-600 text-xs font-medium"
+                    >
+                      <i class="fas fa-motorcycle mr-1"></i> Ngojol Motor
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Testimonial 4 -->
+              <div class="min-w-full md:w-1/3 px-2">
+                <div
+                  class="bg-white rounded-xl shadow-lg p-6 h-full border border-gray-100 hover:shadow-2xl hover:border-cyan-100 transition-all duration-300 transform hover:-translate-y-2"
+                >
+                  <div class="flex flex-col items-center text-center">
+                    <div class="w-20 h-20 mb-4 relative">
+                      <div
+                        class="absolute inset-0 bg-cyan-500 rounded-full opacity-20 animate-pulse"
+                      ></div>
+                      <img
+                        src="img/costumer/cewe2.jpg"
+                        alt="Dewi Lestari"
+                        class="w-20 h-20 rounded-full object-cover border-3 border-cyan-500 p-1 bg-white relative z-10"
+                      />
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 text-gray-800">
+                      Dewi Lestari
+                    </h3>
+                    <div class="flex mb-2">
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 leading-snug text-sm">
+                      <i
+                        class="fas fa-quote-left text-cyan-400 mr-1 opacity-50"
+                      ></i>
+                      Menggunakan Ngojol Mobil sangat nyaman dan aman. Saya
+                      sangat merekomendasikannya!
+                      <i
+                        class="fas fa-quote-right text-cyan-400 ml-1 opacity-50"
+                      ></i>
+                    </p>
+                    <div
+                      class="mt-3 px-3 py-1 bg-cyan-50 rounded-full text-cyan-600 text-xs font-medium"
+                    >
+                      <i class="fas fa-car mr-1"></i> Ngojol Mobil
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Testimonial 5 -->
+              <div class="min-w-full md:w-1/3 px-2">
+                <div
+                  class="bg-white rounded-xl shadow-lg p-6 h-full border border-gray-100 hover:shadow-2xl hover:border-cyan-100 transition-all duration-300 transform hover:-translate-y-2"
+                >
+                  <div class="flex flex-col items-center text-center">
+                    <div class="w-20 h-20 mb-4 relative">
+                      <div
+                        class="absolute inset-0 bg-cyan-500 rounded-full opacity-20 animate-pulse"
+                      ></div>
+                      <img
+                        src="img/costumer/cowo3.jpg"
+                        alt="Agus Pratama"
+                        class="w-20 h-20 rounded-full object-cover border-3 border-cyan-500 p-1 bg-white relative z-10"
+                      />
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 text-gray-800">
+                      Agus Pratama
+                    </h3>
+                    <div class="flex mb-2">
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 leading-snug text-sm">
+                      <i
+                        class="fas fa-quote-left text-cyan-400 mr-1 opacity-50"
+                      ></i>
+                      Pelayanan yang sangat memuaskan, Ngojol Express selalu
+                      tepat waktu dan aman.
+                      <i
+                        class="fas fa-quote-right text-cyan-400 ml-1 opacity-50"
+                      ></i>
+                    </p>
+                    <div
+                      class="mt-3 px-3 py-1 bg-cyan-50 rounded-full text-cyan-600 text-xs font-medium"
+                    >
+                      <i class="fas fa-check-circle mr-1"></i> Ngojol Express
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Testimonial 6 -->
+              <div class="min-w-full md:w-1/3 px-2">
+                <div
+                  class="bg-white rounded-xl shadow-lg p-6 h-full border border-gray-100 hover:shadow-2xl hover:border-cyan-100 transition-all duration-300 transform hover:-translate-y-2"
+                >
+                  <div class="flex flex-col items-center text-center">
+                    <div class="w-20 h-20 mb-4 relative">
+                      <div
+                        class="absolute inset-0 bg-cyan-500 rounded-full opacity-20 animate-pulse"
+                      ></div>
+                      <img
+                        src="img/costumer/cewe3.jpg"
+                        alt="Rina Sari"
+                        class="w-20 h-20 rounded-full object-cover border-3 border-cyan-500 p-1 bg-white relative z-10"
+                      />
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 text-gray-800">
+                      Rina Sari
+                    </h3>
+                    <div class="flex mb-2">
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                      <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-600 leading-snug text-sm">
+                      <i
+                        class="fas fa-quote-left text-cyan-400 mr-1 opacity-50"
+                      ></i>
+                      Ngojol Truk sangat membantu dalam pengiriman barang besar
+                      saya. Sangat direkomendasikan!
+                      <i
+                        class="fas fa-quote-right text-cyan-400 ml-1 opacity-50"
+                      ></i>
+                    </p>
+                    <div
+                      class="mt-3 px-3 py-1 bg-cyan-50 rounded-full text-cyan-600 text-xs font-medium"
+                    >
+                      <i class="fas fa-truck mr-1"></i> Ngojol Truk
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p
-              class="text-gray-500 text-sm"
-              style="font-family: 'Arial', sans-serif"
-            >
-              Pengalaman yang luar biasa dengan Ngojol Truk. Barang besar saya
-              sampai dengan aman dan tepat waktu.
-            </p>
           </div>
-          <!-- Review 3
- -->
-          <div class="flex flex-col items-center text-center mx-2 mb-3">
-            <img
-              src="img/costumer/cowo2.jpg"
-              alt="Andi Wijaya"
-              class="w-16 h-16 rounded-full mb-3"
-            />
-            <h3 class="text-xl font-semibold mb-2">Andi Wijaya</h3>
-            <div class="flex mb-2">
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
+
+          <!-- Navigation buttons -->
+          <button
+            id="prevButton"
+            class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg z-10 focus:outline-none transition-all duration-300 hover:scale-110"
+          >
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button
+            id="nextButton"
+            class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg z-10 focus:outline-none transition-all duration-300 hover:scale-110"
+          >
+            <i class="fas fa-chevron-right"></i>
+          </button>
+
+          <!-- Pagination dots -->
+          <div class="flex justify-center mt-6">
+            <div class="pagination-dots flex space-x-2">
+              <!-- Dots will be added here by JavaScript -->
             </div>
-            <p
-              class="text-gray-500 text-sm"
-              style="font-family: 'Arial', sans-serif"
-            >
-              Ngojol Motor adalah solusi terbaik untuk menghindari kemacetan.
-              Sangat cepat dan efisien!
-            </p>
-          </div>
-          <!-- Review 4 -->
-          <div class="flex flex-col items-center text-center mx-2 mb-3">
-            <img
-              src="img/costumer/cewe2.jpg"
-              alt="Dewi Lestari"
-              class="w-16 h-16 rounded-full mb-3"
-            />
-            <h3 class="text-xl font-semibold mb-2">Dewi Lestari</h3>
-            <div class="flex mb-2">
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-            </div>
-            <p class="text-gray-500 text-sm">
-              Menggunakan Ngojol Mobil sangat nyaman dan aman. Saya sangat
-              merekomendasikannya!
-            </p>
-          </div>
-          <!-- Review 5 -->
-          <div class="flex flex-col items-center text-center mx-2 mb-3">
-            <img
-              src="img/costumer/cowo3.jpg"
-              alt="Agus Pratama"
-              class="w-16 h-16 rounded-full mb-3"
-            />
-            <h3 class="text-xl font-semibold mb-2">Agus Pratama</h3>
-            <div class="flex mb-2">
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-            </div>
-            <p class="text-gray-500 text-sm">
-              Pelayanan yang sangat memuaskan, Ngojol Express selalu tepat waktu
-              dan aman.
-            </p>
-          </div>
-          <!-- Review 6 -->
-          <div class="flex flex-col items-center text-center mx-2 mb-3">
-            <img
-              src="img/costumer/cewe3.jpg"
-              alt="Rina Sari"
-              class="w-16 h-16 rounded-full mb-3"
-            />
-            <h3 class="text-xl font-semibold mb-1">Rina Sari</h3>
-            <div class="flex mb-1">
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-              <i class="fas fa-star text-yellow-500"></i>
-            </div>
-            <p class="text-gray-500 text-sm">
-              Ngojol Truk sangat membantu dalam pengiriman barang besar saya.
-              Sangat direkomendasikan!
-            </p>
           </div>
         </div>
+
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            const slider = document.getElementById("testimonialsSlider");
+            const prevButton = document.getElementById("prevButton");
+            const nextButton = document.getElementById("nextButton");
+            const paginationContainer =
+              document.querySelector(".pagination-dots");
+
+            const testimonials = slider.children;
+            const testimonialsCount = testimonials.length;
+            let currentIndex = 0;
+            let visibleSlides = 3;
+
+            // Initialize pagination dots
+            function createPaginationDots() {
+              paginationContainer.innerHTML = ""; // Clear existing dots
+              const totalGroups = Math.ceil(testimonialsCount / visibleSlides);
+
+              for (let i = 0; i < totalGroups; i++) {
+                const dot = document.createElement("button");
+                dot.classList.add(
+                  "w-3",
+                  "h-3",
+                  "rounded-full",
+                  "bg-gray-300",
+                  "focus:outline-none",
+                  "transition-all",
+                  "duration-300"
+                );
+                if (i === 0) {
+                  dot.classList.add("bg-cyan-500", "scale-110");
+                }
+                dot.addEventListener("click", () =>
+                  goToSlide(i * visibleSlides)
+                );
+                paginationContainer.appendChild(dot);
+              }
+            }
+
+            // Update active dot
+            function updateDots() {
+              const dots = paginationContainer.children;
+              const activeGroup = Math.floor(currentIndex / visibleSlides);
+
+              for (let i = 0; i < dots.length; i++) {
+                if (i === activeGroup) {
+                  dots[i].classList.remove("bg-gray-300", "scale-100");
+                  dots[i].classList.add("bg-cyan-500", "scale-110");
+                } else {
+                  dots[i].classList.remove("bg-cyan-500", "scale-110");
+                  dots[i].classList.add("bg-gray-300", "scale-100");
+                }
+              }
+            }
+
+            // Go to specific slide
+            function goToSlide(index) {
+              if (window.innerWidth >= 768) {
+                // For medium screens show 3 slides
+                visibleSlides = 3;
+              } else {
+                // For mobile show 1 slide
+                visibleSlides = 1;
+              }
+
+              // Make sure we don't go beyond the last valid index
+              const maxIndex = testimonialsCount - visibleSlides;
+              currentIndex = Math.min(Math.max(0, index), maxIndex);
+
+              // Calculate slide width based on container width and visible slides
+              const slideWidth =
+                slider.parentElement.clientWidth / visibleSlides;
+
+              // Apply the transform
+              slider.style.transform = `translateX(-${
+                currentIndex * slideWidth
+              }px)`;
+              updateDots();
+            }
+
+            // Handle resize
+            function handleResize() {
+              // Recalculate and apply the current slide position
+              goToSlide(currentIndex);
+            }
+
+            // Event listeners
+            prevButton.addEventListener("click", () => {
+              // Go back one group of slides
+              goToSlide(currentIndex - visibleSlides);
+            });
+
+            nextButton.addEventListener("click", () => {
+              // Go forward one group of slides
+              goToSlide(currentIndex + visibleSlides);
+            });
+
+            window.addEventListener("resize", handleResize);
+
+            // Initialize
+            createPaginationDots();
+            handleResize();
+
+            // Auto slide
+            let autoSlideInterval = setInterval(() => {
+              if (currentIndex >= testimonialsCount - visibleSlides) {
+                // If at the end, go back to the start
+                goToSlide(0);
+              } else {
+                // Go forward one group
+                goToSlide(currentIndex + visibleSlides);
+              }
+            }, 5000);
+
+            // Pause auto-slide on hover
+            const sliderContainer = document.querySelector(
+              ".relative.max-w-5xl"
+            );
+            sliderContainer.addEventListener("mouseenter", () => {
+              clearInterval(autoSlideInterval);
+            });
+
+            sliderContainer.addEventListener("mouseleave", () => {
+              autoSlideInterval = setInterval(() => {
+                if (currentIndex >= testimonialsCount - visibleSlides) {
+                  // If at the end, go back to the start
+                  goToSlide(0);
+                } else {
+                  // Go forward one group
+                  goToSlide(currentIndex + visibleSlides);
+                }
+              }, 5000);
+            });
+          });
+        </script>
       </div>
     </section>
     <!-- End Review Section -->
@@ -672,6 +1038,238 @@
       </div>
     </section>
     <!-- End Download App Section -->
+
+    <!-- Kalkulator Biaya Section -->
+    <section class="py-16 bg-white border-t border-gray-200" id="kalkulator">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center text-gray-800 mb-6">
+          Kalkulator Biaya
+        </h2>
+        <p
+          class="text-xl text-center text-gray-600 mb-10"
+          style="font-family: 'Arial', sans-serif"
+        >
+          Hitung estimasi biaya perjalanan atau pengiriman Anda dengan Ngojol
+        </p>
+
+        <div class="bg-gray-100 rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Form Input -->
+            <div>
+              <h3 class="text-2xl font-semibold mb-6 text-cyan-600">
+                Detail Perjalanan
+              </h3>
+
+              <div class="mb-4">
+                <label
+                  for="service-type"
+                  class="block text-gray-700 font-medium mb-2"
+                  >Jenis Layanan</label
+                >
+                <select
+                  id="service-type"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                >
+                  <option value="motor">Ngojol Motor</option>
+                  <option value="car">Ngojol Mobil</option>
+                  <option value="express">Ngojol Express</option>
+                  <option value="truck">Ngojol Truk</option>
+                </select>
+              </div>
+
+              <div class="mb-4">
+                <label
+                  for="distance"
+                  class="block text-gray-700 font-medium mb-2"
+                  >Jarak (km)</label
+                >
+                <input
+                  type="number"
+                  id="distance"
+                  min="1"
+                  max="100"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                  placeholder="Masukkan jarak dalam km"
+                />
+              </div>
+
+              <div class="mb-4">
+                <label for="weight" class="block text-gray-700 font-medium mb-2"
+                  >Berat Barang (kg, untuk pengiriman)</label
+                >
+                <input
+                  type="number"
+                  id="weight"
+                  min="0"
+                  max="1000"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                  placeholder="Opsional, untuk layanan pengiriman"
+                />
+              </div>
+
+              <button
+                id="calculate-btn"
+                class="mt-4 bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 w-full"
+              >
+                Hitung Biaya
+              </button>
+            </div>
+
+            <!-- Results -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h3 class="text-2xl font-semibold mb-6 text-cyan-600">
+                Estimasi Biaya
+              </h3>
+
+              <div id="result-container" class="hidden">
+                <div
+                  class="flex justify-between items-center py-3 border-b border-gray-200"
+                >
+                  <span class="font-medium">Biaya Dasar:</span>
+                  <span id="base-fee" class="text-lg">Rp 0</span>
+                </div>
+
+                <div
+                  class="flex justify-between items-center py-3 border-b border-gray-200"
+                >
+                  <span class="font-medium">Biaya Jarak:</span>
+                  <span id="distance-fee" class="text-lg">Rp 0</span>
+                </div>
+
+                <div
+                  id="weight-fee-container"
+                  class="flex justify-between items-center py-3 border-b border-gray-200 hidden"
+                >
+                  <span class="font-medium">Biaya Berat:</span>
+                  <span id="weight-fee" class="text-lg">Rp 0</span>
+                </div>
+
+                <div class="flex justify-between items-center py-4 mt-2">
+                  <span class="font-bold text-xl">Total:</span>
+                  <span id="total-fee" class="font-bold text-2xl text-cyan-600"
+                    >Rp 0</span
+                  >
+                </div>
+
+                <div class="mt-6 text-center">
+                  <p class="text-sm text-gray-500 mb-4">
+                    *Harga aktual dapat berubah berdasarkan kondisi lalu lintas
+                    dan faktor lainnya
+                  </p>
+                  <a
+                    href="pendaftaran-driver-baru.html"
+                    class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-6 rounded-lg transition duration-300 inline-block"
+                  >
+                    Pesan Sekarang
+                  </a>
+                </div>
+              </div>
+
+              <div
+                id="empty-result"
+                class="flex flex-col items-center justify-center h-64"
+              >
+                <img
+                  src="https://logowik.com/content/uploads/images/four-transactions4262.jpg"
+                  alt="Calculator"
+                  class="w-24 h-24 mb-4 opacity-30"
+                />
+                <p class="text-gray-500 text-center">
+                  Masukkan detail perjalanan dan klik "Hitung Biaya" untuk
+                  melihat estimasi
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const calculateBtn = document.getElementById("calculate-btn");
+        const resultContainer = document.getElementById("result-container");
+        const emptyResult = document.getElementById("empty-result");
+        const weightFeeContainer = document.getElementById(
+          "weight-fee-container"
+        );
+
+        calculateBtn.addEventListener("click", function () {
+          // Get input values
+          const serviceType = document.getElementById("service-type").value;
+          const distance =
+            parseFloat(document.getElementById("distance").value) || 0;
+          const weight =
+            parseFloat(document.getElementById("weight").value) || 0;
+
+          if (distance <= 0) {
+            alert("Mohon masukkan jarak yang valid");
+            return;
+          }
+
+          // Base rates
+          const baseRates = {
+            motor: 5000,
+            car: 10000,
+            express: 7000,
+            truck: 25000,
+          };
+
+          // Per km rates
+          const kmRates = {
+            motor: 2000,
+            car: 3500,
+            express: 2500,
+            truck: 5000,
+          };
+
+          // Weight rates (per kg)
+          const weightRates = {
+            express: 1000,
+            truck: 500,
+          };
+
+          // Calculate fees
+          const baseFee = baseRates[serviceType];
+          const distanceFee = kmRates[serviceType] * distance;
+          let weightFee = 0;
+
+          if (
+            (serviceType === "express" || serviceType === "truck") &&
+            weight > 0
+          ) {
+            weightFee = weightRates[serviceType] * weight;
+            weightFeeContainer.classList.remove("hidden");
+          } else {
+            weightFeeContainer.classList.add("hidden");
+          }
+
+          const totalFee = baseFee + distanceFee + weightFee;
+
+          // Format currency
+          const formatter = new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            maximumFractionDigits: 0,
+          });
+
+          // Update UI
+          document.getElementById("base-fee").textContent =
+            formatter.format(baseFee);
+          document.getElementById("distance-fee").textContent =
+            formatter.format(distanceFee);
+          document.getElementById("weight-fee").textContent =
+            formatter.format(weightFee);
+          document.getElementById("total-fee").textContent =
+            formatter.format(totalFee);
+
+          // Show result
+          resultContainer.classList.remove("hidden");
+          emptyResult.classList.add("hidden");
+        });
+      });
+    </script>
+    <!-- End Kalkulator Biaya Section -->
 
     <!-- Portofolio Partner -->
     <section class="py-20 bg-white border-t border-gray-200" id="partner">
@@ -1049,6 +1647,50 @@
           downloadSection.style.opacity = 0;
           downloadSection.style.transition = "opacity 2s ease-in-out";
         }
+      });
+
+      // Dark Mode Toggle
+      document.addEventListener("DOMContentLoaded", function () {
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        const darkModeIcon = document.getElementById("darkModeIcon");
+
+        // Check for saved theme preference or respect OS preference
+        const prefersDarkMode = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const savedTheme = localStorage.getItem("theme");
+
+        // Apply dark mode if saved or OS preference
+        if (savedTheme === "dark" || (!savedTheme && prefersDarkMode)) {
+          document.documentElement.classList.add("dark");
+          darkModeIcon.classList.remove("fa-moon");
+          darkModeIcon.classList.add("fa-sun");
+        }
+
+        // Toggle dark mode on click
+        darkModeToggle.addEventListener("click", function () {
+          // Add animation class
+          darkModeIcon.classList.add("animate-rotate");
+
+          // Toggle dark mode class
+          document.documentElement.classList.toggle("dark");
+
+          // Update icon
+          if (document.documentElement.classList.contains("dark")) {
+            darkModeIcon.classList.remove("fa-moon");
+            darkModeIcon.classList.add("fa-sun");
+            localStorage.setItem("theme", "dark");
+          } else {
+            darkModeIcon.classList.remove("fa-sun");
+            darkModeIcon.classList.add("fa-moon");
+            localStorage.setItem("theme", "light");
+          }
+
+          // Remove animation class after animation completes
+          setTimeout(function () {
+            darkModeIcon.classList.remove("animate-rotate");
+          }, 500);
+        });
       });
     </script>
   </body>
