@@ -772,6 +772,32 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Add a user message to the chat
+  function addUserMessage(message) {
+    const messageTime = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const messageHTML = `
+      <div class="flex mb-4 justify-end">
+        <div class="mr-2 bg-[#00BCD4] p-3 rounded-lg rounded-tr-none shadow-sm max-w-[85%]">
+          <p class="text-sm text-white">${message}</p>
+          <span class="text-xs text-white text-opacity-80 mt-1 block text-right">${messageTime}</span>
+        </div>
+        <div class="w-8 h-8 bg-[#00BCD4] rounded-full flex items-center justify-center flex-shrink-0">
+          <i class="fas fa-user text-white text-sm"></i>
+        </div>
+      </div>
+    `;
+
+    chatMessages.insertAdjacentHTML("beforeend", messageHTML);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Add message to conversation history
+    conversationHistory.push({ role: "user", parts: message });
+  }
+
   // Add a bot message to the chat
   function addBotMessage(message) {
     const messageTime = new Date().toLocaleTimeString([], {
@@ -787,29 +813,6 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="ml-2 bg-[#E3F2FD] p-3 rounded-lg rounded-tl-none shadow-sm max-w-[85%]">
           <p class="text-sm text-gray-700">${message}</p>
           <span class="text-xs text-gray-400 mt-1 block">${messageTime}</span>
-        </div>
-      </div>
-    `;
-
-    chatMessages.insertAdjacentHTML("beforeend", messageHTML);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  // Add a user message to the chat
-  function addUserMessage(message) {
-    const messageTime = new Date().toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-
-    const messageHTML = `
-      <div class="flex mb-4 justify-end">
-        <div class="mr-2 bg-[#00BCD4] p-3 rounded-lg rounded-tr-none shadow-sm text-white max-w-[85%]">
-          <p class="text-sm">${message}</p>
-          <span class="text-xs text-[#B2EBF2] mt-1 block">${messageTime}</span>
-        </div>
-        <div class="w-8 h-8 bg-[#00ACC1] rounded-full flex items-center justify-center flex-shrink-0">
-          <i class="fas fa-user text-white text-sm"></i>
         </div>
       </div>
     `;

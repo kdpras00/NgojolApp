@@ -769,42 +769,28 @@ button,
 
 @keyframes typing {
   0% {
-    transform: translateY(0px);
+    transform: scale(0.8);
     opacity: 0.4;
   }
   50% {
-    transform: translateY(-8px);
+    transform: scale(1);
     opacity: 1;
   }
   100% {
-    transform: translateY(0px);
+    transform: scale(0.8);
     opacity: 0.4;
   }
 }
 
-.slide-in-right {
-  animation: slideInRight 0.5s forwards;
-}
-
-.slide-out-right {
-  animation: slideOutRight 0.5s forwards;
-}
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
+@media (max-width: 480px) {
+  .typing-indicator {
+    column-gap: 4px;
+    padding: 6px 0;
   }
-  to {
-    transform: translateX(0);
-  }
-}
 
-@keyframes slideOutRight {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(100%);
+  .typing-indicator span {
+    height: 6px;
+    width: 6px;
   }
 }
 
@@ -1275,6 +1261,7 @@ body {
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
   max-height: 80vh;
+  z-index: 1000;
 }
 
 #chatMessages {
@@ -1294,6 +1281,30 @@ body {
 #chatMessages::-webkit-scrollbar-thumb {
   background-color: rgba(0, 188, 212, 0.5);
   border-radius: 20px;
+}
+
+/* Improve chatbot message bubbles on mobile */
+#chatMessages .flex {
+  margin-bottom: 0.75rem;
+}
+
+#chatMessages .max-w-[85%] {
+  max-width: 85%;
+  word-break: break-word;
+}
+
+@media (max-width: 480px) {
+  #chatMessages .max-w-[85%] {
+    max-width: 75%;
+  }
+
+  #chatMessages .text-sm {
+    font-size: 0.8125rem;
+  }
+
+  #chatMessages .text-xs {
+    font-size: 0.6875rem;
+  }
 }
 
 /* Improve responsive behavior for all sections */

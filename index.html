@@ -2170,7 +2170,7 @@
     </button>
 
     <!-- Live Chat Button -->
-    <div class="fixed bottom-8 right-24 z-50 md:right-24 sm:right-20">
+    <div class="fixed bottom-8 right-4 sm:right-8 md:right-16 lg:right-24 z-50">
       <button
         id="chatToggle"
         class="w-12 h-12 bg-[#00BCD4] text-white rounded-full shadow-lg flex items-center justify-center hover:bg-[#00ACC1] transition-all duration-300 transform hover:scale-105 focus:outline-none"
@@ -2181,7 +2181,7 @@
       <!-- Chat Window -->
       <div
         id="chatWindow"
-        class="absolute bottom-16 right-0 w-[300px] md:w-[320px] rounded-xl shadow-xl transform scale-0 origin-bottom-right transition-transform duration-300 overflow-hidden border border-gray-200"
+        class="absolute bottom-16 right-0 w-[90vw] sm:w-[320px] max-w-[320px] rounded-xl shadow-xl transform scale-0 origin-bottom-right transition-transform duration-300 overflow-hidden border border-gray-200"
       >
         <!-- Chat Header -->
         <div
@@ -2267,7 +2267,10 @@
         </div>
 
         <!-- Chat Messages Area -->
-        <div class="h-[320px] overflow-y-auto p-3 bg-gray-50" id="chatMessages">
+        <div
+          class="h-[320px] sm:h-[350px] md:h-[400px] overflow-y-auto p-3 bg-gray-50"
+          id="chatMessages"
+        >
           <!-- Messages will be added here dynamically -->
         </div>
 
@@ -2278,11 +2281,11 @@
               type="text"
               id="chatInput"
               placeholder="Ketik pesan..."
-              class="flex-grow px-3 py-1.5 bg-gray-100 rounded-l-full focus:outline-none focus:ring-1 focus:ring-[#00BCD4] text-sm text-gray-700"
+              class="flex-grow px-3 py-2 bg-gray-100 rounded-l-full focus:outline-none focus:ring-1 focus:ring-[#00BCD4] text-sm text-gray-700"
             />
             <button
               type="submit"
-              class="bg-[#00BCD4] text-white px-3 py-1.5 rounded-r-full hover:bg-[#00ACC1] transition-colors"
+              class="bg-[#00BCD4] text-white px-4 py-2 rounded-r-full hover:bg-[#00ACC1] transition-colors"
             >
               <i class="fas fa-paper-plane text-sm"></i>
             </button>
