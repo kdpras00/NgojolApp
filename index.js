@@ -103,13 +103,41 @@ document.addEventListener("DOMContentLoaded", function () {
   const mobileMenu = document.querySelector(".mobile-menu");
 
   if (mobileMenuButton && mobileMenu) {
-    mobileMenuButton.addEventListener("click", function () {
-      mobileMenu.classList.toggle("hidden");
+    // Prevent animation glitches by tracking animation state
+    let isAnimating = false;
 
-      // Add animation when opening
-      if (!mobileMenu.classList.contains("hidden")) {
-        mobileMenu.classList.add("animate__animated", "animate__fadeInDown");
+    mobileMenuButton.addEventListener("click", function () {
+      // Prevent multiple clicks during animation
+      if (isAnimating) return;
+      isAnimating = true;
+
+      if (mobileMenu.classList.contains("hidden")) {
+        // Opening menu
+        mobileMenu.classList.remove("hidden");
+        mobileMenu.style.opacity = "0";
+        mobileMenu.style.transform = "scale(0.95)";
+
+        // Force reflow to ensure animation works
+        mobileMenu.offsetHeight;
+
+        // Apply animation
+        mobileMenu.style.opacity = "1";
+        mobileMenu.style.transform = "scale(1)";
+      } else {
+        // Closing menu
+        mobileMenu.style.opacity = "0";
+        mobileMenu.style.transform = "scale(0.95)";
+
+        // Hide after animation completes
+        setTimeout(() => {
+          mobileMenu.classList.add("hidden");
+        }, 300);
       }
+
+      // Reset animation lock after transition completes
+      setTimeout(() => {
+        isAnimating = false;
+      }, 300);
     });
   }
 
@@ -118,7 +146,13 @@ document.addEventListener("DOMContentLoaded", function () {
   mobileLinks.forEach((link) => {
     link.addEventListener("click", () => {
       if (mobileMenu) {
-        mobileMenu.classList.add("hidden");
+        mobileMenu.style.opacity = "0";
+        mobileMenu.style.transform = "scale(0.95)";
+
+        // Hide after animation completes
+        setTimeout(() => {
+          mobileMenu.classList.add("hidden");
+        }, 300);
       }
     });
   });
@@ -648,8 +682,14 @@ document.addEventListener("DOMContentLoaded", function () {
   // Toggle chat window visibility
   if (chatToggle) {
     chatToggle.addEventListener("click", function () {
+      // Prevent multiple clicks during animation
+      if (chatToggle.dataset.animating === "true") return;
+
+      chatToggle.dataset.animating = "true";
+
       console.log("Chat toggle clicked"); // Debug
       if (chatWindow.classList.contains("scale-0")) {
+        // Opening the chat
         chatWindow.classList.remove("scale-0");
         chatWindow.classList.add("scale-100");
 
@@ -658,9 +698,15 @@ document.addEventListener("DOMContentLoaded", function () {
           updateWelcomeMessage();
         }
       } else {
+        // Closing the chat
         chatWindow.classList.remove("scale-100");
         chatWindow.classList.add("scale-0");
       }
+
+      // Reset animation lock after transition completes
+      setTimeout(() => {
+        chatToggle.dataset.animating = "false";
+      }, 300);
     });
   }
 
@@ -889,7 +935,9 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error getting AI response:", error);
 
       // Remove typing indicator
-      chatMessages.removeChild(typingIndicator);
+      if (chatMessages.contains(typingIndicator)) {
+        chatMessages.removeChild(typingIndicator);
+      }
 
       // Use fallback response if API fails
       const fallbackResponses = {

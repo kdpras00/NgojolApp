@@ -562,6 +562,10 @@ nav {
   z-index: 50;
   max-height: calc(100vh - 4rem);
   overflow-y: auto;
+  left: 1rem;
+  right: 1rem;
+  transform-origin: top center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 /* Preloader - Optimize */
@@ -640,6 +644,7 @@ img {
   max-width: 100%;
   height: auto;
   object-fit: contain;
+  transform: translateZ(0); /* Force GPU acceleration */
 }
 
 /* Optimize transitions for all interactive elements */
@@ -1252,4 +1257,91 @@ section > .max-w-3xl {
 .dark #partner .bg-gray-50,
 .dark #partner .bg-gray-100 {
   background-color: #0a1929 !important;
+}
+
+/* Prevent layout shifts during transitions */
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+/* Fix chatbot positioning and transitions */
+#chatWindow {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: bottom right;
+  will-change: transform, opacity;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-height: 80vh;
+}
+
+#chatMessages {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 188, 212, 0.5) transparent;
+}
+
+#chatMessages::-webkit-scrollbar {
+  width: 6px;
+}
+
+#chatMessages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#chatMessages::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 188, 212, 0.5);
+  border-radius: 20px;
+}
+
+/* Improve responsive behavior for all sections */
+@media (max-width: 640px) {
+  .section-title {
+    font-size: 1.75rem !important;
+  }
+
+  .section-subtitle {
+    font-size: 1rem !important;
+  }
+
+  .hero-title {
+    font-size: 2rem !important;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem !important;
+  }
+
+  /* Fix padding on mobile */
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* Fix for testimonial slider on mobile */
+@media (max-width: 640px) {
+  #testimonialsSlider .glass {
+    margin: 0.5rem !important;
+  }
+
+  #prevButton,
+  #nextButton {
+    display: none !important;
+  }
+}
+
+/* Fix for partner logos on mobile */
+@media (max-width: 480px) {
+  #partner .grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Ensure dark mode transitions are smooth */
+.dark * {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
 }
