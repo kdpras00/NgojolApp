@@ -82,6 +82,20 @@
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
+    <!-- Leaflet CSS for maps -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <!-- Leaflet JavaScript -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
     <!-- Costum Css -->
     <link rel="stylesheet" href="src/style.css" />
   </head>
@@ -1621,6 +1635,217 @@
     </section>
 
     <!-- End Kalkulator Biaya Section -->
+
+    <!-- Live Driver Tracking Section -->
+    <section
+      class="py-16 bg-gradient-to-b from-gray-50 to-gray-100 border-t border-gray-200 section-transition"
+      id="tracking"
+    >
+      <div class="max-w-6xl mx-auto px-4">
+        <div
+          class="text-center mb-12"
+          data-aos="fade-up"
+          data-aos-duration="800"
+        >
+          <span
+            class="inline-block px-4 py-2 bg-primary-50 text-primary-600 rounded-full text-sm font-medium mb-4"
+            >Fitur Baru</span
+          >
+          <h2
+            class="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-4"
+          >
+            Live Driver Tracking
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Pantau posisi driver Anda secara real-time dan dapatkan estimasi
+            waktu kedatangan yang akurat
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <!-- Map Display -->
+          <div
+            class="relative rounded-2xl overflow-hidden shadow-xl"
+            data-aos="fade-right"
+            data-aos-duration="1000"
+          >
+            <div class="absolute inset-0 bg-gray-200 animate-pulse"></div>
+            <div
+              id="liveMap"
+              class="relative z-10 h-[450px] w-full bg-gray-100 rounded-2xl"
+            >
+              <!-- Map will be loaded here via JavaScript -->
+            </div>
+
+            <!-- Driver Info Card -->
+            <div
+              class="absolute bottom-6 left-6 right-6 glass rounded-xl p-4 shadow-lg z-20 transform transition-transform duration-300 hover:scale-105"
+            >
+              <div class="flex items-center">
+                <div class="relative">
+                  <div
+                    class="w-14 h-14 rounded-full overflow-hidden border-2 border-primary-500"
+                  >
+                    <img
+                      src="img/costumer/cowo1.jpg"
+                      alt="Driver"
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div
+                    class="absolute -bottom-1 -right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-white"
+                  ></div>
+                </div>
+                <div class="ml-4">
+                  <div class="flex items-center">
+                    <h3 class="font-semibold text-lg">Ahmad Supriadi</h3>
+                    <div class="flex ml-2">
+                      <i class="fas fa-star text-yellow-400 text-xs"></i>
+                      <span class="text-sm ml-1">4.9</span>
+                    </div>
+                  </div>
+                  <p class="text-sm text-gray-600">NG-Motor • B 1234 XYZ</p>
+                  <div class="flex items-center mt-1">
+                    <div
+                      class="w-2 h-2 rounded-full bg-green-500 animate-pulse"
+                    ></div>
+                    <p class="text-xs text-gray-500 ml-2">
+                      Sedang menuju ke lokasi Anda
+                    </p>
+                  </div>
+                </div>
+                <div class="ml-auto">
+                  <div class="bg-primary-50 rounded-lg p-2 text-center">
+                    <p class="text-xs text-gray-500">Estimasi tiba</p>
+                    <p class="text-lg font-semibold text-primary-600">
+                      5 menit
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-between mt-4">
+                <button
+                  class="flex items-center justify-center bg-primary-500 text-white rounded-full w-12 h-12 hover:bg-primary-600 transition-colors"
+                >
+                  <i class="fas fa-phone"></i>
+                </button>
+                <button
+                  class="flex items-center justify-center bg-primary-500 text-white rounded-full w-12 h-12 hover:bg-primary-600 transition-colors"
+                >
+                  <i class="fas fa-comment"></i>
+                </button>
+                <button
+                  class="flex items-center justify-center bg-white border border-primary-500 text-primary-500 rounded-full w-12 h-12 hover:bg-primary-50 transition-colors"
+                >
+                  <i class="fas fa-share-alt"></i>
+                </button>
+                <button
+                  class="flex-1 ml-4 bg-primary-500 text-white py-3 px-4 rounded-lg hover:bg-primary-600 transition-colors font-medium"
+                >
+                  Lihat Detail Perjalanan
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Features List -->
+          <div data-aos="fade-left" data-aos-duration="1000">
+            <div class="space-y-8">
+              <!-- Feature 1 -->
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <div
+                    class="w-12 h-12 rounded-lg bg-primary-500 flex items-center justify-center text-white"
+                  >
+                    <i class="fas fa-location-dot text-xl"></i>
+                  </div>
+                </div>
+                <div class="ml-6">
+                  <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                    Pelacakan Real-time
+                  </h3>
+                  <p class="text-gray-600">
+                    Lihat pergerakan driver Anda secara langsung di peta dengan
+                    pembaruan lokasi setiap 10 detik
+                  </p>
+                </div>
+              </div>
+
+              <!-- Feature 2 -->
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <div
+                    class="w-12 h-12 rounded-lg bg-primary-500 flex items-center justify-center text-white"
+                  >
+                    <i class="fas fa-route text-xl"></i>
+                  </div>
+                </div>
+                <div class="ml-6">
+                  <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                    Rute Terbaik
+                  </h3>
+                  <p class="text-gray-600">
+                    Algoritma cerdas kami menghitung rute tercepat dengan
+                    mempertimbangkan lalu lintas terkini
+                  </p>
+                </div>
+              </div>
+
+              <!-- Feature 3 -->
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <div
+                    class="w-12 h-12 rounded-lg bg-primary-500 flex items-center justify-center text-white"
+                  >
+                    <i class="fas fa-bell text-xl"></i>
+                  </div>
+                </div>
+                <div class="ml-6">
+                  <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                    Notifikasi Otomatis
+                  </h3>
+                  <p class="text-gray-600">
+                    Dapatkan pemberitahuan saat driver mendekati lokasi Anda
+                    atau jika ada perubahan rute
+                  </p>
+                </div>
+              </div>
+
+              <!-- Feature 4 -->
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <div
+                    class="w-12 h-12 rounded-lg bg-primary-500 flex items-center justify-center text-white"
+                  >
+                    <i class="fas fa-share-nodes text-xl"></i>
+                  </div>
+                </div>
+                <div class="ml-6">
+                  <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                    Bagikan Perjalanan
+                  </h3>
+                  <p class="text-gray-600">
+                    Bagikan detail perjalanan dan lokasi real-time Anda kepada
+                    keluarga atau teman untuk keamanan
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-8">
+                <a
+                  href="#download"
+                  class="inline-flex items-center px-6 py-3 bg-primary-500 text-white font-medium rounded-lg hover:bg-primary-600 transition-colors shadow-lg"
+                >
+                  <i class="fas fa-download mr-2"></i>
+                  <span>Download Aplikasi untuk Mencoba</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Live Driver Tracking Section -->
 
     <!-- Portofolio Partner -->
     <section

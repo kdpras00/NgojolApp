@@ -1312,6 +1312,439 @@
       </div>
     </section>
 
+    <!-- End of Pendaftaran Form -->
+
+    <!-- Gamified Driver Registration -->
+    <section class="py-16 bg-gradient-to-b from-gray-50 to-gray-100">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <span
+            class="inline-block px-4 py-2 bg-primary-50 text-primary-600 rounded-full text-sm font-medium mb-4"
+            >Fitur Baru</span
+          >
+          <h2 class="text-4xl font-bold text-gray-800 mb-4">
+            Gamifikasi Pendaftaran Driver
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Selesaikan misi dan kumpulkan poin untuk mendapatkan keuntungan
+            ekstra saat bergabung dengan NG-OJOL
+          </p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="max-w-4xl mx-auto mb-12">
+          <div class="bg-white rounded-full h-4 shadow-md overflow-hidden">
+            <div
+              id="registrationProgress"
+              class="bg-primary-500 h-full transition-all duration-500"
+              style="width: 0%"
+            ></div>
+          </div>
+          <div class="flex justify-between mt-2 text-sm text-gray-600">
+            <span>Mulai</span>
+            <span>Data Diri</span>
+            <span>Kendaraan</span>
+            <span>Dokumen</span>
+            <span>Selesai</span>
+          </div>
+        </div>
+
+        <!-- Game Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Mission Card 1 -->
+          <div
+            class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+          >
+            <div class="h-3 bg-primary-500"></div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">
+                  Lengkapi Profil
+                </h3>
+                <span
+                  class="bg-primary-100 text-primary-600 text-xs font-semibold px-3 py-1 rounded-full"
+                  >+50 Poin</span
+                >
+              </div>
+              <p class="text-gray-600 mb-6">
+                Lengkapi semua data profil Anda untuk mendapatkan poin tambahan
+                dan prioritas verifikasi.
+              </p>
+
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-600">Data Pribadi</span>
+                  <div class="flex items-center">
+                    <span
+                      class="text-xs text-gray-500 mr-2"
+                      id="personalDataProgress"
+                      >0/5</span
+                    >
+                    <div
+                      class="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center"
+                      id="personalDataCheck"
+                    >
+                      <i class="fas fa-check text-white text-xs hidden"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-600">Dokumen Identitas</span>
+                  <div class="flex items-center">
+                    <span
+                      class="text-xs text-gray-500 mr-2"
+                      id="identityProgress"
+                      >0/3</span
+                    >
+                    <div
+                      class="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center"
+                      id="identityCheck"
+                    >
+                      <i class="fas fa-check text-white text-xs hidden"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-600">Foto Profil</span>
+                  <div class="flex items-center">
+                    <span class="text-xs text-gray-500 mr-2" id="photoProgress"
+                      >0/1</span
+                    >
+                    <div
+                      class="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center"
+                      id="photoCheck"
+                    >
+                      <i class="fas fa-check text-white text-xs hidden"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-6 py-3">
+              <div class="flex justify-between items-center">
+                <span class="text-xs text-gray-500"
+                  >Status:
+                  <span class="text-primary-600 font-medium" id="profileStatus"
+                    >Belum Selesai</span
+                  ></span
+                >
+                <button
+                  class="text-primary-600 hover:text-primary-700 text-sm font-medium"
+                  onclick="completeProfile()"
+                >
+                  Selesaikan
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mission Card 2 -->
+          <div
+            class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+          >
+            <div class="h-3 bg-yellow-500"></div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">
+                  Verifikasi Kendaraan
+                </h3>
+                <span
+                  class="bg-yellow-100 text-yellow-600 text-xs font-semibold px-3 py-1 rounded-full"
+                  >+75 Poin</span
+                >
+              </div>
+              <p class="text-gray-600 mb-6">
+                Lengkapi data kendaraan dan lakukan verifikasi untuk mendapatkan
+                poin dan bonus perjalanan.
+              </p>
+
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-600">Data Kendaraan</span>
+                  <div class="flex items-center">
+                    <span
+                      class="text-xs text-gray-500 mr-2"
+                      id="vehicleDataProgress"
+                      >0/4</span
+                    >
+                    <div
+                      class="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center"
+                      id="vehicleDataCheck"
+                    >
+                      <i class="fas fa-check text-white text-xs hidden"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-600">Foto Kendaraan</span>
+                  <div class="flex items-center">
+                    <span
+                      class="text-xs text-gray-500 mr-2"
+                      id="vehiclePhotoProgress"
+                      >0/2</span
+                    >
+                    <div
+                      class="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center"
+                      id="vehiclePhotoCheck"
+                    >
+                      <i class="fas fa-check text-white text-xs hidden"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-600">Dokumen Kendaraan</span>
+                  <div class="flex items-center">
+                    <span
+                      class="text-xs text-gray-500 mr-2"
+                      id="vehicleDocProgress"
+                      >0/2</span
+                    >
+                    <div
+                      class="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center"
+                      id="vehicleDocCheck"
+                    >
+                      <i class="fas fa-check text-white text-xs hidden"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-6 py-3">
+              <div class="flex justify-between items-center">
+                <span class="text-xs text-gray-500"
+                  >Status:
+                  <span class="text-yellow-600 font-medium" id="vehicleStatus"
+                    >Belum Selesai</span
+                  ></span
+                >
+                <button
+                  class="text-yellow-600 hover:text-yellow-700 text-sm font-medium"
+                  onclick="completeVehicle()"
+                >
+                  Selesaikan
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mission Card 3 -->
+          <div
+            class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+          >
+            <div class="h-3 bg-green-500"></div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">
+                  Pelatihan Online
+                </h3>
+                <span
+                  class="bg-green-100 text-green-600 text-xs font-semibold px-3 py-1 rounded-full"
+                  >+100 Poin</span
+                >
+              </div>
+              <p class="text-gray-600 mb-6">
+                Selesaikan pelatihan online untuk mendapatkan sertifikat dan
+                bonus saldo awal.
+              </p>
+
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-600"
+                    >Keselamatan Berkendara</span
+                  >
+                  <div class="flex items-center">
+                    <span class="text-xs text-gray-500 mr-2" id="safetyProgress"
+                      >0/1</span
+                    >
+                    <div
+                      class="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center"
+                      id="safetyCheck"
+                    >
+                      <i class="fas fa-check text-white text-xs hidden"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-600">Layanan Pelanggan</span>
+                  <div class="flex items-center">
+                    <span
+                      class="text-xs text-gray-500 mr-2"
+                      id="serviceProgress"
+                      >0/1</span
+                    >
+                    <div
+                      class="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center"
+                      id="serviceCheck"
+                    >
+                      <i class="fas fa-check text-white text-xs hidden"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-600">Penggunaan Aplikasi</span>
+                  <div class="flex items-center">
+                    <span class="text-xs text-gray-500 mr-2" id="appProgress"
+                      >0/1</span
+                    >
+                    <div
+                      class="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center"
+                      id="appCheck"
+                    >
+                      <i class="fas fa-check text-white text-xs hidden"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-6 py-3">
+              <div class="flex justify-between items-center">
+                <span class="text-xs text-gray-500"
+                  >Status:
+                  <span class="text-green-600 font-medium" id="trainingStatus"
+                    >Belum Selesai</span
+                  ></span
+                >
+                <button
+                  class="text-green-600 hover:text-green-700 text-sm font-medium"
+                  onclick="completeTraining()"
+                >
+                  Selesaikan
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rewards Section -->
+        <div class="mt-16 bg-white rounded-xl shadow-lg overflow-hidden">
+          <div class="p-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">
+              Hadiah Pendaftaran
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <!-- Reward 1 -->
+              <div class="border border-gray-200 rounded-lg p-4 text-center">
+                <div
+                  class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                >
+                  <i class="fas fa-wallet text-primary-600 text-2xl"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                  Bonus Saldo Rp50.000
+                </h4>
+                <p class="text-sm text-gray-600 mb-4">
+                  Dapatkan saldo awal untuk memulai perjalanan pertama Anda
+                </p>
+                <div class="flex items-center justify-center">
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div
+                      class="bg-primary-500 h-2.5 rounded-full"
+                      id="reward1Progress"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                  <span
+                    class="text-xs text-gray-500 ml-2 w-12"
+                    id="reward1Percentage"
+                    >0%</span
+                  >
+                </div>
+              </div>
+
+              <!-- Reward 2 -->
+              <div class="border border-gray-200 rounded-lg p-4 text-center">
+                <div
+                  class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                >
+                  <i class="fas fa-shield-alt text-yellow-600 text-2xl"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                  Asuransi Gratis 3 Bulan
+                </h4>
+                <p class="text-sm text-gray-600 mb-4">
+                  Perlindungan kecelakaan dan kesehatan untuk driver
+                </p>
+                <div class="flex items-center justify-center">
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div
+                      class="bg-yellow-500 h-2.5 rounded-full"
+                      id="reward2Progress"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                  <span
+                    class="text-xs text-gray-500 ml-2 w-12"
+                    id="reward2Percentage"
+                    >0%</span
+                  >
+                </div>
+              </div>
+
+              <!-- Reward 3 -->
+              <div class="border border-gray-200 rounded-lg p-4 text-center">
+                <div
+                  class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                >
+                  <i class="fas fa-gas-pump text-green-600 text-2xl"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-gray-800 mb-2">
+                  Voucher BBM Rp100.000
+                </h4>
+                <p class="text-sm text-gray-600 mb-4">
+                  Voucher pengisian bahan bakar untuk minggu pertama
+                </p>
+                <div class="flex items-center justify-center">
+                  <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div
+                      class="bg-green-500 h-2.5 rounded-full"
+                      id="reward3Progress"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                  <span
+                    class="text-xs text-gray-500 ml-2 w-12"
+                    id="reward3Percentage"
+                    >0%</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Points -->
+          <div class="bg-gray-50 p-6">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+              <div class="flex items-center mb-4 md:mb-0">
+                <div
+                  class="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center text-white text-xl font-bold"
+                >
+                  <i class="fas fa-trophy"></i>
+                </div>
+                <div class="ml-4">
+                  <p class="text-gray-600 text-sm">Total Poin Anda</p>
+                  <p class="text-2xl font-bold text-gray-800" id="totalPoints">
+                    0
+                  </p>
+                </div>
+              </div>
+              <div>
+                <button
+                  id="claimRewardsBtn"
+                  class="bg-primary-500 text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled
+                >
+                  Klaim Semua Hadiah
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Gamified Driver Registration -->
+
+    <!-- Footer -->
+
     <!-- Back to Top Button -->
     <button
       id="backToTop"
@@ -1943,6 +2376,284 @@
           // Initialize calculator
           updateEarnings();
         }
+      });
+    </script>
+
+    <!-- AOS Initialization -->
+    <script>
+      AOS.init({
+        duration: 800,
+        easing: "ease-in-out",
+        once: true,
+        mirror: false,
+      });
+    </script>
+
+    <!-- Gamification System JavaScript -->
+    <script>
+      // Game state
+      let gameState = {
+        totalPoints: 0,
+        profile: {
+          personalData: 0,
+          identity: 0,
+          photo: 0,
+          completed: false,
+        },
+        vehicle: {
+          vehicleData: 0,
+          vehiclePhoto: 0,
+          vehicleDoc: 0,
+          completed: false,
+        },
+        training: {
+          safety: 0,
+          service: 0,
+          app: 0,
+          completed: false,
+        },
+      };
+
+      // Initialize progress bars
+      function updateProgressBars() {
+        // Registration progress
+        const completedTasks =
+          (gameState.profile.completed ? 1 : 0) +
+          (gameState.vehicle.completed ? 1 : 0) +
+          (gameState.training.completed ? 1 : 0);
+        const progressPercentage = (completedTasks / 3) * 100;
+        document.getElementById(
+          "registrationProgress"
+        ).style.width = `${progressPercentage}%`;
+
+        // Reward progress
+        const pointsNeeded = 225; // Total points needed for all rewards
+        const reward1Percentage = Math.min(
+          (gameState.totalPoints / 50) * 100,
+          100
+        );
+        const reward2Percentage = Math.min(
+          (gameState.totalPoints / 125) * 100,
+          100
+        );
+        const reward3Percentage = Math.min(
+          (gameState.totalPoints / pointsNeeded) * 100,
+          100
+        );
+
+        document.getElementById(
+          "reward1Progress"
+        ).style.width = `${reward1Percentage}%`;
+        document.getElementById(
+          "reward1Percentage"
+        ).textContent = `${Math.round(reward1Percentage)}%`;
+
+        document.getElementById(
+          "reward2Progress"
+        ).style.width = `${reward2Percentage}%`;
+        document.getElementById(
+          "reward2Percentage"
+        ).textContent = `${Math.round(reward2Percentage)}%`;
+
+        document.getElementById(
+          "reward3Progress"
+        ).style.width = `${reward3Percentage}%`;
+        document.getElementById(
+          "reward3Percentage"
+        ).textContent = `${Math.round(reward3Percentage)}%`;
+
+        // Update claim button state
+        document.getElementById("claimRewardsBtn").disabled =
+          gameState.totalPoints < pointsNeeded;
+      }
+
+      // Update profile completion
+      function completeProfile() {
+        if (!gameState.profile.completed) {
+          // Simulate completing profile tasks
+          gameState.profile.personalData = 5;
+          gameState.profile.identity = 3;
+          gameState.profile.photo = 1;
+          gameState.profile.completed = true;
+
+          // Update UI
+          document.getElementById("personalDataProgress").textContent = "5/5";
+          document
+            .getElementById("personalDataCheck")
+            .classList.add("bg-primary-500");
+          document
+            .getElementById("personalDataCheck")
+            .querySelector("i")
+            .classList.remove("hidden");
+
+          document.getElementById("identityProgress").textContent = "3/3";
+          document
+            .getElementById("identityCheck")
+            .classList.add("bg-primary-500");
+          document
+            .getElementById("identityCheck")
+            .querySelector("i")
+            .classList.remove("hidden");
+
+          document.getElementById("photoProgress").textContent = "1/1";
+          document.getElementById("photoCheck").classList.add("bg-primary-500");
+          document
+            .getElementById("photoCheck")
+            .querySelector("i")
+            .classList.remove("hidden");
+
+          document.getElementById("profileStatus").textContent = "Selesai";
+
+          // Add points
+          gameState.totalPoints += 50;
+          document.getElementById("totalPoints").textContent =
+            gameState.totalPoints;
+
+          // Show success notification
+          Swal.fire({
+            title: "Profil Lengkap!",
+            text: "Anda mendapatkan 50 poin untuk melengkapi profil",
+            icon: "success",
+            confirmButtonColor: "#00bcd4",
+          });
+
+          // Update progress
+          updateProgressBars();
+        }
+      }
+
+      // Update vehicle completion
+      function completeVehicle() {
+        if (!gameState.vehicle.completed) {
+          // Simulate completing vehicle tasks
+          gameState.vehicle.vehicleData = 4;
+          gameState.vehicle.vehiclePhoto = 2;
+          gameState.vehicle.vehicleDoc = 2;
+          gameState.vehicle.completed = true;
+
+          // Update UI
+          document.getElementById("vehicleDataProgress").textContent = "4/4";
+          document
+            .getElementById("vehicleDataCheck")
+            .classList.add("bg-yellow-500");
+          document
+            .getElementById("vehicleDataCheck")
+            .querySelector("i")
+            .classList.remove("hidden");
+
+          document.getElementById("vehiclePhotoProgress").textContent = "2/2";
+          document
+            .getElementById("vehiclePhotoCheck")
+            .classList.add("bg-yellow-500");
+          document
+            .getElementById("vehiclePhotoCheck")
+            .querySelector("i")
+            .classList.remove("hidden");
+
+          document.getElementById("vehicleDocProgress").textContent = "2/2";
+          document
+            .getElementById("vehicleDocCheck")
+            .classList.add("bg-yellow-500");
+          document
+            .getElementById("vehicleDocCheck")
+            .querySelector("i")
+            .classList.remove("hidden");
+
+          document.getElementById("vehicleStatus").textContent = "Selesai";
+
+          // Add points
+          gameState.totalPoints += 75;
+          document.getElementById("totalPoints").textContent =
+            gameState.totalPoints;
+
+          // Show success notification
+          Swal.fire({
+            title: "Verifikasi Kendaraan Selesai!",
+            text: "Anda mendapatkan 75 poin untuk verifikasi kendaraan",
+            icon: "success",
+            confirmButtonColor: "#00bcd4",
+          });
+
+          // Update progress
+          updateProgressBars();
+        }
+      }
+
+      // Update training completion
+      function completeTraining() {
+        if (!gameState.training.completed) {
+          // Simulate completing training tasks
+          gameState.training.safety = 1;
+          gameState.training.service = 1;
+          gameState.training.app = 1;
+          gameState.training.completed = true;
+
+          // Update UI
+          document.getElementById("safetyProgress").textContent = "1/1";
+          document.getElementById("safetyCheck").classList.add("bg-green-500");
+          document
+            .getElementById("safetyCheck")
+            .querySelector("i")
+            .classList.remove("hidden");
+
+          document.getElementById("serviceProgress").textContent = "1/1";
+          document.getElementById("serviceCheck").classList.add("bg-green-500");
+          document
+            .getElementById("serviceCheck")
+            .querySelector("i")
+            .classList.remove("hidden");
+
+          document.getElementById("appProgress").textContent = "1/1";
+          document.getElementById("appCheck").classList.add("bg-green-500");
+          document
+            .getElementById("appCheck")
+            .querySelector("i")
+            .classList.remove("hidden");
+
+          document.getElementById("trainingStatus").textContent = "Selesai";
+
+          // Add points
+          gameState.totalPoints += 100;
+          document.getElementById("totalPoints").textContent =
+            gameState.totalPoints;
+
+          // Show success notification
+          Swal.fire({
+            title: "Pelatihan Selesai!",
+            text: "Anda mendapatkan 100 poin untuk menyelesaikan pelatihan",
+            icon: "success",
+            confirmButtonColor: "#00bcd4",
+          });
+
+          // Update progress
+          updateProgressBars();
+        }
+      }
+
+      // Claim rewards
+      document
+        .getElementById("claimRewardsBtn")
+        .addEventListener("click", function () {
+          if (gameState.totalPoints >= 225) {
+            Swal.fire({
+              title: "Selamat!",
+              html: `
+              <div class="text-left">
+                <p class="mb-2">✅ Bonus Saldo Rp50.000</p>
+                <p class="mb-2">✅ Asuransi Gratis 3 Bulan</p>
+                <p>✅ Voucher BBM Rp100.000</p>
+              </div>
+              <p class="mt-4">Hadiah akan ditambahkan ke akun Anda setelah verifikasi selesai.</p>
+            `,
+              icon: "success",
+              confirmButtonColor: "#00bcd4",
+            });
+          }
+        });
+
+      // Initialize progress bars on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        updateProgressBars();
       });
     </script>
   </body>

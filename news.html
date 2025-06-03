@@ -897,13 +897,440 @@
       </div>
     </div>
 
-    <!-- Back to Top Button -->
-    <button
-      id="backToTop"
-      class="fixed bottom-8 right-8 bg-primary-500 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-primary-600 transition-all duration-300 transform hover:scale-110 opacity-0 invisible z-50"
-    >
-      <i class="fas fa-arrow-up"></i>
-    </button>
+    <!-- End of News Articles -->
+
+    <!-- Interactive News Content -->
+    <section class="py-16 bg-gradient-to-b from-white to-gray-50">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <span
+            class="inline-block px-4 py-2 bg-primary-50 text-primary-600 rounded-full text-sm font-medium mb-4"
+            >Fitur Baru</span
+          >
+          <h2 class="text-4xl font-bold text-gray-800 mb-4">
+            Berita Interaktif
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Jelajahi berita dan informasi terkini dengan cara yang lebih menarik
+            dan interaktif
+          </p>
+        </div>
+
+        <!-- Interactive Story Slider -->
+        <div class="mb-16">
+          <h3 class="text-2xl font-bold text-gray-800 mb-6">Story NG-OJOL</h3>
+
+          <div class="relative">
+            <!-- Story Circles -->
+            <div
+              class="flex space-x-4 overflow-x-auto pb-4 snap-x"
+              id="storyCircles"
+            >
+              <div
+                class="story-circle snap-start cursor-pointer"
+                data-story-id="1"
+              >
+                <div
+                  class="w-20 h-20 rounded-full overflow-hidden border-2 border-primary-500 p-1"
+                >
+                  <div class="w-full h-full rounded-full overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1682687982093-4773cb0dbc2e?q=80&w=1470&auto=format&fit=crop"
+                      alt="Promo"
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+                <p class="text-xs text-center mt-1">Promo</p>
+              </div>
+
+              <div
+                class="story-circle snap-start cursor-pointer"
+                data-story-id="2"
+              >
+                <div
+                  class="w-20 h-20 rounded-full overflow-hidden border-2 border-primary-500 p-1"
+                >
+                  <div class="w-full h-full rounded-full overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1600320254374-ce2d293c324e?q=80&w=1470&auto=format&fit=crop"
+                      alt="Driver"
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+                <p class="text-xs text-center mt-1">Driver</p>
+              </div>
+
+              <div
+                class="story-circle snap-start cursor-pointer"
+                data-story-id="3"
+              >
+                <div
+                  class="w-20 h-20 rounded-full overflow-hidden border-2 border-primary-500 p-1"
+                >
+                  <div class="w-full h-full rounded-full overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1678091387875-7aec37b5319b?q=80&w=1374&auto=format&fit=crop"
+                      alt="Fitur"
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+                <p class="text-xs text-center mt-1">Fitur</p>
+              </div>
+
+              <div
+                class="story-circle snap-start cursor-pointer"
+                data-story-id="4"
+              >
+                <div
+                  class="w-20 h-20 rounded-full overflow-hidden border-2 border-primary-500 p-1"
+                >
+                  <div class="w-full h-full rounded-full overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1470&auto=format&fit=crop"
+                      alt="Karir"
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+                <p class="text-xs text-center mt-1">Karir</p>
+              </div>
+
+              <div
+                class="story-circle snap-start cursor-pointer"
+                data-story-id="5"
+              >
+                <div
+                  class="w-20 h-20 rounded-full overflow-hidden border-2 border-primary-500 p-1"
+                >
+                  <div class="w-full h-full rounded-full overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1470&auto=format&fit=crop"
+                      alt="Event"
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+                <p class="text-xs text-center mt-1">Event</p>
+              </div>
+            </div>
+
+            <!-- Story Viewer (Hidden by default) -->
+            <div
+              id="storyViewer"
+              class="fixed inset-0 bg-black bg-opacity-90 z-50 hidden flex items-center justify-center"
+            >
+              <div class="relative w-full max-w-md mx-auto h-[80vh]">
+                <!-- Story Content -->
+                <div
+                  id="storyContent"
+                  class="w-full h-full rounded-lg overflow-hidden relative"
+                >
+                  <!-- Progress Bar -->
+                  <div
+                    class="absolute top-0 left-0 right-0 flex space-x-1 p-2 z-10"
+                  >
+                    <div
+                      class="story-progress flex-1 h-1 bg-gray-400 bg-opacity-50 rounded-full overflow-hidden"
+                    >
+                      <div
+                        class="h-full bg-white w-0 transition-all duration-300"
+                      ></div>
+                    </div>
+                  </div>
+
+                  <!-- Story Image/Content -->
+                  <div
+                    class="w-full h-full bg-gray-800 flex items-center justify-center"
+                  >
+                    <img
+                      id="storyImage"
+                      src=""
+                      alt="Story"
+                      class="w-full h-full object-contain"
+                    />
+                  </div>
+
+                  <!-- Story Caption -->
+                  <div
+                    class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent text-white"
+                  >
+                    <h4 id="storyTitle" class="text-lg font-bold"></h4>
+                    <p id="storyDescription" class="text-sm"></p>
+                  </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <button
+                  id="prevStory"
+                  class="absolute left-2 top-1/2 transform -translate-y-1/2 w-10 h-10 rounded-full bg-black bg-opacity-50 text-white flex items-center justify-center"
+                >
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <button
+                  id="nextStory"
+                  class="absolute right-2 top-1/2 transform -translate-y-1/2 w-10 h-10 rounded-full bg-black bg-opacity-50 text-white flex items-center justify-center"
+                >
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+                <button
+                  id="closeStory"
+                  class="absolute top-4 right-4 w-8 h-8 rounded-full bg-black bg-opacity-50 text-white flex items-center justify-center"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Poll -->
+        <div class="mb-16">
+          <h3 class="text-2xl font-bold text-gray-800 mb-6">
+            Polling Pengguna
+          </h3>
+
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="p-6">
+              <h4 class="text-xl font-semibold text-gray-800 mb-4">
+                Fitur apa yang paling Anda inginkan di NG-OJOL berikutnya?
+              </h4>
+
+              <div class="space-y-4 mb-6" id="pollOptions">
+                <!-- Poll Option 1 -->
+                <div class="poll-option cursor-pointer" data-option="1">
+                  <div class="flex items-center mb-2">
+                    <div
+                      class="w-6 h-6 border-2 border-primary-500 rounded-full flex items-center justify-center mr-3"
+                    >
+                      <div
+                        class="w-3 h-3 bg-primary-500 rounded-full opacity-0 transition-opacity"
+                      ></div>
+                    </div>
+                    <span class="text-gray-800"
+                      >Pembayaran dengan Cryptocurrency</span
+                    >
+                  </div>
+                  <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      class="h-full bg-primary-500 transition-all duration-500"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                  <div class="flex justify-between text-xs text-gray-500 mt-1">
+                    <span class="vote-count">0 Votes</span>
+                    <span class="vote-percentage">0%</span>
+                  </div>
+                </div>
+
+                <!-- Poll Option 2 -->
+                <div class="poll-option cursor-pointer" data-option="2">
+                  <div class="flex items-center mb-2">
+                    <div
+                      class="w-6 h-6 border-2 border-primary-500 rounded-full flex items-center justify-center mr-3"
+                    >
+                      <div
+                        class="w-3 h-3 bg-primary-500 rounded-full opacity-0 transition-opacity"
+                      ></div>
+                    </div>
+                    <span class="text-gray-800">Pengiriman dengan Drone</span>
+                  </div>
+                  <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      class="h-full bg-primary-500 transition-all duration-500"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                  <div class="flex justify-between text-xs text-gray-500 mt-1">
+                    <span class="vote-count">0 Votes</span>
+                    <span class="vote-percentage">0%</span>
+                  </div>
+                </div>
+
+                <!-- Poll Option 3 -->
+                <div class="poll-option cursor-pointer" data-option="3">
+                  <div class="flex items-center mb-2">
+                    <div
+                      class="w-6 h-6 border-2 border-primary-500 rounded-full flex items-center justify-center mr-3"
+                    >
+                      <div
+                        class="w-3 h-3 bg-primary-500 rounded-full opacity-0 transition-opacity"
+                      ></div>
+                    </div>
+                    <span class="text-gray-800"
+                      >Langganan Bulanan untuk Perjalanan Rutin</span
+                    >
+                  </div>
+                  <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      class="h-full bg-primary-500 transition-all duration-500"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                  <div class="flex justify-between text-xs text-gray-500 mt-1">
+                    <span class="vote-count">0 Votes</span>
+                    <span class="vote-percentage">0%</span>
+                  </div>
+                </div>
+
+                <!-- Poll Option 4 -->
+                <div class="poll-option cursor-pointer" data-option="4">
+                  <div class="flex items-center mb-2">
+                    <div
+                      class="w-6 h-6 border-2 border-primary-500 rounded-full flex items-center justify-center mr-3"
+                    >
+                      <div
+                        class="w-3 h-3 bg-primary-500 rounded-full opacity-0 transition-opacity"
+                      ></div>
+                    </div>
+                    <span class="text-gray-800"
+                      >Kendaraan Ramah Lingkungan (Listrik/Hybrid)</span
+                    >
+                  </div>
+                  <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      class="h-full bg-primary-500 transition-all duration-500"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                  <div class="flex justify-between text-xs text-gray-500 mt-1">
+                    <span class="vote-count">0 Votes</span>
+                    <span class="vote-percentage">0%</span>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-sm text-gray-500 italic">
+                Total: <span id="totalVotes">0</span> votes
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Infographic -->
+        <div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-6">
+            Infografis Interaktif
+          </h3>
+
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden p-6">
+            <h4 class="text-xl font-semibold text-gray-800 mb-6 text-center">
+              Pertumbuhan NG-OJOL 2023-2024
+            </h4>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- Stat Card 1 -->
+              <div
+                class="bg-gray-50 rounded-lg p-6 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+                id="statCard1"
+              >
+                <div
+                  class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                >
+                  <i class="fas fa-users text-primary-600 text-2xl"></i>
+                </div>
+                <h5 class="text-lg font-semibold text-gray-800 mb-2">
+                  Pengguna Aktif
+                </h5>
+                <p
+                  class="text-3xl font-bold text-primary-600 mb-2 counter"
+                  data-target="1500000"
+                >
+                  0
+                </p>
+                <p class="text-sm text-gray-600">
+                  Peningkatan 35% dari tahun lalu
+                </p>
+              </div>
+
+              <!-- Stat Card 2 -->
+              <div
+                class="bg-gray-50 rounded-lg p-6 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+                id="statCard2"
+              >
+                <div
+                  class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                >
+                  <i class="fas fa-motorcycle text-primary-600 text-2xl"></i>
+                </div>
+                <h5 class="text-lg font-semibold text-gray-800 mb-2">
+                  Driver Aktif
+                </h5>
+                <p
+                  class="text-3xl font-bold text-primary-600 mb-2 counter"
+                  data-target="250000"
+                >
+                  0
+                </p>
+                <p class="text-sm text-gray-600">
+                  Tersebar di 45 kota di Indonesia
+                </p>
+              </div>
+
+              <!-- Stat Card 3 -->
+              <div
+                class="bg-gray-50 rounded-lg p-6 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+                id="statCard3"
+              >
+                <div
+                  class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                >
+                  <i class="fas fa-route text-primary-600 text-2xl"></i>
+                </div>
+                <h5 class="text-lg font-semibold text-gray-800 mb-2">
+                  Perjalanan Selesai
+                </h5>
+                <p
+                  class="text-3xl font-bold text-primary-600 mb-2 counter"
+                  data-target="75000000"
+                >
+                  0
+                </p>
+                <p class="text-sm text-gray-600">
+                  Dengan rating rata-rata 4.8/5
+                </p>
+              </div>
+            </div>
+
+            <!-- Interactive Chart -->
+            <div class="mt-12">
+              <div class="flex justify-between mb-4">
+                <h5 class="text-lg font-semibold text-gray-800">
+                  Pertumbuhan Bulanan 2024
+                </h5>
+                <div class="flex space-x-4">
+                  <button
+                    class="chart-toggle active px-3 py-1 text-xs rounded-full bg-primary-500 text-white"
+                    data-chart="users"
+                  >
+                    Pengguna
+                  </button>
+                  <button
+                    class="chart-toggle px-3 py-1 text-xs rounded-full bg-gray-200 text-gray-700"
+                    data-chart="drivers"
+                  >
+                    Driver
+                  </button>
+                  <button
+                    class="chart-toggle px-3 py-1 text-xs rounded-full bg-gray-200 text-gray-700"
+                    data-chart="trips"
+                  >
+                    Perjalanan
+                  </button>
+                </div>
+              </div>
+
+              <div class="h-64 bg-gray-50 rounded-lg p-4 relative">
+                <canvas id="growthChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Interactive News Content -->
 
     <!-- Footer -->
     <footer class="bg-gray-900 relative overflow-hidden" id="footer">
@@ -1292,6 +1719,381 @@
             handleSearch();
           }
         });
+    </script>
+
+    <!-- AOS Initialization -->
+    <script>
+      AOS.init({
+        duration: 800,
+        easing: "ease-in-out",
+        once: true,
+        mirror: false,
+      });
+    </script>
+
+    <!-- Chart.js for interactive charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Interactive News Features JavaScript -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Story Feature
+        initStoryFeature();
+
+        // Poll Feature
+        initPollFeature();
+
+        // Counter Animation
+        initCounterAnimation();
+
+        // Interactive Chart
+        initInteractiveChart();
+      });
+
+      // Story Feature
+      function initStoryFeature() {
+        const storyData = [
+          {
+            id: 1,
+            title: "Promo Spesial Bulan Ini",
+            description:
+              "Dapatkan diskon 50% untuk perjalanan pertama Anda. Kode: NGOJOL50",
+            image:
+              "https://images.unsplash.com/photo-1682687982093-4773cb0dbc2e?q=80&w=1470&auto=format&fit=crop",
+          },
+          {
+            id: 2,
+            title: "Cerita Driver Inspiratif",
+            description:
+              "Budi telah menjadi driver NG-OJOL selama 3 tahun dan telah menyelesaikan 10.000+ perjalanan",
+            image:
+              "https://images.unsplash.com/photo-1600320254374-ce2d293c324e?q=80&w=1470&auto=format&fit=crop",
+          },
+          {
+            id: 3,
+            title: "Fitur Baru: Perjalanan Terjadwal",
+            description:
+              "Kini Anda dapat menjadwalkan perjalanan hingga 7 hari ke depan",
+            image:
+              "https://images.unsplash.com/photo-1678091387875-7aec37b5319b?q=80&w=1374&auto=format&fit=crop",
+          },
+          {
+            id: 4,
+            title: "Bergabunglah dengan Tim Kami",
+            description:
+              "NG-OJOL sedang membuka lowongan untuk berbagai posisi di seluruh Indonesia",
+            image:
+              "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1470&auto=format&fit=crop",
+          },
+          {
+            id: 5,
+            title: "Event: NG-OJOL Festival 2024",
+            description:
+              "Bergabunglah dengan kami di acara tahunan NG-OJOL Festival pada 15-16 Agustus 2024",
+            image:
+              "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1470&auto=format&fit=crop",
+          },
+        ];
+
+        const storyCircles = document.querySelectorAll(".story-circle");
+        const storyViewer = document.getElementById("storyViewer");
+        const storyImage = document.getElementById("storyImage");
+        const storyTitle = document.getElementById("storyTitle");
+        const storyDescription = document.getElementById("storyDescription");
+        const prevStory = document.getElementById("prevStory");
+        const nextStory = document.getElementById("nextStory");
+        const closeStory = document.getElementById("closeStory");
+
+        let currentStoryId = 1;
+
+        // Open story on click
+        storyCircles.forEach((circle) => {
+          circle.addEventListener("click", function () {
+            currentStoryId = parseInt(this.dataset.storyId);
+            showStory(currentStoryId);
+            storyViewer.classList.remove("hidden");
+            storyViewer.classList.add("flex");
+
+            // Start progress animation
+            startProgressAnimation();
+          });
+        });
+
+        // Close story
+        closeStory.addEventListener("click", function () {
+          storyViewer.classList.remove("flex");
+          storyViewer.classList.add("hidden");
+        });
+
+        // Navigate stories
+        prevStory.addEventListener("click", function () {
+          if (currentStoryId > 1) {
+            currentStoryId--;
+            showStory(currentStoryId);
+            startProgressAnimation();
+          }
+        });
+
+        nextStory.addEventListener("click", function () {
+          if (currentStoryId < storyData.length) {
+            currentStoryId++;
+            showStory(currentStoryId);
+            startProgressAnimation();
+          }
+        });
+
+        // Show story content
+        function showStory(id) {
+          const story = storyData.find((s) => s.id === id);
+          if (story) {
+            storyImage.src = story.image;
+            storyTitle.textContent = story.title;
+            storyDescription.textContent = story.description;
+          }
+        }
+
+        // Progress animation
+        function startProgressAnimation() {
+          const progressBar = document.querySelector(".story-progress div");
+          progressBar.style.width = "0%";
+
+          setTimeout(() => {
+            progressBar.style.width = "100%";
+          }, 50);
+
+          // Auto advance to next story after 5 seconds
+          clearTimeout(window.storyTimeout);
+          window.storyTimeout = setTimeout(() => {
+            if (currentStoryId < storyData.length) {
+              currentStoryId++;
+              showStory(currentStoryId);
+              startProgressAnimation();
+            } else {
+              storyViewer.classList.remove("flex");
+              storyViewer.classList.add("hidden");
+            }
+          }, 5000);
+        }
+      }
+
+      // Poll Feature
+      function initPollFeature() {
+        const pollOptions = document.querySelectorAll(".poll-option");
+        const totalVotesElement = document.getElementById("totalVotes");
+
+        // Initial poll data (simulated)
+        const pollData = {
+          1: { votes: 125, percentage: 25 },
+          2: { votes: 78, percentage: 16 },
+          3: { votes: 187, percentage: 37 },
+          4: { votes: 110, percentage: 22 },
+          total: 500,
+        };
+
+        // Update poll UI
+        function updatePollUI() {
+          pollOptions.forEach((option, index) => {
+            const optionId = option.dataset.option;
+            const data = pollData[optionId];
+
+            // Update vote count and percentage
+            option.querySelector(
+              ".vote-count"
+            ).textContent = `${data.votes} Votes`;
+            option.querySelector(
+              ".vote-percentage"
+            ).textContent = `${data.percentage}%`;
+
+            // Update progress bar
+            option.querySelector(
+              ".h-2 div"
+            ).style.width = `${data.percentage}%`;
+          });
+
+          // Update total votes
+          totalVotesElement.textContent = pollData.total;
+        }
+
+        // Handle voting
+        pollOptions.forEach((option) => {
+          option.addEventListener("click", function () {
+            const optionId = this.dataset.option;
+
+            // Check if already voted (simulated)
+            const hasVoted = localStorage.getItem("ngojol_poll_voted");
+            if (hasVoted) {
+              return;
+            }
+
+            // Update poll data
+            pollData[optionId].votes += 1;
+            pollData.total += 1;
+
+            // Recalculate percentages
+            for (let i = 1; i <= 4; i++) {
+              pollData[i].percentage = Math.round(
+                (pollData[i].votes / pollData.total) * 100
+              );
+            }
+
+            // Update UI
+            updatePollUI();
+
+            // Mark as voted
+            localStorage.setItem("ngojol_poll_voted", optionId);
+
+            // Show selected option
+            pollOptions.forEach((opt) => {
+              const dot = opt.querySelector(".w-3.h-3");
+              if (opt.dataset.option === optionId) {
+                dot.style.opacity = "1";
+              } else {
+                dot.style.opacity = "0";
+              }
+            });
+          });
+        });
+
+        // Initialize poll UI
+        updatePollUI();
+      }
+
+      // Counter Animation
+      function initCounterAnimation() {
+        const counters = document.querySelectorAll(".counter");
+        const speed = 200; // Lower is faster
+
+        // Intersection Observer to start counter when visible
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = parseInt(counter.getAttribute("data-target"));
+                const count = parseInt(counter.innerText);
+                const increment = Math.trunc(target / speed);
+
+                if (count < target) {
+                  counter.innerText = count + increment;
+                  setTimeout(() => {
+                    animateCounter(counter, target, increment);
+                  }, 1);
+                } else {
+                  counter.innerText = target.toLocaleString();
+                }
+
+                observer.unobserve(counter);
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+
+        // Observe all counters
+        counters.forEach((counter) => {
+          observer.observe(counter);
+        });
+
+        // Recursive counter animation
+        function animateCounter(counter, target, increment) {
+          const count = parseInt(counter.innerText.replace(/,/g, ""));
+
+          if (count < target) {
+            counter.innerText = Math.min(
+              count + increment,
+              target
+            ).toLocaleString();
+            setTimeout(() => {
+              animateCounter(counter, target, increment);
+            }, 1);
+          } else {
+            counter.innerText = target.toLocaleString();
+          }
+        }
+      }
+
+      // Interactive Chart
+      function initInteractiveChart() {
+        // Chart data
+        const chartData = {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          users: [1200000, 1250000, 1320000, 1380000, 1450000, 1500000],
+          drivers: [180000, 195000, 210000, 225000, 240000, 250000],
+          trips: [4500000, 4800000, 5200000, 5600000, 6100000, 6500000],
+        };
+
+        // Create chart
+        const ctx = document.getElementById("growthChart").getContext("2d");
+        const chart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: chartData.labels,
+            datasets: [
+              {
+                label: "Pengguna",
+                data: chartData.users,
+                borderColor: "#00bcd4",
+                backgroundColor: "rgba(0, 188, 212, 0.1)",
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: false,
+              },
+            },
+          },
+        });
+
+        // Toggle between datasets
+        const chartToggles = document.querySelectorAll(".chart-toggle");
+        chartToggles.forEach((toggle) => {
+          toggle.addEventListener("click", function () {
+            const chartType = this.dataset.chart;
+
+            // Update active toggle
+            chartToggles.forEach((t) => {
+              t.classList.remove("active", "bg-primary-500", "text-white");
+              t.classList.add("bg-gray-200", "text-gray-700");
+            });
+            this.classList.add("active", "bg-primary-500", "text-white");
+            this.classList.remove("bg-gray-200", "text-gray-700");
+
+            // Update chart data
+            let newData, newLabel;
+
+            switch (chartType) {
+              case "users":
+                newData = chartData.users;
+                newLabel = "Pengguna";
+                break;
+              case "drivers":
+                newData = chartData.drivers;
+                newLabel = "Driver";
+                break;
+              case "trips":
+                newData = chartData.trips;
+                newLabel = "Perjalanan";
+                break;
+            }
+
+            chart.data.datasets[0].data = newData;
+            chart.data.datasets[0].label = newLabel;
+            chart.update();
+          });
+        });
+      }
     </script>
   </body>
 </html>

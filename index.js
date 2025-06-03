@@ -1381,38 +1381,104 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(handleScroll, 100);
 });
 
-// Initialize AOS with better configuration
+// Custom Scripts
+document.addEventListener("DOMContentLoaded", function () {
+  // ... existing code ...
 
-// Register Service Worker for PWA
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("service-worker.js")
-      .then((registration) => {
-        console.log(
-          "Service Worker registered with scope:",
-          registration.scope
-        );
-      })
-      .catch((error) => {
-        console.error("Service Worker registration failed:", error);
-      });
-  });
-}
+  // Live Driver Tracking Map Initialization
+  if (document.getElementById("liveMap")) {
+    // Initialize the map
+    const map = L.map("liveMap").setView([-6.2088, 106.8456], 15); // Jakarta coordinates
 
-// Register Service Worker for PWA
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("service-worker.js")
-      .then((registration) => {
-        console.log(
-          "Service Worker registered with scope:",
-          registration.scope
-        );
-      })
-      .catch((error) => {
-        console.error("Service Worker registration failed:", error);
-      });
-  });
-}
+    // Add OpenStreetMap tiles
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19,
+    }).addTo(map);
+
+    // Custom marker icon for driver
+    const driverIcon = L.icon({
+      iconUrl: "img/delivery.png", // Use your driver icon
+      iconSize: [38, 38],
+      iconAnchor: [19, 38],
+      popupAnchor: [0, -38],
+      className: "driver-icon",
+    });
+
+    // Custom marker icon for destination
+    const destinationIcon = L.icon({
+      iconUrl: "https://cdn-icons-png.flaticon.com/512/1180/1180058.png",
+      iconSize: [38, 38],
+      iconAnchor: [19, 38],
+      popupAnchor: [0, -38],
+    });
+
+    // Add destination marker
+    const destinationMarker = L.marker([-6.2088, 106.8456], {
+      icon: destinationIcon,
+    })
+      .addTo(map)
+      .bindPopup("Lokasi Tujuan");
+
+    // Driver's initial position
+    let driverPosition = [-6.2188, 106.8356]; // Slightly offset from destination
+
+    // Add driver marker
+    const driverMarker = L.marker(driverPosition, { icon: driverIcon })
+      .addTo(map)
+      .bindPopup("Driver Anda");
+
+    // Add a polyline to show the route
+    const routePoints = [
+      driverPosition,
+      [-6.2158, 106.8386],
+      [-6.2138, 106.8416],
+      [-6.2118, 106.8436],
+      [-6.2088, 106.8456], // Destination
+    ];
+
+    const routeLine = L.polyline(routePoints, {
+      color: "#00bcd4",
+      weight: 5,
+      opacity: 0.7,
+      dashArray: "10, 10",
+      lineJoin: "round",
+    }).addTo(map);
+
+    // Animation function to move the driver along the route
+    let currentPointIndex = 0;
+
+    function animateDriver() {
+      if (currentPointIndex < routePoints.length - 1) {
+        currentPointIndex++;
+
+        // Update driver position
+        driverMarker.setLatLng(routePoints[currentPointIndex]);
+
+        // Update ETA based on remaining points
+        const remainingPoints = routePoints.length - 1 - currentPointIndex;
+        const eta = remainingPoints * 1; // 1 minute per point
+        document.querySelector(".bg-primary-50 .text-lg").textContent =
+          eta === 0 ? "Telah tiba" : `${eta} menit`;
+
+        // Update status text
+        if (eta === 0) {
+          document.querySelector(".text-xs.text-gray-500.ml-2").textContent =
+            "Telah tiba di lokasi Anda";
+        } else {
+          document.querySelector(".text-xs.text-gray-500.ml-2").textContent =
+            "Sedang menuju ke lokasi Anda";
+        }
+      }
+    }
+
+    // Simulate driver movement every 3 seconds
+    const driverInterval = setInterval(animateDriver, 3000);
+
+    // Clean up interval when leaving the page
+    window.addEventListener("beforeunload", function () {
+      clearInterval(driverInterval);
+    });
+  }
+});
