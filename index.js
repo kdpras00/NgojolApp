@@ -43,60 +43,84 @@ tailwind.config = {
   },
 };
 
+// Hide preloader when page is loaded
+window.addEventListener("load", function () {
+  const preloader = document.getElementById("preloader");
+  if (preloader) {
+    preloader.style.opacity = "0";
+    setTimeout(() => {
+      preloader.style.display = "none";
+    }, 500);
+  }
+
+  // Handle direct navigation to sections via URL hash
+  if (window.location.hash) {
+    setTimeout(() => {
+      const targetId = window.location.hash;
+      const targetElement = document.querySelector(targetId);
+
+      if (targetElement) {
+        // Get navbar height for offset
+        const navbarHeight = document.querySelector("nav").offsetHeight;
+
+        // Calculate position with offset
+        const targetPosition =
+          targetElement.getBoundingClientRect().top +
+          window.pageYOffset -
+          navbarHeight;
+
+        // Scroll to the target section
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "auto", // Use 'auto' for initial load to prevent animation issues
+        });
+
+        // Highlight the correct navigation item
+        const navLinks = document.querySelectorAll('nav a[href^="#"]');
+        navLinks.forEach((link) => {
+          link.classList.remove("active-nav-link");
+          if (link.getAttribute("href") === targetId) {
+            link.classList.add("active-nav-link");
+          }
+        });
+      }
+    }, 600); // Slight delay after preloader is hidden
+  }
+});
+
 // Mobile menu toggle
 document.addEventListener("DOMContentLoaded", function () {
+  // Also hide preloader on DOMContentLoaded as a fallback
+  const preloader = document.getElementById("preloader");
+  if (preloader) {
+    preloader.style.opacity = "0";
+    setTimeout(() => {
+      preloader.style.display = "none";
+    }, 500);
+  }
+
   const mobileMenuButton = document.querySelector(".mobile-menu-button");
   const mobileMenu = document.querySelector(".mobile-menu");
 
-  mobileMenuButton.addEventListener("click", function () {
-    mobileMenu.classList.toggle("hidden");
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener("click", function () {
+      mobileMenu.classList.toggle("hidden");
 
-    // Add animation when opening
-    if (!mobileMenu.classList.contains("hidden")) {
-      mobileMenu.classList.add("animate__animated", "animate__fadeInDown");
-    }
-  });
+      // Add animation when opening
+      if (!mobileMenu.classList.contains("hidden")) {
+        mobileMenu.classList.add("animate__animated", "animate__fadeInDown");
+      }
+    });
+  }
 
   // Close mobile menu when clicking a link
   const mobileLinks = document.querySelectorAll(".mobile-menu a");
   mobileLinks.forEach((link) => {
     link.addEventListener("click", () => {
-      mobileMenu.classList.add("hidden");
+      if (mobileMenu) {
+        mobileMenu.classList.add("hidden");
+      }
     });
-  });
-
-  // Sync mobile and desktop dark mode toggles
-  const darkModeToggleMobile = document.getElementById("darkModeToggleMobile");
-  const darkModeIconMobile = document.getElementById("darkModeIconMobile");
-
-  darkModeToggleMobile.addEventListener("click", function () {
-    darkModeIconMobile.classList.add("animate-rotate");
-
-    document.documentElement.classList.toggle("dark");
-
-    if (document.documentElement.classList.contains("dark")) {
-      darkModeIconMobile.classList.remove("fa-moon");
-      darkModeIconMobile.classList.add("fa-sun");
-
-      // Sync desktop icon
-      darkModeIcon.classList.remove("fa-moon");
-      darkModeIcon.classList.add("fa-sun");
-
-      localStorage.setItem("theme", "dark");
-    } else {
-      darkModeIconMobile.classList.remove("fa-sun");
-      darkModeIconMobile.classList.add("fa-moon");
-
-      // Sync desktop icon
-      darkModeIcon.classList.remove("fa-sun");
-      darkModeIcon.classList.add("fa-moon");
-
-      localStorage.setItem("theme", "light");
-    }
-
-    setTimeout(function () {
-      darkModeIconMobile.classList.remove("animate-rotate");
-    }, 500);
   });
 });
 
@@ -136,65 +160,131 @@ const handleScroll = throttle(function () {
 
   // Apply navbar styles based on scroll position
   if (scrollPosition < 50) {
-    navbar.style.backgroundColor = "transparent";
-    navbar.classList.remove("shadow-md");
+    setNavbarTransparent();
   } else if (scrollPosition < berandaHeight) {
-    navbar.style.backgroundColor = "rgba(0, 188, 212, 0.9)";
-    navbar.classList.add("shadow-md");
+    setNavbarSemiTransparent();
   } else {
-    navbar.style.backgroundColor = "#06b6d4";
-    navbar.classList.add("shadow-md");
-  }
-
-  // Text color adjustments
-  if (scrollPosition < berandaHeight) {
-    if (!navbarTitle.classList.contains("text-white")) {
-      navbarTitle.classList.remove("text-black");
-      navbarTitle.classList.add("text-white");
-      navbarLinks.forEach((link) => {
-        link.style.color = "white";
-        link.classList.remove("hover:text-blue-600");
-        link.classList.add("hover:text-white");
-      });
-    }
-  } else {
-    if (!navbarTitle.classList.contains("text-black")) {
-      navbarTitle.classList.remove("text-white");
-      navbarTitle.classList.add("text-black");
-      navbarLinks.forEach((link) => {
-        link.style.color = "black";
-        link.classList.remove("hover:text-white");
-        link.classList.add("hover:#EEEEEE");
-      });
-    }
+    setNavbarSolid();
   }
 
   // Back to top button visibility
-  const backToTopButton = document.getElementById("backToTop");
-  if (backToTopButton) {
-    if (scrollPosition > 300) {
-      if (!backToTopButton.classList.contains("opacity-100")) {
-        backToTopButton.classList.remove("opacity-0", "invisible");
-        backToTopButton.classList.add("opacity-100", "visible");
-      }
-    } else {
-      if (!backToTopButton.classList.contains("opacity-0")) {
-        backToTopButton.classList.add("opacity-0", "invisible");
-        backToTopButton.classList.remove("opacity-100", "visible");
-      }
-    }
-  }
+  updateBackToTopButton(scrollPosition);
+
+  // Find current section for navigation highlighting
+  updateCurrentSection(scrollPosition);
 }, 100); // Throttle to run at most every 100ms
 
 // Add the optimized scroll event listener
 window.addEventListener("scroll", handleScroll);
 
-const navbar = document.getElementById("navbar");
-const navbarTitle = document.getElementById("navbar-title");
-const navbarLinks = document.querySelectorAll(".navbar-link");
-const beranda = document.getElementById("beranda");
+// Set navbar to transparent state
+function setNavbarTransparent() {
+  const navbar = document.getElementById("navbar");
+  const navbarTitle = document.getElementById("navbar-title");
+  const navbarLinks = document.querySelectorAll(".navbar-link");
 
-let isTransparent = true; // Menyimpan status transparansi navbar
+  if (!navbar) return;
+
+  navbar.style.backgroundColor = "transparent";
+  navbar.classList.remove("shadow-md");
+  navbar.classList.remove("bg-white");
+  navbar.classList.add("bg-transparent");
+
+  if (navbarTitle) {
+    navbarTitle.classList.remove("text-black");
+    navbarTitle.classList.add("text-white");
+  }
+
+  navbarLinks.forEach((link) => {
+    link.classList.remove("text-black");
+    link.classList.add("text-white");
+  });
+}
+
+// Set navbar to semi-transparent state
+function setNavbarSemiTransparent() {
+  const navbar = document.getElementById("navbar");
+
+  if (!navbar) return;
+
+  navbar.style.backgroundColor = "rgba(0, 188, 212, 0.9)";
+  navbar.classList.add("shadow-md");
+  navbar.classList.remove("bg-white", "bg-transparent");
+}
+
+// Set navbar to solid state
+function setNavbarSolid() {
+  const navbar = document.getElementById("navbar");
+  const navbarTitle = document.getElementById("navbar-title");
+  const navbarLinks = document.querySelectorAll(".navbar-link");
+
+  if (!navbar) return;
+
+  navbar.style.backgroundColor = "#06b6d4";
+  navbar.classList.add("shadow-md");
+  navbar.classList.remove("bg-transparent");
+
+  if (navbarTitle) {
+    navbarTitle.classList.remove("text-white");
+    navbarTitle.classList.add("text-black");
+  }
+
+  navbarLinks.forEach((link) => {
+    link.classList.remove("text-white");
+    link.classList.add("text-black");
+  });
+}
+
+// Update back to top button visibility
+function updateBackToTopButton(scrollPosition) {
+  const backToTopButton = document.getElementById("backToTop");
+
+  if (!backToTopButton) return;
+
+  if (scrollPosition > 300) {
+    if (!backToTopButton.classList.contains("opacity-100")) {
+      backToTopButton.classList.remove("opacity-0", "invisible");
+      backToTopButton.classList.add("opacity-100", "visible");
+    }
+  } else {
+    if (!backToTopButton.classList.contains("opacity-0")) {
+      backToTopButton.classList.add("opacity-0", "invisible");
+      backToTopButton.classList.remove("opacity-100", "visible");
+    }
+  }
+}
+
+// Update current section for navigation highlighting
+function updateCurrentSection(scrollPosition) {
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+  // Add offset for navbar height
+  const navbarHeight = document.querySelector("nav").offsetHeight;
+  const scrollPosWithOffset = scrollPosition + navbarHeight + 50;
+
+  let currentSection = "";
+
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.offsetHeight;
+
+    if (
+      scrollPosWithOffset >= sectionTop &&
+      scrollPosWithOffset <= sectionTop + sectionHeight
+    ) {
+      currentSection = section.getAttribute("id");
+    }
+  });
+
+  navLinks.forEach((link) => {
+    link.classList.remove("active-nav-link");
+    const href = link.getAttribute("href");
+    if (href === `#${currentSection}`) {
+      link.classList.add("active-nav-link");
+    }
+  });
+}
 
 // Fungsi untuk memeriksa lokasi hash saat ini
 function checkCurrentHash() {
@@ -209,36 +299,6 @@ function checkCurrentHash() {
     } else {
       setNavbarSolid(); // Jika sudah melewati beranda
     }
-  }
-}
-
-// Fungsi untuk membuat navbar transparan
-function setNavbarTransparent() {
-  if (!isTransparent) {
-    navbar.classList.remove("bg-white", "shadow-md");
-    navbar.classList.add("bg-transparent");
-    navbarTitle.classList.remove("text-black");
-    navbarTitle.classList.add("text-white");
-    navbarLinks.forEach((link) => {
-      link.classList.remove("text-black");
-      link.classList.add("text-white");
-    });
-    isTransparent = true; // Set status transparansi menjadi true
-  }
-}
-
-// Fungsi untuk membuat navbar solid (putih dengan teks hitam)
-function setNavbarSolid() {
-  if (isTransparent) {
-    navbar.classList.remove("bg-transparent");
-    navbar.classList.add("bg-white", "shadow-md");
-    navbarTitle.classList.remove("text-white");
-    navbarTitle.classList.add("text-black");
-    navbarLinks.forEach((link) => {
-      link.classList.remove("text-white");
-      link.classList.add("text-black");
-    });
-    isTransparent = false; // Set status transparansi menjadi false
   }
 }
 
@@ -384,171 +444,160 @@ document.addEventListener("DOMContentLoaded", function () {
   const emptyResult = document.getElementById("empty-result");
   const weightFeeContainer = document.getElementById("weight-fee-container");
 
-  calculateBtn.addEventListener("click", function () {
-    // Get input values
-    const serviceType = document.getElementById("service-type").value;
-    const distance = parseFloat(document.getElementById("distance").value) || 0;
-    const weight = parseFloat(document.getElementById("weight").value) || 0;
+  if (calculateBtn) {
+    calculateBtn.addEventListener("click", function () {
+      // Get input values
+      const serviceType = document.getElementById("service-type").value;
+      const distance =
+        parseFloat(document.getElementById("distance").value) || 0;
+      const weight = parseFloat(document.getElementById("weight").value) || 0;
 
-    if (distance <= 0) {
-      alert("Mohon masukkan jarak yang valid");
-      return;
-    }
+      if (distance <= 0) {
+        alert("Mohon masukkan jarak yang valid");
+        return;
+      }
 
-    // Base rates
-    const baseRates = {
-      motor: 5000,
-      car: 10000,
-      express: 7000,
-      truck: 25000,
-    };
+      // Base rates
+      const baseRates = {
+        motor: 5000,
+        car: 10000,
+        express: 7000,
+        truck: 25000,
+      };
 
-    // Per km rates
-    const kmRates = {
-      motor: 2000,
-      car: 3500,
-      express: 2500,
-      truck: 5000,
-    };
+      // Per km rates
+      const kmRates = {
+        motor: 2000,
+        car: 3500,
+        express: 2500,
+        truck: 5000,
+      };
 
-    // Weight rates (per kg)
-    const weightRates = {
-      express: 1000,
-      truck: 500,
-    };
+      // Weight rates (per kg)
+      const weightRates = {
+        express: 1000,
+        truck: 500,
+      };
 
-    // Calculate fees
-    const baseFee = baseRates[serviceType];
-    const distanceFee = kmRates[serviceType] * distance;
-    let weightFee = 0;
+      // Calculate fees
+      const baseFee = baseRates[serviceType];
+      const distanceFee = kmRates[serviceType] * distance;
+      let weightFee = 0;
 
-    if ((serviceType === "express" || serviceType === "truck") && weight > 0) {
-      weightFee = weightRates[serviceType] * weight;
-      weightFeeContainer.classList.remove("hidden");
-    } else {
-      weightFeeContainer.classList.add("hidden");
-    }
+      if (
+        (serviceType === "express" || serviceType === "truck") &&
+        weight > 0
+      ) {
+        weightFee = weightRates[serviceType] * weight;
+        weightFeeContainer.classList.remove("hidden");
+      } else {
+        weightFeeContainer.classList.add("hidden");
+      }
 
-    const totalFee = baseFee + distanceFee + weightFee;
+      const totalFee = baseFee + distanceFee + weightFee;
 
-    // Format currency
-    const formatter = new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      maximumFractionDigits: 0,
+      // Format currency
+      const formatter = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        maximumFractionDigits: 0,
+      });
+
+      // Update UI
+      document.getElementById("base-fee").textContent =
+        formatter.format(baseFee);
+      document.getElementById("distance-fee").textContent =
+        formatter.format(distanceFee);
+      document.getElementById("weight-fee").textContent =
+        formatter.format(weightFee);
+      document.getElementById("total-fee").textContent =
+        formatter.format(totalFee);
+
+      // Show result
+      resultContainer.classList.remove("hidden");
+      emptyResult.classList.add("hidden");
     });
+  }
 
-    // Update UI
-    document.getElementById("base-fee").textContent = formatter.format(baseFee);
-    document.getElementById("distance-fee").textContent =
-      formatter.format(distanceFee);
-    document.getElementById("weight-fee").textContent =
-      formatter.format(weightFee);
-    document.getElementById("total-fee").textContent =
-      formatter.format(totalFee);
-
-    // Show result
-    resultContainer.classList.remove("hidden");
-    emptyResult.classList.add("hidden");
-  });
-});
-
-// Cookie Consent
-document.addEventListener("DOMContentLoaded", function () {
+  // Handle cookie consent
   const cookieConsent = document.getElementById("cookieConsent");
   const cookieAccept = document.getElementById("cookieAccept");
   const cookieReject = document.getElementById("cookieReject");
 
   // Check if user has already made a choice
-  if (!localStorage.getItem("cookieChoice")) {
-    // Show banner after a short delay with animation
+  const cookieChoice = localStorage.getItem("cookieChoice");
+  if (!cookieChoice && cookieConsent) {
+    // Show cookie banner after a delay
     setTimeout(() => {
-      cookieConsent.style.transform = "translateY(0)";
-      cookieConsent.style.opacity = "1";
-      cookieConsent.style.transition =
-        "transform 0.5s ease-in-out, opacity 0.5s ease-in-out";
-    }, 1000);
+      cookieConsent.classList.remove("translate-y-full", "opacity-0");
+    }, 2000);
   }
 
-  // Function to hide cookie banner with animation
-  function hideCookieBanner() {
-    cookieConsent.style.transform = "translateY(100%)";
-    cookieConsent.style.opacity = "0";
-
-    // Optional: remove from DOM after animation completes
-    setTimeout(() => {
-      cookieConsent.style.display = "none";
-    }, 500);
+  if (cookieAccept) {
+    cookieAccept.addEventListener("click", function () {
+      localStorage.setItem("cookieChoice", "accepted");
+      hideCookieBanner();
+    });
   }
 
-  cookieAccept.addEventListener("click", function () {
-    localStorage.setItem("cookieChoice", "accepted");
-    hideCookieBanner();
-  });
-
-  cookieReject.addEventListener("click", function () {
-    localStorage.setItem("cookieChoice", "rejected");
-    hideCookieBanner();
-  });
+  if (cookieReject) {
+    cookieReject.addEventListener("click", function () {
+      localStorage.setItem("cookieChoice", "rejected");
+      hideCookieBanner();
+    });
+  }
 });
 
-// Preloader
-window.addEventListener("load", function () {
-  const preloader = document.getElementById("preloader");
-  preloader.style.opacity = "0";
-  setTimeout(() => {
-    preloader.style.display = "none";
-  }, 500);
-});
+function hideCookieBanner() {
+  const cookieConsent = document.getElementById("cookieConsent");
+  if (cookieConsent) {
+    cookieConsent.classList.add("translate-y-full", "opacity-0");
+  }
+}
 
 // Back to Top Button
-const backToTopButton = document.getElementById("backToTop");
-window.addEventListener("scroll", function () {
-  if (window.scrollY > 300) {
-    backToTopButton.classList.remove("opacity-0", "invisible");
-    backToTopButton.classList.add("opacity-100", "visible");
-  } else {
-    backToTopButton.classList.add("opacity-0", "invisible");
-    backToTopButton.classList.remove("opacity-100", "visible");
-  }
-});
+document.addEventListener("DOMContentLoaded", function () {
+  const backToTopButton = document.getElementById("backToTop");
+  if (backToTopButton) {
+    window.addEventListener("scroll", function () {
+      if (window.scrollY > 300) {
+        backToTopButton.classList.remove("opacity-0", "invisible");
+        backToTopButton.classList.add("opacity-100", "visible");
+      } else {
+        backToTopButton.classList.add("opacity-0", "invisible");
+        backToTopButton.classList.remove("opacity-100", "visible");
+      }
+    });
 
-backToTopButton.addEventListener("click", function () {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+    backToTopButton.addEventListener("click", function () {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+  }
 });
 
 // Register Service Worker for PWA
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    // Hanya register service worker jika protokolnya didukung (http atau https)
-    if (
-      window.location.protocol === "http:" ||
-      window.location.protocol === "https:"
-    ) {
-      navigator.serviceWorker
-        .register("service-worker.js")
-        .then((registration) => {
-          console.log(
-            "Service Worker registered with scope:",
-            registration.scope
-          );
-        })
-        .catch((error) => {
-          console.error("Service Worker registration failed:", error);
-        });
-    } else {
-      console.warn(
-        "Service Worker tidak dapat didaftarkan: Protokol tidak didukung. Gunakan http:// atau https:// untuk fitur PWA."
-      );
-    }
+    navigator.serviceWorker
+      .register("service-worker.js")
+      .then((registration) => {
+        console.log(
+          "Service Worker registered with scope:",
+          registration.scope
+        );
+      })
+      .catch((error) => {
+        console.error("Service Worker registration failed:", error);
+      });
   });
 }
 
 // Live Chat Functionality with Gemini AI
 document.addEventListener("DOMContentLoaded", function () {
+  // Initialize chat elements
   const chatToggle = document.getElementById("chatToggle");
   const chatWindow = document.getElementById("chatWindow");
   const chatClose = document.getElementById("chatClose");
@@ -557,7 +606,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const chatMessages = document.getElementById("chatMessages");
   const chatLanguageButton = document.getElementById("chatLanguageButton");
   const chatLanguageMenu = document.getElementById("chatLanguageMenu");
-  const languageOptions = document.querySelectorAll(".language-option");
+
+  // Check if chat elements exist
+  if (!chatToggle || !chatWindow || !chatMessages) {
+    console.error("Chat elements not found in the DOM");
+    return; // Exit if elements don't exist
+  }
 
   // Gemini API Key
   const API_KEY = "AIzaSyC-if6ei1E11uPPPs2JOAmfquSXCHPMtCo";
@@ -565,34 +619,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Default language
   let currentLanguage = "id"; // Default to Indonesian
 
-  // Toggle language menu
-  chatLanguageButton.addEventListener("click", function () {
-    chatLanguageMenu.classList.toggle("hidden");
-  });
-
-  // Handle language selection
-  languageOptions.forEach((option) => {
-    option.addEventListener("click", function () {
-      currentLanguage = this.getAttribute("data-lang");
-      chatLanguageMenu.classList.add("hidden");
-
-      // Update welcome message when language changes
-      updateWelcomeMessage();
-
-      // Reset conversation history
-      conversationHistory = [];
-    });
-  });
-
-  // Close language menu when clicking outside
-  document.addEventListener("click", function (e) {
-    if (
-      !chatLanguageButton.contains(e.target) &&
-      !chatLanguageMenu.contains(e.target)
-    ) {
-      chatLanguageMenu.classList.add("hidden");
-    }
-  });
+  // AI chat history
+  let conversationHistory = [];
 
   // Welcome messages in different languages
   const welcomeMessages = {
@@ -608,9 +636,6 @@ document.addEventListener("DOMContentLoaded", function () {
     ru: "Здравствуйте! Добро пожаловать в чат-сервис NG-OJOL. Чем я могу вам помочь?",
   };
 
-  // AI chat history
-  let conversationHistory = [];
-
   // Update welcome message based on selected language
   function updateWelcomeMessage() {
     // Clear existing messages
@@ -621,26 +646,85 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Toggle chat window visibility
-  chatToggle.addEventListener("click", function () {
-    if (chatWindow.classList.contains("scale-0")) {
-      chatWindow.classList.remove("scale-0");
-      chatWindow.classList.add("scale-100");
+  if (chatToggle) {
+    chatToggle.addEventListener("click", function () {
+      console.log("Chat toggle clicked"); // Debug
+      if (chatWindow.classList.contains("scale-0")) {
+        chatWindow.classList.remove("scale-0");
+        chatWindow.classList.add("scale-100");
 
-      // Only reset messages if the window was previously closed
-      if (chatMessages.querySelectorAll(".flex").length === 0) {
-        updateWelcomeMessage();
+        // Only reset messages if the window was previously closed
+        if (chatMessages.querySelectorAll(".flex").length === 0) {
+          updateWelcomeMessage();
+        }
+      } else {
+        chatWindow.classList.remove("scale-100");
+        chatWindow.classList.add("scale-0");
       }
-    } else {
+    });
+  }
+
+  // Close chat window
+  if (chatClose) {
+    chatClose.addEventListener("click", function () {
       chatWindow.classList.remove("scale-100");
       chatWindow.classList.add("scale-0");
+    });
+  }
+
+  // Toggle language menu
+  if (chatLanguageButton && chatLanguageMenu) {
+    chatLanguageButton.addEventListener("click", function () {
+      chatLanguageMenu.classList.toggle("hidden");
+    });
+  }
+
+  // Handle language selection
+  const languageOptions = document.querySelectorAll(".language-option");
+  if (languageOptions.length > 0) {
+    languageOptions.forEach((option) => {
+      option.addEventListener("click", function () {
+        currentLanguage = this.getAttribute("data-lang");
+        chatLanguageMenu.classList.add("hidden");
+
+        // Update welcome message when language changes
+        updateWelcomeMessage();
+
+        // Reset conversation history
+        conversationHistory = [];
+      });
+    });
+  }
+
+  // Close language menu when clicking outside
+  document.addEventListener("click", function (e) {
+    if (
+      chatLanguageButton &&
+      chatLanguageMenu &&
+      !chatLanguageButton.contains(e.target) &&
+      !chatLanguageMenu.contains(e.target)
+    ) {
+      chatLanguageMenu.classList.add("hidden");
     }
   });
 
-  // Close chat window
-  chatClose.addEventListener("click", function () {
-    chatWindow.classList.remove("scale-100");
-    chatWindow.classList.add("scale-0");
-  });
+  // Handle chat form submission
+  if (chatForm) {
+    chatForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!chatInput) return;
+
+      const message = chatInput.value.trim();
+      if (message) {
+        addUserMessage(message);
+        chatInput.value = "";
+        // Simulate AI response
+        setTimeout(() => {
+          getAIResponse(message);
+        }, 500);
+      }
+    });
+  }
 
   // Add a bot message to the chat
   function addBotMessage(message) {
@@ -710,7 +794,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Update conversation history
       conversationHistory.push({ role: "user", parts: message });
 
-      // API endpoint untuk Gemini 2.0 Flash
+      // API endpoint for Gemini 1.5 Flash
       const endpoint =
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
@@ -726,44 +810,12 @@ document.addEventListener("DOMContentLoaded", function () {
           systemPrompt =
             "You are a chatbot assistant for a ride-sharing app called NG-OJOL. Provide polite, informative, and concise answers in English. Focus on transportation, delivery, and food services offered by NG-OJOL.";
           break;
-        case "zh":
-          systemPrompt =
-            "您是一个名为 NG-OJOL 的共享出行应用的聊天机器人助手。用中文提供礼貌、信息丰富且简洁的回答。专注于 NG-OJOL 提供的交通、配送和食品服务。";
-          break;
-        case "ar":
-          systemPrompt =
-            "أنت مساعد روبوت دردشة لتطبيق مشاركة الركوب يسمى NG-OJOL. قدم إجابات مهذبة ومفيدة وموجزة باللغة العربية. ركز على خدمات النقل والتوصيل والطعام التي يقدمها NG-OJOL.";
-          break;
-        case "es":
-          systemPrompt =
-            "Eres un asistente chatbot para una aplicación de transporte compartido llamada NG-OJOL. Proporciona respuestas educadas, informativas y concisas en español. Concéntrate en los servicios de transporte, entrega y alimentación que ofrece NG-OJOL.";
-          break;
-        case "fr":
-          systemPrompt =
-            "Vous êtes un assistant chatbot pour une application de covoiturage appelée NG-OJOL. Fournissez des réponses polies, informatives et concises en français. Concentrez-vous sur les services de transport, de livraison et de restauration proposés par NG-OJOL.";
-          break;
-        case "de":
-          systemPrompt =
-            "Sie sind ein Chatbot-Assistent für eine Mitfahr-App namens NG-OJOL. Geben Sie höfliche, informative und präzise Antworten auf Deutsch. Konzentrieren Sie sich auf Transport-, Liefer- und Lebensmitteldienstleistungen, die von NG-OJOL angeboten werden.";
-          break;
-        case "ja":
-          systemPrompt =
-            "あなたはNG-OJOLという配車アプリのチャットボットアシスタントです。日本語で丁寧で有益かつ簡潔な回答を提供してください。NG-OJOLが提供する交通、配達、食品サービスに焦点を当ててください。";
-          break;
-        case "ko":
-          systemPrompt =
-            "당신은 NG-OJOL이라는 라이드 쉐어링 앱을 위한 챗봇 어시스턴트입니다. 한국어로 정중하고 유익하며 간결한 답변을 제공하세요. NG-OJOL이 제공하는 교통, 배달 및 음식 서비스에 중점을 두세요.";
-          break;
-        case "ru":
-          systemPrompt =
-            "Вы чат-бот-помощник для приложения совместных поездок под названием NG-OJOL. Предоставляйте вежливые, информативные и краткие ответы на русском языке. Сосредоточьтесь на услугах транспорта, доставки и питания, предлагаемых NG-OJOL.";
-          break;
         default:
           systemPrompt =
             "You are a chatbot assistant for a ride-sharing app called NG-OJOL. Provide polite, informative, and concise answers. Focus on transportation, delivery, and food services offered by NG-OJOL.";
       }
 
-      // Request body - mengikuti format Gemini 2.0 Flash yang benar
+      // Request body for Gemini API
       const requestBody = {
         contents: [
           {
@@ -791,18 +843,13 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       };
 
-      // Tambahkan percakapan sebelumnya ke request body
+      // Add conversation history to request body
       conversationHistory.forEach((item) => {
         requestBody.contents.push({
           role: item.role === "user" ? "user" : "model",
           parts: [{ text: item.parts }],
         });
       });
-
-      console.log(
-        "Sending request to Gemini API:",
-        JSON.stringify(requestBody)
-      );
 
       // Make API request
       const response = await fetch(`${endpoint}?key=${API_KEY}`, {
@@ -814,14 +861,10 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        console.error("API error response:", errorData);
         throw new Error(`API request failed with status ${response.status}`);
       }
 
       const data = await response.json();
-      console.log("API response:", data);
-
       let aiResponse = "Maaf, saya tidak dapat memberikan respons saat ini.";
 
       if (
@@ -848,7 +891,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Remove typing indicator
       chatMessages.removeChild(typingIndicator);
 
-      // Coba menggunakan respons lokal jika API gagal
+      // Use fallback response if API fails
       const fallbackResponses = {
         id: {
           halo: "Halo! Selamat datang di layanan NG-OJOL. Ada yang bisa saya bantu?",
@@ -874,7 +917,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       };
 
-      // Coba cari respons fallback berdasarkan kata kunci dalam pesan
+      // Try to find fallback response based on keywords in message
       const userLang = currentLanguage === "id" ? "id" : "en";
       let fallbackResponse = null;
 
@@ -888,47 +931,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
 
-      // Jika tidak ada respons yang cocok, gunakan pesan error default
+      // If no matching response, use default error message
       if (!fallbackResponse) {
         const errorMessages = {
           id: "Maaf, saya tidak dapat terhubung ke server saat ini. Silakan coba lagi nanti atau hubungi layanan pelanggan kami di support@ngojol.id.",
           en: "Sorry, I cannot connect to the server at the moment. Please try again later or contact our customer service at support@ngojol.id.",
-          zh: "抱歉，我目前无法连接到服务器。请稍后再试或联系我们的客户服务：support@ngojol.id。",
-          ar: "عذرا، لا يمكنني الاتصال بالخادم في الوقت الحالي. يرجى المحاولة مرة أخرى لاحقًا أو الاتصال بخدمة العملاء لدينا على support@ngojol.id.",
-          es: "Lo siento, no puedo conectarme al servidor en este momento. Inténtelo de nuevo más tarde o póngase en contacto con nuestro servicio de atención al cliente en support@ngojol.id.",
-          fr: "Désolé, je ne peux pas me connecter au serveur pour le moment. Veuillez réessayer plus tard ou contacter notre service client à support@ngojol.id.",
-          de: "Entschuldigung, ich kann im Moment keine Verbindung zum Server herstellen. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie unseren Kundendienst unter support@ngojol.id.",
-          ja: "申し訳ありませんが、現在サーバーに接続できません。後でもう一度お試しいただくか、support@ngojol.idのカスタマーサービスにお問い合わせください。",
-          ko: "죄송합니다. 현재 서버에 연결할 수 없습니다. 나중에 다시 시도하거나 support@ngojol.id의 고객 서비스에 문의하십시오.",
-          ru: "Извините, я не могу подключиться к серверу в данный момент. Пожалуйста, повторите попытку позже или свяжитесь с нашей службой поддержки клиентов по адресу support@ngojol.id.",
         };
 
         fallbackResponse = errorMessages[currentLanguage] || errorMessages.en;
       }
 
-      // Tambahkan fallback response ke conversation history
+      // Add fallback response to conversation history
       conversationHistory.push({ role: "assistant", parts: fallbackResponse });
 
-      // Tampilkan respons fallback
+      // Show fallback response
       addBotMessage(fallbackResponse);
     }
   }
 
-  // Handle chat form submission
-  chatForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const message = chatInput.value.trim();
-
-    if (message) {
-      addUserMessage(message);
-      chatInput.value = "";
-
-      // Get AI response
-      getAIResponse(message);
-    }
-  });
-
-  // Add initial welcome message on page load
+  // Initialize welcome message on page load
   updateWelcomeMessage();
 });
 
@@ -996,46 +1017,117 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 document.addEventListener("DOMContentLoaded", function () {
   const darkModeToggle = document.getElementById("darkModeToggle");
   const darkModeIcon = document.getElementById("darkModeIcon");
+  const darkModeToggleMobile = document.getElementById("darkModeToggleMobile");
+  const darkModeIconMobile = document.getElementById("darkModeIconMobile");
 
-  // Check for saved theme preference or respect OS preference
-  const prefersDarkMode = window.matchMedia(
-    "(prefers-color-scheme: dark)"
-  ).matches;
+  // Check for saved theme preference
   const savedTheme = localStorage.getItem("theme");
 
-  // Apply dark mode if saved or OS preference
-  if (savedTheme === "dark" || (!savedTheme && prefersDarkMode)) {
+  // Apply transitions to all elements for smoother mode changes
+  document.documentElement.style.transition = "background-color 0.5s ease";
+  document.body.style.transition =
+    "background-color 0.5s ease, color 0.5s ease";
+
+  // Only apply dark mode if explicitly saved as dark
+  if (savedTheme === "dark") {
     document.documentElement.classList.add("dark");
-    darkModeIcon.classList.remove("fa-moon");
-    darkModeIcon.classList.add("fa-sun");
+    updateDarkModeIcons(true);
+    updateNavbarForDarkMode(true);
+  } else {
+    // Ensure light mode is default
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+    updateDarkModeIcons(false);
+    updateNavbarForDarkMode(false);
   }
 
-  // Toggle dark mode on click with improved animation
-  darkModeToggle.addEventListener("click", function () {
-    // Add animation class
-    darkModeIcon.classList.add("animate-rotate");
-
-    // Toggle dark mode class with transition
-    document.documentElement.classList.toggle("dark");
-    document.body.style.transition =
-      "background-color 0.5s ease, color 0.5s ease";
-
-    // Update icon
-    if (document.documentElement.classList.contains("dark")) {
-      darkModeIcon.classList.remove("fa-moon");
-      darkModeIcon.classList.add("fa-sun");
-      localStorage.setItem("theme", "dark");
+  // Function to update all dark mode icons
+  function updateDarkModeIcons(isDark) {
+    if (isDark) {
+      if (darkModeIcon) {
+        darkModeIcon.classList.remove("fa-moon");
+        darkModeIcon.classList.add("fa-sun");
+      }
+      if (darkModeIconMobile) {
+        darkModeIconMobile.classList.remove("fa-moon");
+        darkModeIconMobile.classList.add("fa-sun");
+      }
     } else {
-      darkModeIcon.classList.remove("fa-sun");
-      darkModeIcon.classList.add("fa-moon");
-      localStorage.setItem("theme", "light");
+      if (darkModeIcon) {
+        darkModeIcon.classList.remove("fa-sun");
+        darkModeIcon.classList.add("fa-moon");
+      }
+      if (darkModeIconMobile) {
+        darkModeIconMobile.classList.remove("fa-sun");
+        darkModeIconMobile.classList.add("fa-moon");
+      }
     }
+  }
+
+  // Function to update navbar for dark mode
+  function updateNavbarForDarkMode(isDark) {
+    const navbar = document.getElementById("navbar");
+    if (!navbar) return;
+
+    if (isDark) {
+      navbar.style.backgroundColor = "rgba(10, 25, 41, 0.95)";
+      navbar.classList.add("dark-navbar");
+    } else {
+      // Check current scroll position to determine appropriate navbar style
+      const scrollPosition = window.scrollY;
+      if (scrollPosition < 50) {
+        setNavbarTransparent();
+      } else if (
+        scrollPosition < document.getElementById("beranda")?.offsetHeight ||
+        0
+      ) {
+        setNavbarSemiTransparent();
+      } else {
+        setNavbarSolid();
+      }
+      navbar.classList.remove("dark-navbar");
+    }
+  }
+
+  // Function to toggle dark mode with enhanced transitions
+  function toggleDarkMode() {
+    // Add animation class to icons
+    if (darkModeIcon) darkModeIcon.classList.add("animate-rotate");
+    if (darkModeIconMobile) darkModeIconMobile.classList.add("animate-rotate");
+
+    // Toggle dark mode class
+    const wasDark = document.documentElement.classList.contains("dark");
+    document.documentElement.classList.toggle("dark");
+
+    // Update meta theme-color for browser UI
+    const metaThemeColor = document.querySelector("meta[name='theme-color']");
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute("content", !wasDark ? "#0a1929" : "#00bcd4");
+    }
+
+    // Update icons and save preference
+    const isDark = document.documentElement.classList.contains("dark");
+    updateDarkModeIcons(isDark);
+    updateNavbarForDarkMode(isDark);
+    localStorage.setItem("theme", isDark ? "dark" : "light");
 
     // Remove animation class after animation completes
     setTimeout(function () {
-      darkModeIcon.classList.remove("animate-rotate");
+      if (darkModeIcon) darkModeIcon.classList.remove("animate-rotate");
+      if (darkModeIconMobile)
+        darkModeIconMobile.classList.remove("animate-rotate");
     }, 500);
-  });
+  }
+
+  // Toggle dark mode on click
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener("click", toggleDarkMode);
+  }
+
+  // Sync mobile dark mode toggle
+  if (darkModeToggleMobile) {
+    darkModeToggleMobile.addEventListener("click", toggleDarkMode);
+  }
 });
 
 // Language Selector
@@ -1092,147 +1184,12 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Push Notifications
-document.addEventListener("DOMContentLoaded", function () {
-  const notificationPrompt = document.getElementById("notificationPrompt");
-  const allowNotifications = document.getElementById("allowNotifications");
-  const denyNotifications = document.getElementById("denyNotifications");
-  const closeNotificationPrompt = document.getElementById(
-    "closeNotificationPrompt"
-  );
-
-  // Check if notification prompt element exists before proceeding
-  if (!notificationPrompt) {
-    return;
-  }
-
-  // Initialize notification prompt with the correct starting state
-  notificationPrompt.classList.add("translate-x-full");
-
-  // Function to permanently hide notification prompt
-  function hideNotificationPermanently() {
-    // Close the notification with animation
-    closeNotificationWithAnimation();
-
-    // Set a flag in localStorage with current timestamp
-    localStorage.setItem("notificationsPromptDismissed", Date.now());
-  }
-
-  // Function to close notification with animation
-  function closeNotificationWithAnimation() {
-    notificationPrompt.classList.remove("slide-in-right");
-    notificationPrompt.classList.add("slide-out-right");
-
-    // Reset position after animation completes
-    setTimeout(() => {
-      notificationPrompt.classList.add("translate-x-full");
-      notificationPrompt.classList.remove("slide-out-right");
-    }, 500);
-  }
-
-  // Check if user has already dismissed the notification prompt or enabled notifications
-  const notificationDismissed = localStorage.getItem(
-    "notificationsPromptDismissed"
-  );
-  const notificationsEnabled = localStorage.getItem("notificationsEnabled");
-
-  // Only show notification prompt if:
-  // 1. It hasn't been dismissed recently (within 30 days)
-  // 2. Notifications aren't already enabled
-  // 3. The browser supports notifications
-  const showNotificationPrompt = () => {
-    // If notifications are already enabled, don't show prompt
-    if (notificationsEnabled === "true") {
-      return false;
-    }
-
-    // If prompt was dismissed before, check if enough time has passed (30 days)
-    if (notificationDismissed) {
-      const dismissedTime = parseInt(notificationDismissed);
-      const currentTime = Date.now();
-      const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
-
-      // Don't show if dismissed less than 30 days ago
-      if (currentTime - dismissedTime < thirtyDaysInMs) {
-        return false;
-      }
-    }
-
-    // Check browser notification permission
-    if ("Notification" in window) {
-      // If permission is already granted or denied, don't show prompt
-      if (
-        Notification.permission === "granted" ||
-        Notification.permission === "denied"
-      ) {
-        return false;
-      }
-
-      return true;
-    }
-
-    return false;
-  };
-
-  // Show notification prompt if conditions are met
-  if (showNotificationPrompt()) {
-    // Show notification prompt after a delay with animation
-    setTimeout(() => {
-      notificationPrompt.classList.remove("translate-x-full");
-      notificationPrompt.classList.add("slide-in-right");
-    }, 3000);
-  }
-
-  // Handle allow notifications
-  allowNotifications.addEventListener("click", function () {
-    if (!("Notification" in window)) {
-      alert("This browser does not support desktop notification");
-      hideNotificationPermanently();
-      return;
-    }
-
-    Notification.requestPermission()
-      .then((permission) => {
-        if (permission === "granted") {
-          try {
-            // Send welcome notification
-            const notification = new Notification("Selamat Datang di NG-OJOL", {
-              body: "Terima kasih telah mengaktifkan notifikasi. Anda akan mendapatkan update terbaru dari kami.",
-              icon: "img/delivery.png",
-            });
-          } catch (error) {
-            console.error("Error creating notification:", error);
-          }
-
-          // Save to localStorage that notifications are enabled
-          localStorage.setItem("notificationsEnabled", "true");
-        }
-
-        // Always hide the prompt permanently after user makes a choice
-        hideNotificationPermanently();
-      })
-      .catch((error) => {
-        console.error("Error requesting notification permission:", error);
-        hideNotificationPermanently();
-      });
-  });
-
-  // Handle deny notifications
-  denyNotifications.addEventListener("click", hideNotificationPermanently);
-
-  // Handle close button
-  closeNotificationPrompt.addEventListener(
-    "click",
-    hideNotificationPermanently
-  );
-});
-
 // Smooth Scrolling Enhancement
 document.addEventListener("DOMContentLoaded", function () {
   // Apply initial state to all sections
   const sections = document.querySelectorAll(".section-transition");
 
-  // Create intersection observer for smooth section transitions
+  // Improved intersection observer for smooth section transitions
   const sectionObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -1240,11 +1197,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (entry.isIntersecting) {
           entry.target.style.opacity = "1";
           entry.target.style.transform = "translateY(0)";
+          entry.target.classList.add("visible");
         } else {
           // Only reset animation for sections far from viewport
-          if (Math.abs(entry.boundingClientRect.top) > window.innerHeight * 2) {
+          if (Math.abs(entry.boundingClientRect.top) > window.innerHeight) {
             entry.target.style.opacity = "0.8";
             entry.target.style.transform = "translateY(20px)";
+            entry.target.classList.remove("visible");
           }
         }
       });
@@ -1266,27 +1225,19 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Optimize AOS initialization
-  AOS.init({
-    duration: 800,
-    easing: "ease-in-out",
-    once: true, // Only animate once
-    mirror: false,
-    anchorPlacement: "top-bottom",
-    disable: "mobile",
-    throttleDelay: 99, // Increase throttle delay
-  });
+  if (typeof AOS !== "undefined") {
+    AOS.init({
+      duration: 800,
+      easing: "ease-in-out",
+      once: true, // Only animate once to improve performance
+      mirror: false,
+      disable: window.innerWidth < 768 ? true : false, // Disable on mobile for better performance
+      throttleDelay: 99, // Increase throttle delay for better performance
+      startEvent: "DOMContentLoaded", // Start earlier
+    });
+  }
 
-  // Remove redundant navbar scroll effect
-  // window.addEventListener("scroll", function () {
-  //   const nav = document.querySelector("nav");
-  //   if (window.scrollY > 50) {
-  //     nav.classList.add("bg-primary-600", "bg-opacity-95", "shadow-lg");
-  //   } else {
-  //     nav.classList.remove("bg-primary-600", "bg-opacity-95", "shadow-lg");
-  //   }
-  // });
-
-  // Optimize smooth scrolling
+  // Enhanced smooth scrolling with better offset calculation
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
       e.preventDefault();
@@ -1313,19 +1264,90 @@ document.addEventListener("DOMContentLoaded", function () {
         const targetPosition =
           targetElement.getBoundingClientRect().top +
           window.pageYOffset -
-          (navbarHeight + 20);
+          navbarHeight;
 
-        // Smooth scroll
+        // Smooth scroll with better performance
         window.scrollTo({
           top: targetPosition,
           behavior: "smooth",
         });
+
+        // Update URL hash without scrolling
+        history.pushState(null, null, targetId);
+
+        // Update active state in navbar
+        updateActiveNavItem(targetId.substring(1));
       }
     });
   });
+
+  // Function to update active nav item
+  function updateActiveNavItem(sectionId) {
+    const navLinks = document.querySelectorAll("nav a");
+    navLinks.forEach((link) => {
+      const href = link.getAttribute("href");
+      if (href && href === `#${sectionId}`) {
+        link.classList.add("active-nav-link");
+        // Add styles to active nav link
+        link.style.fontWeight = "600";
+        link.style.opacity = "1";
+      } else {
+        link.classList.remove("active-nav-link");
+        // Reset styles
+        link.style.fontWeight = "400";
+        link.style.opacity = "0.9";
+      }
+    });
+  }
+
+  // Update active section on scroll
+  const handleScroll = throttle(() => {
+    let currentSection = "";
+    const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+    // Find the current section based on scroll position
+    document.querySelectorAll("section[id]").forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+
+      if (
+        scrollPosition >= sectionTop &&
+        scrollPosition <= sectionTop + sectionHeight
+      ) {
+        currentSection = section.getAttribute("id");
+      }
+    });
+
+    // Update active nav item
+    if (currentSection) {
+      updateActiveNavItem(currentSection);
+    }
+  }, 100);
+
+  window.addEventListener("scroll", handleScroll);
+
+  // Initial call to set correct active section
+  setTimeout(handleScroll, 100);
 });
 
 // Initialize AOS with better configuration
+
+// Register Service Worker for PWA
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("service-worker.js")
+      .then((registration) => {
+        console.log(
+          "Service Worker registered with scope:",
+          registration.scope
+        );
+      })
+      .catch((error) => {
+        console.error("Service Worker registration failed:", error);
+      });
+  });
+}
 
 // Register Service Worker for PWA
 if ("serviceWorker" in navigator) {

@@ -1,0 +1,203 @@
+/* Home Page Styles */
+
+/* Hero section */
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #00bcd4, #00acc1, #0097a7);
+  background-size: 200% 200%;
+  animation: gradient 15s ease infinite;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-image {
+  animation: float 6s ease-in-out infinite;
+}
+
+.hero-shape {
+  position: absolute;
+  bottom: -5rem;
+  right: -5rem;
+  width: 40rem;
+  height: 40rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+/* Features section */
+.features {
+  padding: 6rem 0;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  color: #6b7280;
+  margin-bottom: 3rem;
+  text-align: center;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Services section */
+.services {
+  padding: 6rem 0;
+  background-color: #f9fafb;
+}
+
+/* Testimonials section */
+.testimonials {
+  padding: 6rem 0;
+}
+
+#testimonialsSlider {
+  overflow-x: hidden;
+  position: relative;
+}
+
+#testimonialsSlider > div {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+@media (max-width: 767px) {
+  #testimonialsSlider > div {
+    width: calc(100% * 1);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  #testimonialsSlider > div {
+    width: calc(100% * 2);
+  }
+}
+
+@media (min-width: 1024px) {
+  #testimonialsSlider > div {
+    width: calc(100% * 3);
+  }
+}
+
+#testimonialsSlider .glass {
+  margin: 1rem;
+  flex: 0 0 auto;
+}
+
+#prevButton,
+#nextButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+#prevButton:hover,
+#nextButton:hover {
+  background-color: rgba(0, 188, 212, 0.2);
+}
+
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Download section */
+.download {
+  padding: 6rem 0;
+  background-color: #f9fafb;
+}
+
+.app-screenshot {
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* FAQ section */
+.faq {
+  padding: 6rem 0;
+}
+
+.faq-item {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 1.5rem 0;
+}
+
+.faq-question {
+  font-weight: 600;
+  font-size: 1.125rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-answer {
+  margin-top: 1rem;
+  color: #6b7280;
+  display: none;
+}
+
+.faq-answer.active {
+  display: block;
+}
+
+/* Contact section */
+.contact {
+  padding: 6rem 0;
+  background-color: #f9fafb;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.contact-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: rgba(0, 188, 212, 0.1);
+  color: #00bcd4;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}

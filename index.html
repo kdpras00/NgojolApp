@@ -10,7 +10,64 @@
     <meta name="theme-color" content="#00bcd4" />
     <link rel="apple-touch-icon" href="img/delivery.png" />
 
+    <!-- Critical CSS -->
+    <style>
+      /* Critical path CSS for faster rendering */
+      body {
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9fafb;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+      }
+      .animated-gradient {
+        background: linear-gradient(-45deg, #00bcd4, #00acc1, #26c6da, #4dd0e1);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        transform: translateZ(0);
+        will-change: background-position;
+      }
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      nav {
+        position: fixed;
+        width: 100%;
+        z-index: 50;
+        transition: all 0.5s;
+      }
+      .section-transition {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        will-change: opacity, transform;
+      }
+    </style>
+
     <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Font Awesome -->
     <link
@@ -194,9 +251,10 @@
               </div>
             </div>
 
+            <!-- Dark Mode Toggle Button -->
             <button
               id="darkModeToggle"
-              class="ml-4 w-10 h-10 bg-white bg-opacity-20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300 focus:outline-none"
+              class="ml-4 w-10 h-10 bg-white bg-opacity-20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300 focus:outline-none shadow-md"
               aria-label="Toggle Dark Mode"
             >
               <i class="fas fa-moon text-white text-lg" id="darkModeIcon"></i>
@@ -205,9 +263,10 @@
 
           <!-- Mobile menu button -->
           <div class="md:hidden flex items-center">
+            <!-- Mobile Dark Mode Toggle Button -->
             <button
               id="darkModeToggleMobile"
-              class="mr-4 w-10 h-10 bg-white bg-opacity-20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300 focus:outline-none"
+              class="mr-4 w-10 h-10 bg-white bg-opacity-20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-opacity-30 transition duration-300 focus:outline-none shadow-md"
               aria-label="Toggle Dark Mode"
             >
               <i
@@ -2239,44 +2298,7 @@
     </div>
 
     <!-- Notification Permission Request -->
-    <div
-      id="notificationPrompt"
-      class="fixed top-24 right-4 w-80 bg-white rounded-xl shadow-lg p-4 transform translate-x-full transition-all duration-500 ease-in-out z-50"
-    >
-      <div class="flex items-start">
-        <div
-          class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0 mr-4"
-        >
-          <i class="fas fa-bell text-primary-500"></i>
-        </div>
-        <div class="flex-grow">
-          <h4 class="font-medium text-gray-800 mb-1">Aktifkan Notifikasi</h4>
-          <p class="text-sm text-gray-600 mb-3">
-            Dapatkan update terbaru tentang promo dan layanan NG-OJOL.
-          </p>
-          <div class="flex space-x-2">
-            <button
-              id="allowNotifications"
-              class="px-3 py-1.5 bg-primary-500 text-white text-sm rounded-lg hover:bg-primary-600 transition-colors"
-            >
-              Izinkan
-            </button>
-            <button
-              id="denyNotifications"
-              class="px-3 py-1.5 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300 transition-colors"
-            >
-              Nanti Saja
-            </button>
-          </div>
-        </div>
-        <button
-          id="closeNotificationPrompt"
-          class="text-gray-400 hover:text-gray-600 ml-2"
-        >
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-    </div>
+    <!-- Removed custom notification prompt UI -->
 
     <!-- Cookie Consent Banner -->
     <div
@@ -2309,83 +2331,8 @@
       </div>
     </div>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <!-- CSS untuk typing indicator chatbot -->
-    <style>
-      .typing-indicator {
-        display: flex;
-        align-items: center;
-        column-gap: 6px;
-        padding: 8px 0;
-      }
-
-      .typing-indicator span {
-        height: 8px;
-        width: 8px;
-        background: #00bcd4;
-        border-radius: 50%;
-        display: block;
-        opacity: 0.4;
-        animation: typing 1s infinite ease-in-out;
-      }
-
-      .typing-indicator span:nth-child(1) {
-        animation-delay: 0s;
-      }
-
-      .typing-indicator span:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-
-      .typing-indicator span:nth-child(3) {
-        animation-delay: 0.4s;
-      }
-
-      @keyframes typing {
-        0% {
-          transform: translateY(0px);
-          opacity: 0.4;
-        }
-        50% {
-          transform: translateY(-8px);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(0px);
-          opacity: 0.4;
-        }
-      }
-
-      .slide-in-right {
-        animation: slideInRight 0.5s forwards;
-      }
-
-      .slide-out-right {
-        animation: slideOutRight 0.5s forwards;
-      }
-
-      @keyframes slideInRight {
-        from {
-          transform: translateX(100%);
-        }
-        to {
-          transform: translateX(0);
-        }
-      }
-
-      @keyframes slideOutRight {
-        from {
-          transform: translateX(0);
-        }
-        to {
-          transform: translateX(100%);
-        }
-      }
-    </style>
 
     <!-- Custom Scripts -->
     <script src="index.js"></script>

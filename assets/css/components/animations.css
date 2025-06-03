@@ -1,0 +1,125 @@
+/* Animation Styles */
+
+/* Animated Gradient Background */
+.animated-gradient {
+  background: linear-gradient(-45deg, #00bcd4, #00acc1, #26c6da, #4dd0e1);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  transform: translateZ(0);
+  will-change: background-position;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Floating Elements */
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Animation for dark mode toggle */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-rotate {
+  animation: rotate 0.5s ease-in-out;
+  will-change: transform;
+}
+
+/* Mobile Menu Animation */
+.mobile-menu-enter {
+  opacity: 0;
+  transform: scale(0.95);
+  will-change: opacity, transform;
+}
+
+.mobile-menu-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+  will-change: opacity, transform;
+}
+
+.mobile-menu-exit {
+  opacity: 1;
+  transform: scale(1);
+  will-change: opacity, transform;
+}
+
+.mobile-menu-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 300ms, transform 300ms;
+  will-change: opacity, transform;
+}
+
+/* Section transition animations */
+.section-transition {
+  transition: all 0.5s ease-in-out;
+  will-change: opacity, transform;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.5s forwards;
+}
+
+.slide-out-right {
+  animation: slideOutRight 0.5s forwards;
+}
+
+/* Preloader animation */
+#preloader {
+  transition: opacity 0.5s ease-out;
+  will-change: opacity;
+}

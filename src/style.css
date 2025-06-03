@@ -5,6 +5,9 @@ body {
   /* Add hardware acceleration to reduce blinking */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  width: 100%;
+  max-width: 100vw;
 }
 
 h1,
@@ -27,6 +30,77 @@ h6 {
 #kalkulator,
 #partner {
   scroll-margin-top: 5rem;
+  min-height: 100vh; /* Ensure sections take at least full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+  #beranda,
+  #fitur,
+  #layanan,
+  #review,
+  #download,
+  #faq,
+  #hubungi,
+  #kalkulator,
+  #partner {
+    min-height: auto;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+/* Fix container width to prevent horizontal overflow */
+.container,
+.max-w-7xl,
+.max-w-6xl,
+.max-w-5xl,
+.max-w-4xl,
+.max-w-3xl {
+  width: 100%;
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 640px) {
+  .container,
+  .max-w-7xl,
+  .max-w-6xl,
+  .max-w-5xl,
+  .max-w-4xl,
+  .max-w-3xl {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .max-w-7xl {
+    max-width: 80rem;
+  }
+  .max-w-6xl {
+    max-width: 72rem;
+  }
+  .max-w-5xl {
+    max-width: 64rem;
+  }
+  .max-w-4xl {
+    max-width: 56rem;
+  }
+  .max-w-3xl {
+    max-width: 48rem;
+  }
 }
 
 /* Glassmorphism Effects - Optimize for performance */
@@ -142,50 +216,255 @@ h6 {
 }
 
 .dark body {
-  background-color: #121212;
-  color: #f3f4f6;
+  background-color: #0a1929;
+  color: #e0f7fa;
 }
 
-.dark .bg-white {
-  background-color: #1f2937 !important;
-}
-
+/* Background colors in dark mode */
+.dark .bg-white,
+.dark .bg-gray-50,
 .dark .bg-gray-100 {
-  background-color: #111827 !important;
+  background-color: #132f4c !important;
 }
 
-.dark .text-gray-800 {
-  color: #f3f4f6 !important;
+.dark .bg-gray-200 {
+  background-color: #1e3a5f !important;
+}
+
+.dark .bg-gray-800,
+.dark .bg-gray-900 {
+  background-color: #071426 !important;
+}
+
+/* Text colors in dark mode */
+.dark .text-gray-800,
+.dark .text-gray-900,
+.dark .text-black {
+  color: #e0f7fa !important;
 }
 
 .dark .text-gray-600,
-.dark .text-gray-500 {
-  color: #d1d5db !important;
+.dark .text-gray-500,
+.dark .text-gray-700 {
+  color: #b2ebf2 !important;
 }
 
-.dark .border-gray-200 {
-  border-color: #374151 !important;
+.dark .text-gray-400 {
+  color: #80deea !important;
 }
 
+/* Border colors in dark mode */
+.dark .border,
+.dark .border-gray-200,
+.dark .border-gray-100,
+.dark .border-gray-300 {
+  border-color: #1e3a5f !important;
+}
+
+/* Shadow styles in dark mode */
 .dark .shadow-lg,
 .dark .shadow-md,
-.dark .shadow-xl {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.7),
-    0 4px 6px -2px rgba(0, 0, 0, 0.65) !important;
+.dark .shadow-xl,
+.dark .shadow-sm {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5),
+    0 4px 6px -2px rgba(0, 0, 0, 0.4) !important;
 }
 
-.dark .footer {
-  background-color: #111827 !important;
+/* Footer in dark mode */
+.dark .footer,
+.dark footer {
+  background-color: #0d2137 !important;
 }
 
+/* Neumorphism in dark mode */
 .dark .neumorph {
-  background: #2d3748;
-  box-shadow: 20px 20px 60px #1a202c, -20px -20px 60px #374151;
+  background: #132f4c;
+  box-shadow: 20px 20px 60px #0a1929, -20px -20px 60px #1e3a5f;
 }
 
 .dark .neumorph-inset {
-  background: #2d3748;
-  box-shadow: inset 20px 20px 60px #1a202c, inset -20px -20px 60px #374151;
+  background: #132f4c;
+  box-shadow: inset 20px 20px 60px #0a1929, inset -20px -20px 60px #1e3a5f;
+}
+
+/* Card backgrounds in dark mode */
+.dark .glass,
+.dark .glass-dark {
+  background: rgba(19, 47, 76, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 188, 212, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Cards in dark mode */
+.dark .rounded-lg,
+.dark .rounded-xl,
+.dark .rounded-2xl {
+  background-color: #132f4c;
+  border-color: #1e3a5f;
+}
+
+/* Buttons in dark mode */
+.dark .btn-primary,
+.dark .bg-primary-500,
+.dark .bg-primary-600 {
+  background-color: #00acc1 !important;
+  color: #e0f7fa !important;
+}
+
+.dark .btn-secondary {
+  background-color: #132f4c !important;
+  border: 1px solid #00acc1 !important;
+  color: #b2ebf2 !important;
+}
+
+.dark button.bg-white {
+  background-color: #132f4c !important;
+  color: #e0f7fa !important;
+  border: 1px solid #00acc1 !important;
+}
+
+/* Improve dark mode text contrast */
+.dark p {
+  color: #b2ebf2;
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  color: #4dd0e1;
+}
+
+/* Chatbot colors in dark mode */
+.dark #chatWindow {
+  background-color: #132f4c;
+  border-color: #00acc1;
+}
+
+.dark #chatMessages {
+  background-color: #0d2137;
+}
+
+.dark #chatInput {
+  background-color: #1e3a5f;
+  color: #e0f7fa;
+  border-color: #00acc1;
+}
+
+/* Navigation in dark mode */
+.dark nav:not(.bg-primary-600) {
+  background-color: rgba(10, 25, 41, 0.95) !important;
+}
+
+.dark .navbar-link {
+  color: #4dd0e1 !important;
+}
+
+.dark .active-nav-link::after {
+  background-color: #00acc1 !important;
+}
+
+/* Mobile menu in dark mode */
+.dark .mobile-menu {
+  background-color: #0a1929;
+}
+
+/* Forms in dark mode */
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: #1e3a5f !important;
+  border-color: #00acc1 !important;
+  color: #e0f7fa !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #80deea !important;
+  opacity: 0.7;
+}
+
+/* Form focus states in dark mode */
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: #4dd0e1 !important;
+  box-shadow: 0 0 0 2px rgba(0, 188, 212, 0.3) !important;
+  outline: none !important;
+}
+
+/* Tables in dark mode */
+.dark table,
+.dark th,
+.dark td {
+  border-color: #1e3a5f !important;
+}
+
+.dark th {
+  background-color: #0d2137 !important;
+  color: #4dd0e1 !important;
+}
+
+.dark tr:nth-child(even) {
+  background-color: #132f4c !important;
+}
+
+.dark tr:nth-child(odd) {
+  background-color: #0d2137 !important;
+}
+
+/* Service cards in dark mode */
+.dark .service-card,
+.dark .feature-card {
+  background-color: #132f4c !important;
+  border-color: #1e3a5f !important;
+}
+
+/* Icons in dark mode */
+.dark .text-primary-500,
+.dark .text-primary-600 {
+  color: #4dd0e1 !important;
+}
+
+/* Preloader in dark mode */
+.dark #preloader {
+  background-color: #0a1929 !important;
+}
+
+/* Fix for specific UI components */
+.dark .bg-primary-500 {
+  background-color: #00acc1 !important;
+}
+
+.dark .bg-secondary-500 {
+  background-color: #e91e63 !important;
+}
+
+/* Specific fixes for cards with cyan background */
+.dark .animated-gradient {
+  background: linear-gradient(-45deg, #006064, #00838f, #0097a7, #00acc1);
+  background-size: 400% 400%;
+}
+
+/* Improve contrast for links */
+.dark a:not(.btn-modern):not(.navbar-link) {
+  color: #4dd0e1 !important;
+}
+
+.dark a:hover:not(.btn-modern):not(.navbar-link) {
+  color: #80deea !important;
+  text-decoration: underline;
+}
+
+/* Fix for dark mode toggle button */
+.dark #darkModeToggle,
+.dark #darkModeToggleMobile {
+  background-color: rgba(19, 47, 76, 0.5) !important;
+  border: 1px solid #00acc1 !important;
 }
 
 /* Animation for dark mode toggle - Optimize */
@@ -230,14 +509,59 @@ h6 {
 /* Additional styles for proper section positioning */
 section {
   scroll-margin-top: 4rem; /* Adds margin for scroll positioning */
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
 }
 
-/* Mobile menu positioning */
+/* Fixed navbar positioning */
+nav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: all 0.3s ease;
+  will-change: transform, background-color;
+}
+
+/* Improve section transitions */
+.section-transition {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  will-change: opacity, transform;
+  width: 100%;
+}
+
+.section-transition.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ensure content is centered and responsive */
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Fix for mobile menu positioning */
 .mobile-menu {
   top: 4rem;
   position: absolute;
   width: calc(100% - 2rem);
   z-index: 50;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
 }
 
 /* Preloader - Optimize */
@@ -277,14 +601,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Optimize section transitions */
-.section-transition {
-  will-change: transform, opacity;
-  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-  /* Add hardware acceleration */
-  transform: translateZ(0);
-}
-
 /* Notification Animation - Optimize */
 @keyframes slideInRight {
   from {
@@ -321,6 +637,9 @@ html {
 /* Reduce layout shifts by setting explicit dimensions where possible */
 img {
   aspect-ratio: attr(width) / attr(height);
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 /* Optimize transitions for all interactive elements */
@@ -413,22 +732,524 @@ button,
   will-change: transform, opacity;
 }
 
+/* CSS untuk typing indicator chatbot */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+  padding: 8px 0;
+}
 
+.typing-indicator span {
+  height: 8px;
+  width: 8px;
+  background: #00bcd4;
+  border-radius: 50%;
+  display: block;
+  opacity: 0.4;
+  animation: typing 1s infinite ease-in-out;
+}
 
+.typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
 
-  // Register Service Worker for PWA
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker
-        .register("service-worker.js")
-        .then((registration) => {
-          console.log(
-            "Service Worker registered with scope:",
-            registration.scope
-          );
-        })
-        .catch((error) => {
-          console.error("Service Worker registration failed:", error);
-        });
-    });
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0% {
+    transform: translateY(0px);
+    opacity: 0.4;
   }
+  50% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 0.4;
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.5s forwards;
+}
+
+.slide-out-right {
+  animation: slideOutRight 0.5s forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Active navigation styles */
+.active-nav-link {
+  position: relative;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+  color: #4dd0e1 !important;
+}
+
+.active-nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 25%;
+  width: 50%;
+  height: 3px;
+  background-color: #00acc1 !important;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* For dark mode or when navbar is solid */
+.bg-white .active-nav-link::after {
+  background-color: #00bcd4;
+}
+
+/* Improve section content positioning */
+section > .container,
+section > .max-w-7xl,
+section > .max-w-6xl,
+section > .max-w-5xl,
+section > .max-w-4xl,
+section > .max-w-3xl {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Fix for viewport height on mobile */
+@media screen and (max-width: 768px) {
+  #beranda,
+  #fitur,
+  #layanan,
+  #review,
+  #download,
+  #faq,
+  #hubungi,
+  #kalkulator,
+  #partner {
+    min-height: 100vh;
+    height: auto;
+    padding: 6rem 0;
+  }
+
+  /* Fix mobile navigation */
+  nav {
+    background-color: rgba(0, 188, 212, 0.95) !important;
+  }
+}
+
+/* Ensure content is visible when navigating directly to section */
+:target {
+  scroll-margin-top: 5rem;
+  animation: target-fade 1s ease-in-out;
+}
+
+@keyframes target-fade {
+  0% {
+    background-color: rgba(0, 188, 212, 0.05);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* Fix for calculator section in dark mode */
+.dark #kalkulator {
+  background-color: #0d2137 !important;
+}
+
+.dark .calculator-card {
+  background-color: #132f4c !important;
+  border-color: #1e3a5f !important;
+}
+
+.dark #calculate-btn {
+  background-color: #00acc1 !important;
+  color: #e0f7fa !important;
+}
+
+.dark #result-container {
+  background-color: #132f4c !important;
+  border-color: #1e3a5f !important;
+}
+
+/* Fix for testimonials slider in dark mode */
+.dark #testimonialsSlider .glass {
+  background-color: rgba(19, 47, 76, 0.8) !important;
+  border: 1px solid rgba(0, 188, 212, 0.1) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .pagination-dots button {
+  background-color: #1e3a5f !important;
+}
+
+.dark .pagination-dots button.bg-primary-500 {
+  background-color: #00acc1 !important;
+}
+
+/* Fix for service cards in dark mode */
+.dark #layanan .rounded-xl {
+  background-color: #132f4c !important;
+  border: 1px solid #1e3a5f !important;
+}
+
+/* Fix for feature cards in dark mode */
+.dark #fitur .rounded-xl {
+  background-color: #132f4c !important;
+  border: 1px solid #1e3a5f !important;
+}
+
+/* Fix for FAQ section in dark mode */
+.dark #faq .bg-white {
+  background-color: #132f4c !important;
+}
+
+.dark #faq .border-b {
+  border-color: #1e3a5f !important;
+}
+
+/* Fix for cookie consent in dark mode */
+.dark #cookieConsent {
+  background-color: #132f4c !important;
+  border-top: 1px solid #1e3a5f !important;
+}
+
+/* Fix for partner logos in dark mode - Improved visibility */
+.dark #partner img {
+  filter: brightness(0.9) invert(0.8) sepia(0.2) hue-rotate(170deg)
+    saturate(1.5);
+  transition: filter 0.3s ease;
+  opacity: 0.9;
+}
+
+.dark #partner img:hover {
+  filter: brightness(1) invert(0.8) sepia(0.2) hue-rotate(170deg) saturate(2);
+  opacity: 1;
+}
+
+/* Fix for download buttons in dark mode */
+.dark .app-download-button {
+  background-color: #132f4c !important;
+  border: 1px solid #1e3a5f !important;
+}
+
+/* Fix for inputs with icons in dark mode */
+.dark .input-with-icon {
+  background-color: #1e3a5f !important;
+}
+
+.dark .input-icon {
+  color: #4dd0e1 !important;
+}
+
+/* Fix for range sliders in dark mode */
+.dark input[type="range"] {
+  background-color: #1e3a5f !important;
+}
+
+.dark input[type="range"]::-webkit-slider-thumb {
+  background-color: #00acc1 !important;
+}
+
+.dark input[type="range"]::-moz-range-thumb {
+  background-color: #00acc1 !important;
+}
+
+/* Fix for radio buttons and checkboxes in dark mode */
+.dark input[type="radio"],
+.dark input[type="checkbox"] {
+  border-color: #00acc1 !important;
+}
+
+.dark input[type="radio"]:checked,
+.dark input[type="checkbox"]:checked {
+  background-color: #00acc1 !important;
+  border-color: #00acc1 !important;
+}
+
+/* Fix for dropdown menus in dark mode */
+.dark .dropdown-menu {
+  background-color: #132f4c !important;
+  border-color: #1e3a5f !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark .dropdown-item:hover {
+  background-color: #1e3a5f !important;
+}
+
+/* Fix for mobile navigation in dark mode */
+.dark .mobile-menu-button {
+  color: #4dd0e1 !important;
+}
+
+.dark .glass-dark {
+  background: rgba(19, 47, 76, 0.9) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 188, 212, 0.1);
+}
+
+/* Fix for scroll to top button in dark mode */
+.dark #backToTop {
+  background-color: #132f4c !important;
+  color: #4dd0e1 !important;
+  border: 1px solid #00acc1 !important;
+}
+
+/* Fix for map section in dark mode */
+.dark .map-container {
+  filter: grayscale(70%) invert(92%) hue-rotate(180deg) !important;
+}
+
+/* Fix for news cards in dark mode */
+.dark .news-card {
+  background-color: #132f4c !important;
+  border-color: #1e3a5f !important;
+}
+
+.dark .news-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.6),
+    0 4px 6px -2px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Fix for search input in dark mode */
+.dark .search-input {
+  background-color: #1e3a5f !important;
+  border-color: #1e3a5f !important;
+  color: #e0f7fa !important;
+}
+
+.dark .search-button {
+  background-color: #132f4c !important;
+  color: #4dd0e1 !important;
+  border: 1px solid #00acc1 !important;
+}
+
+/* Fix for category pills in dark mode */
+.dark .category-pill {
+  background-color: #1e3a5f !important;
+  color: #4dd0e1 !important;
+}
+
+.dark .category-pill.active {
+  background-color: #00acc1 !important;
+  color: #e0f7fa !important;
+}
+
+/* Fix for newsletter section in dark mode */
+.dark .newsletter-container {
+  background-color: #132f4c !important;
+  border-color: #1e3a5f !important;
+}
+
+/* Fix for social media icons in dark mode */
+.dark .social-icon {
+  background-color: #1e3a5f !important;
+  color: #4dd0e1 !important;
+}
+
+.dark .social-icon:hover {
+  background-color: #00acc1 !important;
+  color: #e0f7fa !important;
+}
+
+/* Dark navbar specific styles */
+.dark-navbar {
+  background-color: rgba(10, 25, 41, 0.95) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.dark-navbar .navbar-link {
+  color: #4dd0e1 !important;
+}
+
+.dark-navbar .active-nav-link::after {
+  background-color: #00acc1 !important;
+}
+
+/* Override any light mode navbar styles when in dark mode */
+.dark nav,
+.dark #navbar {
+  background-color: rgba(10, 25, 41, 0.95) !important;
+}
+
+/* Fix for target-fade animation in dark mode */
+.dark :target {
+  animation: target-fade-dark 1s ease-in-out;
+}
+
+@keyframes target-fade-dark {
+  0% {
+    background-color: rgba(0, 188, 212, 0.05);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* Fix for review section background in dark mode */
+.dark #review {
+  background-color: #0a1929 !important;
+}
+
+.dark #review .absolute.inset-0.bg-gradient-to-b.from-gray-50.to-gray-100 {
+  background: linear-gradient(to bottom, #071426, #0a1929) !important;
+  background-image: linear-gradient(to bottom, #071426, #0a1929) !important;
+  opacity: 1 !important;
+}
+
+/* Fix for testimonial cards in dark mode */
+.dark #testimonialsSlider .glass {
+  background-color: rgba(19, 47, 76, 0.8) !important;
+  border: 1px solid rgba(0, 188, 212, 0.1) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark #testimonialsSlider .text-gray-800 {
+  color: #e0f7fa !important;
+}
+
+.dark #testimonialsSlider .text-gray-600 {
+  color: #b2ebf2 !important;
+}
+
+/* Fix for partner section background in dark mode */
+.dark #partner.py-12.md\:py-16.bg-gradient-to-b.from-white.to-gray-50 {
+  background: #0a1929 !important;
+  background-image: none !important;
+  background-color: #0a1929 !important;
+  border-color: #1e3a5f !important;
+}
+
+/* Fix for partner cards in dark mode */
+.dark #partner .bg-white {
+  background-color: #132f4c !important;
+  border-color: #1e3a5f !important;
+}
+
+.dark #partner .group {
+  transition: all 0.3s ease;
+}
+
+.dark #partner .group:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5),
+    0 4px 6px -2px rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(0, 188, 212, 0.3) !important;
+}
+
+.dark #partner .group .bg-gradient-to-br {
+  opacity: 0;
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 188, 212, 0.3),
+    transparent
+  ) !important;
+  transition: opacity 0.3s ease;
+}
+
+.dark #partner .group:hover .bg-gradient-to-br {
+  opacity: 1 !important;
+}
+
+/* Fix for partner section text in dark mode */
+.dark #partner .text-gray-800 {
+  color: #e0f7fa !important;
+}
+
+.dark #partner .text-gray-600 {
+  color: #b2ebf2 !important;
+}
+
+.dark #partner .bg-primary-50 {
+  background-color: rgba(0, 188, 212, 0.2) !important;
+}
+
+.dark #partner .text-primary-600 {
+  color: #4dd0e1 !important;
+}
+
+/* Fix for badges in dark mode */
+.dark #review .bg-primary-50,
+.dark #partner .bg-primary-50 {
+  background-color: rgba(0, 188, 212, 0.15) !important;
+}
+
+.dark #review .text-primary-600,
+.dark #partner .text-primary-600 {
+  color: #4dd0e1 !important;
+}
+
+/* More comprehensive fixes for review and partner sections in dark mode */
+.dark section[id="review"],
+.dark #review {
+  background-color: #0a1929 !important;
+}
+
+.dark section[id="review"] .absolute.inset-0,
+.dark #review .absolute.inset-0 {
+  background: #0a1929 !important;
+}
+
+.dark section[id="review"] .bg-gradient-to-b,
+.dark #review .bg-gradient-to-b {
+  background: linear-gradient(to bottom, #071426, #0a1929) !important;
+  background-image: linear-gradient(to bottom, #071426, #0a1929) !important;
+}
+
+.dark section[id="partner"],
+.dark #partner {
+  background-color: #0a1929 !important;
+  background-image: none !important;
+  border-color: #1e3a5f !important;
+}
+
+.dark section[id="partner"] .bg-gradient-to-b,
+.dark #partner .bg-gradient-to-b {
+  background: #0a1929 !important;
+  background-image: none !important;
+}
+
+/* Fix for all white backgrounds in these sections */
+.dark #review .bg-white,
+.dark #partner .bg-white {
+  background-color: #132f4c !important;
+}
+
+/* Fix for all gray backgrounds in these sections */
+.dark #review .bg-gray-50,
+.dark #review .bg-gray-100,
+.dark #partner .bg-gray-50,
+.dark #partner .bg-gray-100 {
+  background-color: #0a1929 !important;
+}
