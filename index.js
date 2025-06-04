@@ -259,8 +259,9 @@ function setNavbarSolid() {
   navbar.classList.remove("bg-transparent");
 
   if (navbarTitle) {
-    navbarTitle.classList.remove("text-white");
-    navbarTitle.classList.add("text-black");
+    // Keep the text color white instead of changing to black
+    // navbarTitle.classList.remove("text-white");
+    // navbarTitle.classList.add("text-black");
   }
 
   navbarLinks.forEach((link) => {
@@ -1479,6 +1480,58 @@ document.addEventListener("DOMContentLoaded", function () {
     // Clean up interval when leaving the page
     window.addEventListener("beforeunload", function () {
       clearInterval(driverInterval);
+    });
+  }
+
+  // Mobile Navigation Accordion
+  const accordionButtons = document.querySelectorAll(".accordion-btn");
+
+  accordionButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      // Toggle the active class on the button
+      this.classList.toggle("active");
+
+      // Toggle the rotation of the chevron icon
+      const icon = this.querySelector(".fa-chevron-down");
+      if (icon.style.transform === "rotate(180deg)") {
+        icon.style.transform = "rotate(0)";
+      } else {
+        icon.style.transform = "rotate(180deg)";
+      }
+
+      // Toggle the content visibility
+      const content = this.nextElementSibling;
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+        content.classList.add("hidden");
+      } else {
+        content.classList.remove("hidden");
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    });
+  });
+
+  // Mobile Menu Toggle
+  const mobileMenuButton = document.querySelector(".mobile-menu-button");
+  const mobileMenu = document.querySelector(".mobile-menu");
+
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener("click", function () {
+      mobileMenu.classList.toggle("hidden");
+
+      // Reset all accordions when menu is closed
+      if (mobileMenu.classList.contains("hidden")) {
+        accordionButtons.forEach((button) => {
+          const icon = button.querySelector(".fa-chevron-down");
+          if (icon.style.transform === "rotate(180deg)") {
+            icon.style.transform = "rotate(0)";
+          }
+
+          const content = button.nextElementSibling;
+          content.style.maxHeight = null;
+          content.classList.add("hidden");
+        });
+      }
     });
   }
 });
